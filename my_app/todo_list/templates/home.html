@@ -15,6 +15,15 @@
     {% endfor %}
 {% endif %}
 
+<form class="form-inline my-2 my-lg-0" method="POST">
+    {% csrf_token %}
+  <input class="form-control mr-sm-2" type="add" placeholder="add item" aria-label="Search" name="item" width=50%>
+  <input type="hidden" name="type" value="add">
+  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Add to list</button>
+</form>
+<br>
+
+
     {% if all_items %}
     <table class="table table-dark">
         <tr class="table-primary">

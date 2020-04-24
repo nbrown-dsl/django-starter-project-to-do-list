@@ -58,3 +58,17 @@ def edit(request,list_id):
 
         item = List.objects.get(pk=list_id)
         return render(request,'edit.html',{'item' : item})
+
+def search(request):
+    
+    if request.method == 'POST' and request.POST['item']:
+        filterTerm = request.POST['item']
+        filteredList = List.objects.filter(item__contains=filterTerm)
+        
+        messages.success(request,('Tasks containing '+filterTerm))
+        return render(request,'home.html',{'all_items' : filteredList})
+
+    else:
+
+        all_items = List.objects.all
+        return render(request,'home.html',{'all_items' : all_items})
