@@ -72,3 +72,19 @@ def search(request):
 
         all_items = List.objects.all
         return render(request,'home.html',{'all_items' : all_items})
+
+#sort items alphabetically
+def sortAlpha(request):
+    
+        sorted_items = List.objects.order_by('item')
+        return render(request,'home.html',{'all_items' : sorted_items})
+
+#sort items alphabetically
+def filterDone(request,state):
+    filterSwitch = ''
+    if state == 'done':
+        filterSwitch = True
+    else:
+        filterSwitch = False
+    filtered_items = List.objects.filter(completed=filterSwitch)
+    return render(request,'home.html',{'all_items' : filtered_items})

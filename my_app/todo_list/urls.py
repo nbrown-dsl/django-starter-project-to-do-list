@@ -9,6 +9,8 @@ urlpatterns = [
     path('uncross/<list_id>',views.uncross,name='uncross'),
     path('edit/<list_id>',views.edit,name='edit'),
     path('search',views.search,name='search'),
+    path('sortAlpha',views.sortAlpha,name='sortAlpha'),
+    path('filterDone/<state>',views.filterDone,name='filterDone'),
     
     
 
