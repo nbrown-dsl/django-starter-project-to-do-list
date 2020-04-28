@@ -15,31 +15,43 @@
     {% endfor %}
 {% endif %}
 
-<form class="form-inline my-2 my-lg-0" method="POST" action ="{% url 'home' %}">
-    {% csrf_token %}
-  <input class="form-control mr-sm-2" type="add" placeholder="add item" aria-label="Search" name="item" width=50%>
-  <input type="hidden" name="type" value="add">
-  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Add to list</button>
+<form class="form-inline" method="POST" action ="{% url 'home' %}">
+    {% csrf_token %}  
+      <label class="my-1 mr-2" for="additem">Task description</label>
+      <input class="form-control mr-sm-4" type="add" placeholder="..." aria-label="Search" name="item" id="additem" >
+      <label class="my-1 mr-2" for="priority">Priority</label>
+      <select class="form-control mr-sm-4" id="priority" name="priority">
+      <option selected>Choose...</option>
+      <option value=1>Important</option>
+      <option value=2>Necessary</option>
+      <option value=3>Optional</option>
+      </select>
+      <input type="hidden" name="type" value="add">
+      <button class="btn btn-primary mr-sm-4" type="submit">Add to list</button>
 </form>
 <br>
 
 
     {% if all_items %}
     <table class="table table-dark">
-        <tr class="table-primary">
-            
-            <th><a href="{% url 'sortAlpha' %}"><svg class="bi bi-filter" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Priority</th>
+            <th scope="col"><a href="{% url 'sortAlpha' %}"><svg class="bi bi-filter" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M6 10.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5zm-2-3a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm-2-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
               </svg></a> Task</th>
-            <th><center><a href="{% url 'filterDone' 'done' %}">Done</a> / <a href="{% url 'filterDone' 'notdone' %}">Not Done</a></center></th>
-            <th></th>
-            <th></th>
+            <th scope="col"><center><a href="{% url 'filterDone' 'done' %}">Done</a> / <a href="{% url 'filterDone' 'notdone' %}">Not Done</a></center></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
-
+        </thead>
+          <tbody>
           <!--iterates through all_items object-->
         {% for things in all_items %}
             {% if things.completed %}
+            
                 <tr class="table-secondary">
+                    <td class="striker">{{ things.priority }} </td>
                     <td class="striker">{{ things.item }} </td>
                     <td><center><a href="{% url 'uncross' things.id %}"><button type="button" class="btn btn-secondary">Done</button></a></center></td>
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +64,8 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td>{{ things.item }} </td>
+                  <td>{{ things.priority }} </td>  
+                  <td>{{ things.item }} </td>
                     <td><center><a href="{% url 'cross_off' things.id %}"><button type="button" class="btn btn-primary">Not done</button></a></center></td>
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
@@ -65,6 +78,7 @@
             {% endif %}
 
         {% endfor %}
+            </tbody>
     </table>
     {% endif %}
 {% endblock %}
