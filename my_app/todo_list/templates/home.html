@@ -17,7 +17,7 @@
 
 <form class="form-inline" method="POST" action ="{% url 'home' %}">
     {% csrf_token %}  
-      <label class="my-1 mr-2" for="additem">Task description</label>
+      <label class="my-1 mr-2" for="additem">Task Description</label>
       <input class="form-control mr-sm-4" type="add" placeholder="..." aria-label="Search" name="item" id="additem" >
       <label class="my-1 mr-2" for="priority">Priority</label>
       <select class="form-control mr-sm-4" id="priority" name="priority">
