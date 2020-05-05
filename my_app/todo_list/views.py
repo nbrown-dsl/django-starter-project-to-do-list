@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def home(request):
-
+    
     if request.method == 'POST':
         form = ListForm(request.POST or None)
         if form.is_valid():
