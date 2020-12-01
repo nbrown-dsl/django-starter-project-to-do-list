@@ -57,4 +57,5 @@ def edit(request,list_id):
     else:
 
         item = List.objects.get(pk=list_id)
-        return render(request,'edit.html',{'item' : item})
+        form = ListForm(request.POST or None, instance=item)
+        return render(request,'edit.html',{'form' : form})

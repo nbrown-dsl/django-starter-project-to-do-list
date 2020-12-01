@@ -7,6 +7,13 @@ from django.db import models
 
 class List(models.Model):
     item =  models.CharField(max_length=200)
+    desc = models.CharField(max_length=400,default='')
+    PRIORITY_LEVELS = (
+    ('1', 'High priority'),
+    ('2', 'Medium priority'),
+    ('3', 'Low priority')
+    )
+    priority = models.CharField(max_length=1, choices=PRIORITY_LEVELS,default='')
     completed = models.BooleanField(default=False)
 
     def __str__(self):
