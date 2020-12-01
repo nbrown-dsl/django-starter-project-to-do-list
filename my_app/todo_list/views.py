@@ -60,18 +60,19 @@ def edit(request,list_id):
         item = List.objects.get(pk=list_id)
         return render(request,'edit.html',{'item' : item})
 
+#called when search fomr submitted
+#gets value entered in search form and uses to filter list
 def search(request):
 
     if request.method == 'POST':
         
-
         form = searchForm(request.POST or None)
         if form.is_valid():
             searchTerm = form.cleaned_data.get("searchTerm")
-            messages.success(request,str(searchTerm))
-            all_items = List.objects.all
-            return render(request,'home.html',{'all_items' : all_items})
+            messages.success(request,str("results filtered by '"+searchTerm+"'"))
+            filtered_items = List.objects.filter(item__contains=searchTerm)
+            return render(request,'home.html',{'all_items' : filtered_items})
 
-    else:
-        all_items = List.objects.all
-        return render(request,'home.html',{'all_items' : all_items})
+    
+    all_items = List.objects.all
+    return render(request,'home.html',{'all_items' : all_items})
