@@ -5,6 +5,10 @@ from django.db import models
 
 # create database table with attributes.
 
+class persons(models.Model):
+    name =  models.CharField(max_length=200)
+    email = models.CharField(max_length=400,default='')
+    
 class List(models.Model):
     item =  models.CharField(max_length=200)
     desc = models.CharField(max_length=400,default='')
@@ -15,6 +19,11 @@ class List(models.Model):
     )
     priority = models.CharField(max_length=1, choices=PRIORITY_LEVELS,default='')
     completed = models.BooleanField(default=False)
+    dueDate = models.DateField(null=True)
+    people = models.ManyToManyField(persons)
 
     def __str__(self):
         return self.item + ' completed: ' + str(self.completed)
+
+
+    
