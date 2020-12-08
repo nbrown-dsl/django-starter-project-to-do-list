@@ -24,4 +24,16 @@
         <input type="submit" value="Submit">
     </form>
 
+    <form class="form-inline my-2 my-lg-0" method="POST">
+        {% csrf_token %}
+      Item: <input value={{ item.item }} class="form-control mr-sm-2" type="add" aria-label="Search" name="item"><br>
+      Description <input value={{ item.desc }} class="form-control mr-sm-2" type="add" aria-label="Search" name="desc">
+
+      <input class="form-control mr-sm-2" type="add" aria-label="Search" name="priority">
+
+      <input class="form-control mr-sm-2" type="add" aria-label="Search" name="completed">
+
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Edit</button>
+    </form>
+
 {% endblock %}
