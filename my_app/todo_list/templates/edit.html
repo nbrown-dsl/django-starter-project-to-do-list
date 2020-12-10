@@ -26,9 +26,11 @@
 
     <form class="form-inline my-2 my-lg-0" method="POST">
         {% csrf_token %}
-      Item: <input value="{{ item.item }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="item">
-      Description <input value="{{ item.desc }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="desc">
-
+      <label for="">Item: </label>
+      <input value="{{ item.item }}" class="form-control mr-sm-2" type="text" aria-label="Search" name="item"><br>
+      <label for="">Description: </label>
+      <input value="{{ item.desc }}" class="form-control mr-sm-2" type="text" aria-label="Search" name="desc"><br>
+      <label for="">Priority: </label>
       <input value="{{ item.priority }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="priority">
 
       <input value="{{ item.completed }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="completed">
