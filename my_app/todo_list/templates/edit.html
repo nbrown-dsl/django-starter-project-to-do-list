@@ -2,6 +2,9 @@
 
 {% block title %}to do app edit{% endblock %}
 
+<!-- package to make forms look prettier..see link how to implement -->
+<!-- https://www.geeksforgeeks.org/styling-django-forms-with-django-crispy-forms/ -->
+{%load crispy_forms_tags %}
 
 
 {% block content %}
@@ -16,26 +19,12 @@
 
     {% endif %} -->
 
-    <form action="" method="post">
-        {% csrf_token %}
-        <table padding="10">
-        {{ form }}
-        </table>
-        <input type="submit" value="Submit">
-    </form>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <br><br>
+    <button class="btn btn-primary" type="submit">Apply</button>
+  </form>  
 
-    <form class="form-inline my-2 my-lg-0" method="POST">
-        {% csrf_token %}
-      <label for="">Item: </label>
-      <input value="{{ item.item }}" class="form-control mr-sm-2" type="text" aria-label="Search" name="item"><br>
-      <label for="">Description: </label>
-      <input value="{{ item.desc }}" class="form-control mr-sm-2" type="text" aria-label="Search" name="desc"><br>
-      <label for="">Priority: </label>
-      <input value="{{ item.priority }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="priority">
-
-      <input value="{{ item.completed }}" class="form-control mr-sm-2" type="add" aria-label="Search" name="completed">
-
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Edit</button>
-    </form>
-
+    
 {% endblock %}

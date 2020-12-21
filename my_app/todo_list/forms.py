@@ -1,12 +1,24 @@
-from django import forms
+from django.forms import ModelForm,DateInput,Textarea
 from .models import List, persons
 
-class ListForm(forms.ModelForm):
+class DateInput(DateInput):
+    input_type = 'date'
+
+class ListForm(ModelForm):
     class Meta:
         model = List
-        fields = ["item","completed","priority","desc","dueDate","people"] 
+        fields = '__all__'
+        labels = {
+            'desc': 'Description',
+        }
+        widgets = {
+            'dueDate': DateInput(),
+            'desc': Textarea(attrs={'cols': 80, 'rows': 2}),
+           
+        } 
 
-class personsForm(forms.ModelForm):
+class personsForm(ModelForm):
     class Meta:
         model = persons
         fields = ["name","email"] 
+        
