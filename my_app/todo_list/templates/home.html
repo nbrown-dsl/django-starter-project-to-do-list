@@ -25,23 +25,27 @@
  <br>
 
  <!-- iterates through people (passed to template from home view) and filters list on selection -->
- Filters: <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">People
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li><a href="{% url 'filter' 'all' %}">all people</a></li>
-    {% for person in people %}
-      <li><a href="{% url 'filter' person.name %}">{{ person }}</a></li> 
-      {% endfor %}    
-    </ul>
-  </div> 
+ Filters: 
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      People
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="{% url 'filter' 'all' %}">All people</a>
+      <div class="dropdown-divider"></div>
+      {% for person in people %}
+      <a class="dropdown-item" href="{% url 'filter' person.name %}">{{ person }}</a>
+      {% endfor %} 
+      
+    </div>
+  </div>
 
  <br><br>
     {% if all_items %}
     <table class="table table-dark">
         <tr class="table-primary">
             <th><div class="form-check"><a href="{% url 'filter' 'completed=False' %}"><input type="checkbox" class="form-check-input" checked /></a></div></th>
-            <th>Description<a href="{% url 'order' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
+            <th>Description <a href="{% url 'order' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
               </svg></a></th>
             <th></th>
@@ -85,6 +89,14 @@
     
 
 </div>
+
+<script type="text/javascript" src="js/bootstrap/bootstrap-dropdown.js"></script>
+<script>
+     $(document).ready(function(){
+        $('.dropdown-toggle').dropdown()
+    });
+</script>
+
 {% endblock %}
 
 
