@@ -9,11 +9,12 @@ class ListForm(ModelForm):
         model = List
         fields = '__all__'
         labels = {
-            'desc': 'Description',
+            'surname': 'Surname',
         }
         widgets = {
-            'dueDate': DateInput(),
-            'desc': Textarea(attrs={'cols': 80, 'rows': 2}),
+            'arrivalDate': DateInput(),
+            'leavingDate': DateInput(),
+            #'surname': Textarea(attrs={'cols': 80, 'rows': 2}),
            
         } 
 
