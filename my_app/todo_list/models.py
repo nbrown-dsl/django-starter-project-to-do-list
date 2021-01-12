@@ -34,16 +34,25 @@ class List(models.Model):
 
 
 class protocol_type(models.Model):
-    description =  models.CharField(max_length=250,default='') 
     name =  models.CharField(max_length=100,)
-
+    description =  models.CharField(max_length=250,default='')
+    #this is list of fields that can be selected 
+    #it needs to be returned as an array of field names that can be used to render just these fields in the form for proocol type
+    #maybe passed when creation of Listform object 
+    FIELD_NAMES = (
+    ('forename', 'First name'),
+    ('surname', 'Second name'),
+    ('yearLevel', 'year level'),
+    ('arrivalDate', 'when joining roll'),
+    ('leavingDate', 'when leaving roll')
+    )
+    fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='')
+    
 class protocol(models.Model):
     type = models.ForeignKey(protocol_type,on_delete=models.DO_NOTHING)
     form = models.OneToOneField(List,on_delete=models.CASCADE)
 
-class protocol_field(models.Model):
-    field = models.ForeignKey(List,on_delete=models.CASCADE)
-    type = models.ForeignKey(protocol_type,on_delete=models.CASCADE)
+
 
 class task(models.Model): 
     description =  models.CharField(max_length=250,default='') 
