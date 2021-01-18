@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import ListForm, personsForm
+from .forms import *
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+# module to read string from entity list as class name
+import sys
+
+def str_to_class(classname):
+    return getattr(sys.modules[__name__], classname)
 
 # Create your views here.
 def home(request):
@@ -104,7 +109,9 @@ def edit(request,list_id):
 
 #view for editing or adding records in entities (eg persons, protocol types, tasks) 
 # (this is very simliar code to def edit and so should be way to pass parameter to def than determines which form is run)
-def entityForm(request,list_id):
+def entityForm(request,list_id,modelName):
+
+    model = str_to_class(modelName)
     
 #if request received from edit form submission
     if request.method == 'POST':
@@ -128,15 +135,29 @@ def entityForm(request,list_id):
         messages.success(request,(message))
         return redirect('home')
 
-#if request received from edit icon by item on entity list
+#if request received from entity page
     else:
+        #if from item on list finds object instance and returns model appropriate form
+        item=""
         if list_id != '0':
-            item = persons.objects.get(pk=list_id)
-            form = personsForm(request.POST or None, instance=item)   
+            item = model.objects.get(pk=list_id)
+            if modelName == 'persons':
+                form = personsForm(request.POST or None, instance=item)
+            elif modelName == 'protocoltype':
+                form = protocolTypeForm(request.POST or None, instance=item)
+            elif modelName == 'task':
+                form = taskForm(request.POST or None, instance=item)   
         #if request received from 'add' button on entity page (passes id as 0)
-        else:
-            item = ""
-            form = personsForm()
+        else:   
+            if modelName == 'persons':
+                form = personsForm(request.POST or None, instance=item)
+            elif modelName == 'protocoltype':
+                form = protocolTypeForm(request.POST or None, instance=item)
+            elif modelName == 'task':
+                form = taskForm(request.POST or None, instance=item)
+            else:
+                form = taskForm(request.POST or None, instance=item)
+        
         return render(request,'edit.html',{'form' : form, 'item' : item})
 
 def entities(request,modelName):

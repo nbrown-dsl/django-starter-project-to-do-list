@@ -17,6 +17,9 @@ class persons(models.Model):
     # to display in list table
     def summaryTitle(self):
         return self.name
+    #hack to get name of object class passed from entity edit list to view def
+    def className(self):
+        return 'persons'
     
 class List(models.Model):
     forename =  models.CharField(max_length=50,default='')
@@ -53,6 +56,9 @@ class protocoltype(models.Model):
 
     def summaryTitle(self):
         return self.protocolTypeName
+    #hack to get name of object class passed from entity edit list to view def
+    def className(self):
+        return 'protocoltype'
     
 class protocol(models.Model):
     type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
@@ -66,6 +72,9 @@ class task(models.Model):
 
     def summaryTitle(self):
         return self.TaskDescription
+    #hack to get name of object class passed from entity edit list to view def
+    def className(self):
+        return 'task'
     
 class task_Data(models.Model):
     completed = models.BooleanField(default=False)
