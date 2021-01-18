@@ -2,7 +2,7 @@
 
 {% extends 'base.html' %}
 
-{% block title %}to do app{% endblock %}
+{% block title %}protocols{% endblock %}
 
 {% block content %}
 
@@ -22,6 +22,20 @@
 {% endif %}
  <a href="{% url 'edit' '0' %}"><button class="btn btn-primary" type="submit">Start protocol</button></a>
  <a href="{% url 'editperson' '0' %}"><button class="btn btn-secondary" type="submit">Add person</button></a>
+ <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Entities
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    
+    <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
+    <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
+    <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
+    
+    
+  </div>
+</div>
+
  <br>
 
  <!-- iterates through people (passed to template from home view) and filters list on selection -->

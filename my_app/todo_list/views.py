@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import List, persons
+from .models import *
 from .forms import ListForm, personsForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -89,8 +89,9 @@ def edit(request,list_id):
         messages.success(request,(message))
         return redirect('home')
 
-#if request received from edit icon by item on home page list
+#if request received from edit icon by item on home page list or add button
     else:
+        #if item on list
         if list_id != '0':
             item = List.objects.get(pk=list_id)
             form = ListForm(request.POST or None, instance=item)
@@ -107,7 +108,7 @@ def editperson(request,list_id):
     
 #if request received from edit form submission
     if request.method == 'POST':
-        #checks if form submission is from pre-existing item on list
+        #checks if form submission is from pre-existing record in model
         try:
             item = persons.objects.get(pk=list_id)        
             form = personsForm(request.POST or None, instance=item)
@@ -137,3 +138,14 @@ def editperson(request,list_id):
         else:
             form = personsForm()
             return render(request,'edit.html',{'form' : form})
+
+def entities(request,modelName):
+    if modelName == 'persons':
+        model = persons.objects.all
+    elif modelName == 'Protocol type':
+        model = protocoltype.objects.all
+    elif modelName == 'tasks':
+        model = task.objects.all
+    else:
+        model = persons.objects.all
+    return render(request,'entities.html',{'model' : model,'modelName':modelName})

@@ -14,6 +14,9 @@ class persons(models.Model):
     # so that name appears in select field
     def __str__(self): 
          return self.name
+
+    def summaryTitle(self):
+        return self.name
     
 class List(models.Model):
     forename =  models.CharField(max_length=50,default='')
@@ -33,8 +36,8 @@ class List(models.Model):
         return self.item + ' completed: ' + str(self.completed)
 
 
-class protocol_type(models.Model):
-    name =  models.CharField(max_length=100,)
+class protocoltype(models.Model):
+    protocolTypeName =  models.CharField(max_length=100,)
     description =  models.CharField(max_length=250,default='')
     #this is list of fields that can be selected 
     #it needs to be returned as an array of field names that can be used to render just these fields in the form for proocol type
@@ -47,16 +50,22 @@ class protocol_type(models.Model):
     ('leavingDate', 'when leaving roll')
     )
     fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='')
+
+    def summaryTitle(self):
+        return self.protocolTypeName
     
 class protocol(models.Model):
-    type = models.ForeignKey(protocol_type,on_delete=models.DO_NOTHING)
+    type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
     form = models.OneToOneField(List,on_delete=models.CASCADE)
 
 
 
 class task(models.Model): 
-    description =  models.CharField(max_length=250,default='') 
-    protocolType = models.ForeignKey(protocol_type,on_delete=models.DO_NOTHING)
+    TaskDescription =  models.CharField(max_length=250,default='') 
+    protocolType = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
+
+    def summaryTitle(self):
+        return self.TaskDescription
     
 class task_Data(models.Model):
     completed = models.BooleanField(default=False)

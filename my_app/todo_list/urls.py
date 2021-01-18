@@ -11,4 +11,5 @@ urlpatterns = [
     path('editperson/<list_id>',views.editperson,name='editperson'),
     path('filter/<query>',views.filter,name='filter'),
     path('order',views.order,name='order'),
+    path('entities/<modelName>',views.entities,name='entities')
 ]
