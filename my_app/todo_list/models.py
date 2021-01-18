@@ -14,7 +14,7 @@ class persons(models.Model):
     # so that name appears in select field
     def __str__(self): 
          return self.name
-
+    # to display in list table
     def summaryTitle(self):
         return self.name
     

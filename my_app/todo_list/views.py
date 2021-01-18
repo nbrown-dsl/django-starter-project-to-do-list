@@ -102,9 +102,9 @@ def edit(request,list_id):
             return render(request,'edit.html',{'form' : form})
 
 
-#view for editing or adding persons 
+#view for editing or adding records in entities (eg persons, protocol types, tasks) 
 # (this is very simliar code to def edit and so should be way to pass parameter to def than determines which form is run)
-def editperson(request,list_id):
+def entityForm(request,list_id):
     
 #if request received from edit form submission
     if request.method == 'POST':
@@ -128,16 +128,16 @@ def editperson(request,list_id):
         messages.success(request,(message))
         return redirect('home')
 
-#if request received from edit icon by item on home page list
+#if request received from edit icon by item on entity list
     else:
         if list_id != '0':
             item = persons.objects.get(pk=list_id)
-            form = personsForm(request.POST or None, instance=item)
-            return render(request,'edit.html',{'form' : form, 'item' : item})
-        #if request received from 'add' button on home page (passes id as 0)
+            form = personsForm(request.POST or None, instance=item)   
+        #if request received from 'add' button on entity page (passes id as 0)
         else:
+            item = ""
             form = personsForm()
-            return render(request,'edit.html',{'form' : form})
+        return render(request,'edit.html',{'form' : form, 'item' : item})
 
 def entities(request,modelName):
     if modelName == 'persons':

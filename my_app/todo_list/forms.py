@@ -1,5 +1,5 @@
 from django.forms import ModelForm,DateInput,Textarea
-from .models import List, persons
+from .models import *
 
 class DateInput(DateInput):
     input_type = 'date'
@@ -22,4 +22,14 @@ class personsForm(ModelForm):
     class Meta:
         model = persons
         fields = ["name","email"] 
+
+class protocolTypeForm(ModelForm):
+    class Meta:
+        model = protocoltype
+        fields = ["protocolTypeName","description","fields"] 
+
+class taskForm(ModelForm):
+    class Meta:
+        model = task
+        fields = ["TaskDescription"] 
         
