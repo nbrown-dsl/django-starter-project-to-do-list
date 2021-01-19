@@ -31,5 +31,5 @@ class protocolTypeForm(ModelForm):
 class taskForm(ModelForm):
     class Meta:
         model = task
-        fields = ["TaskDescription"] 
+        fields = ["TaskDescription","protocolType"] 
         

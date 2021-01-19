@@ -59,6 +59,8 @@ class protocoltype(models.Model):
     #hack to get name of object class passed from entity edit list to view def
     def className(self):
         return 'protocoltype'
+    def __str__(self): 
+         return self.protocolTypeName
     
 class protocol(models.Model):
     type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
