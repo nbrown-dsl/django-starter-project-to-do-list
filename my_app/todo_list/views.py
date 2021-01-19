@@ -110,8 +110,6 @@ def edit(request,list_id):
 #view for editing or adding records in entities (eg persons, protocol types, tasks) 
 # (this is very simliar code to def edit and so should be way to pass parameter to def than determines which form is run)
 def entityForm(request,list_id,modelName):
-
-    model = str_to_class(modelName)
     
 #if request received from edit form submission
     if request.method == 'POST':
@@ -139,7 +137,8 @@ def entityForm(request,list_id,modelName):
     else:
         #if from item on list finds object instance and returns model appropriate form
         item=""
-        if list_id != '0':
+        if list_id != 'noId':
+            model = str_to_class(modelName)
             item = model.objects.get(pk=list_id)
             if modelName == 'persons':
                 form = personsForm(request.POST or None, instance=item)
@@ -150,13 +149,13 @@ def entityForm(request,list_id,modelName):
         #if request received from 'add' button on entity page (passes id as 0)
         else:   
             if modelName == 'persons':
-                form = personsForm(request.POST or None, instance=item)
-            elif modelName == 'protocoltype':
-                form = protocolTypeForm(request.POST or None, instance=item)
+                form = personsForm(request.POST or None)
+            elif modelName == 'Protocol type':
+                form = protocolTypeForm(request.POST or None)
             elif modelName == 'task':
-                form = taskForm(request.POST or None, instance=item)
+                form = taskForm(request.POST or None)
             else:
-                form = taskForm(request.POST or None, instance=item)
+                form = taskForm(request.POST or None)
         
         return render(request,'edit.html',{'form' : form, 'item' : item})
 

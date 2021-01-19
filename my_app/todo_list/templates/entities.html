@@ -21,7 +21,7 @@
     {% endfor %}
 {% endif %}
  
- <a href="{% url 'entityForm' '0' modelName %}"><button class="btn btn-secondary" type="submit">Add {{modelName}}</button></a>
+ <a href="{% url 'entityForm' 'noId' modelName %}"><button class="btn btn-secondary" type="submit">Add {{modelName}}</button></a>
  <br>
 
  <!-- iterates through people (passed to template from home view) and filters list on selection -->
