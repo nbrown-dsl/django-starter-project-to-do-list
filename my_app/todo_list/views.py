@@ -114,14 +114,35 @@ def entityForm(request,list_id,modelName):
 #if request received from edit form submission
     if request.method == 'POST':
         #checks if form submission is from pre-existing record in model
-        try:
-            item = persons.objects.get(pk=list_id)        
-            form = personsForm(request.POST or None, instance=item)
-            message="Person edited"
-        #if is new item
-        except:
-            form = personsForm(request.POST or None)
-            message="Person added"
+        if modelName == 'persons':
+            if list_id and list_id != "noId":
+                item = persons.objects.get(pk=list_id)        
+                form = personsForm(request.POST or None, instance=item)
+                message="Person edited"
+            #if is new item
+            else:
+                form = personsForm(request.POST or None)
+                message="Person added"
+
+        elif modelName == 'Protocol type':
+            if list_id and list_id != "noId":
+                item = protocoltype.objects.get(pk=list_id)        
+                form = protocolTypeForm(request.POST or None, instance=item)
+                message="protocl type edited"
+            #if is new item
+            else:
+                form = protocolTypeForm(request.POST or None)
+                message="protocol type added"
+
+        elif modelName == 'tasks':
+            if list_id and list_id != "noId":
+                item = task.objects.get(pk=list_id)        
+                form = taskForm(request.POST or None, instance=item)
+                message="task edited"
+            #if is new item
+            else:
+                form = taskForm(request.POST or None)
+                message="task added"
             
         if form.is_valid():
             form.save()    
