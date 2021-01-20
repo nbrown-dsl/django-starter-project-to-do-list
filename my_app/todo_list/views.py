@@ -123,8 +123,9 @@ def entityForm(request,list_id,modelName):
             else:
                 form = personsForm(request.POST or None)
                 message="Person added"
+            model = persons.objects.all
 
-        elif modelName == 'Protocol type':
+        elif modelName == 'protocoltype' or modelName == 'Protocol type':
             if list_id and list_id != "noId":
                 item = protocoltype.objects.get(pk=list_id)        
                 form = protocolTypeForm(request.POST or None, instance=item)
@@ -133,8 +134,9 @@ def entityForm(request,list_id,modelName):
             else:
                 form = protocolTypeForm(request.POST or None)
                 message="protocol type added"
+            model = protocoltype.objects.all
 
-        elif modelName == 'tasks':
+        elif modelName == 'task':
             if list_id and list_id != "noId":
                 item = task.objects.get(pk=list_id)        
                 form = taskForm(request.POST or None, instance=item)
@@ -143,6 +145,7 @@ def entityForm(request,list_id,modelName):
             else:
                 form = taskForm(request.POST or None)
                 message="task added"
+            model = task.objects.all
             
         if form.is_valid():
             form.save()    
@@ -152,7 +155,7 @@ def entityForm(request,list_id,modelName):
             message = 'Invalid form'
 
         messages.success(request,(message))
-        return redirect('home')
+        return render(request,'entities.html',{'model' : model,'modelName':modelName})
 
 #if request received from entity page
     else:
@@ -189,4 +192,19 @@ def entities(request,modelName):
         model = task.objects.all
     else:
         model = persons.objects.all
+    return render(request,'entities.html',{'model' : model,'modelName':modelName})
+
+def deleteInstance(request, list_id,modelName):
+    
+    if modelName == 'persons':
+        item = persons.objects.get(pk=list_id)
+        model = persons.objects.all
+    elif modelName == 'protocoltype':
+        item = protocoltype.objects.get(pk=list_id)
+        model = protocoltype.objects.all
+    elif modelName == 'task':
+        item = task.objects.get(pk=list_id)
+        model = task.objects.all 
+    item.delete()
+    messages.success(request,(modelName +' deleted'))
     return render(request,'entities.html',{'model' : model,'modelName':modelName})

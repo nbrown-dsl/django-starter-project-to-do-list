@@ -87,4 +87,4 @@ class task_Data(models.Model):
 
 class responsibility(models.Model):
     task = models.ForeignKey(task,on_delete=models.CASCADE)
-    person = models.ForeignKey(persons,on_delete=models.CASCADE) 
+    person = models.ForeignKey(persons,on_delete=models.DO_NOTHING) 

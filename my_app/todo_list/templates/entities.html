@@ -7,38 +7,11 @@
 {% block content %}
 
 <div class="container-fluid">
-    
- 
-  
-{% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-warning alert-dismissable" role="alert">
-        <button class="close" data-dismiss="alert">
-        <small><sup>x</sup></small>
-        </button>
-        {{ message }}
-    </div>
-    {% endfor %}
-{% endif %}
+
  
  <a href="{% url 'entityForm' 'noId' modelName %}"><button class="btn btn-secondary" type="submit">Add {{modelName}}</button></a>
  <br>
 
- <!-- iterates through people (passed to template from home view) and filters list on selection -->
- <!-- Filters: 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      People
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="{% url 'filter' 'all' %}">All people</a>
-      <div class="dropdown-divider"></div>
-      {% for person in people %}
-      <a class="dropdown-item" href="{% url 'filter' person.name %}">{{ person }}</a>
-      {% endfor %} 
-      
-    </div>
-  </div> -->
 
  <br><br>
     {% if model %}
@@ -57,7 +30,7 @@
                 <tr>
                     
                     <td>{{things.summaryTitle}} </td>
-                    <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
+                    <td><center><a href="{% url 'deleteInstance' things.id things.className %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
                       </svg></a></center></td>
                     <td><center><a href="{% url 'entityForm' things.id things.className %}"><svg class="bi bi-pencil" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

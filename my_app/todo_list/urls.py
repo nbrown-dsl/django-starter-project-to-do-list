@@ -11,5 +11,6 @@ urlpatterns = [
     path('entityForm/<list_id>/<modelName>/',views.entityForm,name='entityForm'),
     path('filter/<query>',views.filter,name='filter'),
     path('order',views.order,name='order'),
-    path('entities/<modelName>',views.entities,name='entities')
+    path('entities/<modelName>',views.entities,name='entities'),
+    path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance')
 ]
