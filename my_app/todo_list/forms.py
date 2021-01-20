@@ -5,6 +5,7 @@ class DateInput(DateInput):
     input_type = 'date'
 
 class ListForm(ModelForm):
+    # Provide an association between the ModelForm and a model
     class Meta:
         model = List
         fields = '__all__'

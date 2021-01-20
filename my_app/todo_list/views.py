@@ -136,7 +136,7 @@ def entityForm(request,list_id,modelName):
                 message="protocol type added"
             model = protocoltype.objects.all
 
-        elif modelName == 'task':
+        elif modelName == 'task' or modelName == 'tasks':
             if list_id and list_id != "noId":
                 item = task.objects.get(pk=list_id)        
                 form = taskForm(request.POST or None, instance=item)
