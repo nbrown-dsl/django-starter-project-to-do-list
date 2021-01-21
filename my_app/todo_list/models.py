@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.forms.forms import Form 
 
+
 # CREATE DATABASE MIGRATION: python manage.py makemigrations
 # MIGRATE THE DATABASE: python manage.py migrate #
 # use in terminal from 'todo_list.models import List' to query list table #
@@ -10,7 +11,8 @@ from django.forms.forms import Form
 
 class persons(models.Model):
     name =  models.CharField(max_length=200)
-    email = models.CharField(max_length=400,default='')   
+    email = models.CharField(max_length=400,default='')
+     
     # so that name appears in select field
     def __str__(self): 
          return self.name
