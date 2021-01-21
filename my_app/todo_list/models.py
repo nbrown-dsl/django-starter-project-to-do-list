@@ -78,13 +78,13 @@ class task(models.Model):
     def className(self):
         return 'task'
     
-class task_Data(models.Model):
+class taskdata(models.Model):
     completed = models.BooleanField(default=False)
     completionDate = models.DateField(null=True)
     notes =  models.CharField(max_length=250,default='')
     protocol = models.ForeignKey(protocol,on_delete=models.CASCADE)
     task = models.ForeignKey(task,on_delete=models.CASCADE)
 
-class responsibility(models.Model):
-    task = models.ForeignKey(task,on_delete=models.CASCADE)
-    person = models.ForeignKey(persons,on_delete=models.DO_NOTHING) 
+# class responsibility(models.Model):
+    # task = models.ForeignKey(task,on_delete=models.CASCADE)
+    # person = models.ForeignKey(persons,on_delete=models.DO_NOTHING) 
