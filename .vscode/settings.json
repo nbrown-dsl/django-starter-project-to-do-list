@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\Admin\\python.exe",
+    "python.pythonPath": ".venv\\Scripts\\python.exe",
     "python.pythonPath": "C:\\Users\\Admin\\Documents\\DP CS projects\\todolist2\\django-starter-project-to-do-list\\venv\\Scripts\\python.exe",
     "python.terminal.activateEnvironment": false,
     
