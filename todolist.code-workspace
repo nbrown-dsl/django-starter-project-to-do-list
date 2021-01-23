@@ -6,6 +6,9 @@
 	],
 	"settings": {
 		"python.pythonPath": ".venv\\Scripts\\python.exe",
-		"git.ignoreLimitWarning": true
+		"git.ignoreLimitWarning": true,
+		"json.schemas": [
+		
+		]
 	}
 }

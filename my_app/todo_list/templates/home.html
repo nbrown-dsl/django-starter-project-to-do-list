@@ -8,7 +8,8 @@
 
 <div class="container-fluid">
     
- <a href="{% url 'edit' '0' %}"><button class="btn btn-primary" type="submit">New protocol</button></a>
+ <a href="{% url 'protocolAdd' '0' %}"><button class="btn btn-primary" type="submit">New protocol</button></a>
+
  <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Entities
@@ -18,8 +19,7 @@
     <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
     <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
     <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
-    
-    
+ 
   </div>
 </div>
 
@@ -91,12 +91,7 @@
 
 </div>
 
-<script type="text/javascript" src="js/bootstrap/bootstrap-dropdown.js"></script>
-<script>
-     $(document).ready(function(){
-        $('.dropdown-toggle').dropdown()
-    });
-</script>
+
 
 {% endblock %}
 

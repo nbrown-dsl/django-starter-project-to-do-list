@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 # module to read string from entity list as class name
 import sys
 
+
+
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
 
@@ -20,7 +22,14 @@ def home(request):
             
     all_items = List.objects.all
     people = persons.objects.all
+    
     return render(request,'home.html',{'all_items' : all_items,'people' : people})
+
+def protocolAdd(request,typeId):
+
+    form = ListForm()
+    protocoltypeObjects = protocoltype.objects.all
+    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeObjects})
 
 # orders items alphabetically
 def order(request):    

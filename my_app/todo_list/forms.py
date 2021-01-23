@@ -1,4 +1,5 @@
 from django.forms import ModelForm,DateInput,Textarea
+from django.forms.widgets import CheckboxInput, CheckboxSelectMultiple
 from .models import *
 
 class DateInput(DateInput):
@@ -7,7 +8,7 @@ class DateInput(DateInput):
 class ListForm(ModelForm):
     # Provide an association between the ModelForm and a model
     class Meta:
-        model = List
+        model = protocol
         fields = '__all__'
         labels = {
             'surname': 'Surname',
@@ -28,9 +29,15 @@ class protocolTypeForm(ModelForm):
     class Meta:
         model = protocoltype
         fields = ["protocolTypeName","description","fields"] 
+        labels = {
+            'fields': 'Form fields (ctrl to multiple select)'
+        }
+        widgets = { 'fields': CheckboxSelectMultiple}
 
 class taskForm(ModelForm):
     class Meta:
         model = task
         fields = ["TaskDescription","protocolType"] 
+
+
         

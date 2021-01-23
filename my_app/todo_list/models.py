@@ -7,8 +7,9 @@ from django.forms.forms import Form
 # MIGRATE THE DATABASE: python manage.py migrate #
 # use in terminal from 'todo_list.models import List' to query list table #
 
-# create database table with attributes.
+# create model classes that correspond to database tables
 
+#people who may have task responsibilities
 class persons(models.Model):
     name =  models.CharField(max_length=200)
     email = models.CharField(max_length=400,default='')
@@ -22,7 +23,8 @@ class persons(models.Model):
     #hack to get name of object class passed from entity edit list to view def
     def className(self):
         return 'persons'
-    
+
+#fields that may be listed in protocol form    
 class List(models.Model):
     forename =  models.CharField(max_length=50,default='')
     surname = models.CharField(max_length=50,default='')
@@ -40,13 +42,13 @@ class List(models.Model):
     def __str__(self):
         return self.item + ' completed: ' + str(self.completed)
 
-
+#protocol type set by fields selected and tasks allocated
 class protocoltype(models.Model):
     protocolTypeName =  models.CharField(max_length=100,)
     description =  models.CharField(max_length=250,default='')
     #this is list of fields that can be selected 
     #it needs to be returned as an array of field names that can be used to render just these fields in the form for proocol type
-    #maybe passed when creation of Listform object 
+    #maybe passed with creation of Listform object 
     FIELD_NAMES = (
     ('forename', 'First name'),
     ('surname', 'Second name'),
@@ -56,6 +58,11 @@ class protocoltype(models.Model):
     )
     fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='')
 
+    # def __init__(self,protocolTypeName,description):       
+    #     self.protocolTypeName = protocolTypeName 
+    #     self.description = description
+    #     self.form = List() #composition
+
     def summaryTitle(self):
         return self.protocolTypeName
     #hack to get name of object class passed from entity edit list to view def
@@ -63,10 +70,11 @@ class protocoltype(models.Model):
         return 'protocoltype'
     def __str__(self): 
          return self.protocolTypeName
-    
-class protocol(models.Model):
+
+#protocol object with field data, inherits List class fields    
+class protocol(List,models.Model):
     type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
-    form = models.OneToOneField(List,on_delete=models.CASCADE)
+    # form = models.OneToOneField(List,on_delete=models.CASCADE)
 
 
 
