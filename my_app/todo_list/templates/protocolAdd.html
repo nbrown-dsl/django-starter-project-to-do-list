@@ -9,22 +9,13 @@
 
 {% block content %} 
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    New protocol
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-    {% for type in protocoltype %} 
-    <a class="dropdown-item" href="{% url 'protocolAdd' type.id %}">{{ type }}</a>
-    {% endfor %}
-  </div>
-</div>
+<h2>{{ protocoltype }}</h2>
 
   <form action="" method="post">
     {% csrf_token %}
     {{form|crispy}}
     <br><br>
-    <button class="btn btn-primary" type="submit">Apply</button>
+    <button class="btn btn-primary" type="submit">Start</button>
   </form>  
 
     

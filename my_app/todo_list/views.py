@@ -22,14 +22,18 @@ def home(request):
             
     all_items = List.objects.all
     people = persons.objects.all
-    
-    return render(request,'home.html',{'all_items' : all_items,'people' : people})
-
-def protocolAdd(request,typeId):
-
-    form = ListForm()
     protocoltypeObjects = protocoltype.objects.all
-    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeObjects})
+    
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects})
+
+def protocolAdd(request,type):
+    typeObject = protocoltype.objects.get(pk=type)
+    
+    form = ListForm()
+    #set filter attribute from list of fields in type object
+    form.fieldsArray = ['forename', 'surname']
+    protocoltypeName = typeObject.protocolTypeName
+    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
 
 # orders items alphabetically
 def order(request):    
