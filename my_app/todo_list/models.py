@@ -11,8 +11,8 @@ from django.forms.forms import Form
 
 #people who may have task responsibilities
 class persons(models.Model):
-    name =  models.CharField(max_length=200)
-    email = models.CharField(max_length=400,default='')
+    name =  models.CharField(max_length=200,default=None,null=True)
+    email = models.CharField(max_length=400,default=None,null=True)
      
     # so that name appears in select field
     def __str__(self): 
@@ -26,15 +26,15 @@ class persons(models.Model):
 
 #fields that may be listed in protocol form    
 class List(models.Model):
-    forename =  models.CharField(max_length=50,default='')
-    surname = models.CharField(max_length=50,default='')
+    forename =  models.CharField(max_length=50,default=None,null=True)
+    surname = models.CharField(max_length=50,default=None,null=True)
     YEAR_LEVELS = (
     ('1', 'yr 1'),
     ('2', 'yr 2'),
     ('3', 'yr 3')
     )
-    yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default='')
-    completed = models.BooleanField(default=False)
+    yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default=None,null=True)
+    completed = models.BooleanField(default=False,null=True)
     arrivalDate = models.DateField(null=True)
     leavingDate = models.DateField(null=True)
     people = models.ManyToManyField(persons)
@@ -56,7 +56,7 @@ class protocoltype(models.Model):
     ('arrivalDate', 'when joining roll'),
     ('leavingDate', 'when leaving roll')
     )
-    fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='')
+    fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='forename', null=True, blank=True)
 
     # def __init__(self,protocolTypeName,description):       
     #     self.protocolTypeName = protocolTypeName 
@@ -73,7 +73,7 @@ class protocoltype(models.Model):
 
 #protocol object with field data, inherits List class fields    
 class protocol(List,models.Model):
-    type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
+    type = models.ForeignKey(protocoltype,on_delete=models.CASCADE)
     # form = models.OneToOneField(List,on_delete=models.CASCADE)
 
 

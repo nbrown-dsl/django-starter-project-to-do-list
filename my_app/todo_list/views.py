@@ -165,7 +165,8 @@ def entityForm(request,list_id,modelName):
         
         #if form invalid
         else:
-            message = 'Invalid form'
+            errors = form.errors
+            message = errors
 
         messages.success(request,(message))
         return render(request,'entities.html',{'model' : model,'modelName':modelName})
@@ -179,17 +180,17 @@ def entityForm(request,list_id,modelName):
             item = model.objects.get(pk=list_id)
             if modelName == 'persons':
                 form = personsForm(request.POST or None, instance=item)
-            elif modelName == 'protocoltype':
+            elif modelName == 'Protocol type' or modelName == 'protocoltype':
                 form = protocolTypeForm(request.POST or None, instance=item)
-            elif modelName == 'task':
+            elif modelName == 'task' or modelName == 'tasks':
                 form = taskForm(request.POST or None, instance=item)   
         #if request received from 'add' button on entity page (passes id as 0)
         else:   
             if modelName == 'persons':
                 form = personsForm(request.POST or None)
-            elif modelName == 'Protocol type':
+            elif modelName == 'Protocol type' or modelName == 'protocoltype':
                 form = protocolTypeForm(request.POST or None)
-            elif modelName == 'task':
+            elif modelName == 'task' or modelName == 'tasks':
                 form = taskForm(request.POST or None)
             else:
                 form = taskForm(request.POST or None)
