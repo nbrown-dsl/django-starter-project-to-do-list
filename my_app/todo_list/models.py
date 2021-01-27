@@ -60,16 +60,6 @@ class ListFields(models.Model):
 class protocoltype(models.Model):
     protocolTypeName =  models.CharField(max_length=100,)
     description =  models.CharField(max_length=250,default='')
-    #this is list of fields that can be selected 
-    #it needs to be returned as an array of field names that can be used to render just these fields in the form for proocol type
-    #maybe passed with creation of Listform object 
-    # FIELD_NAMES = (
-    # ('forename', 'First name'),
-    # ('surname', 'Second name'),
-    # ('yearLevel', 'year level'),
-    # ('arrivalDate', 'when joining roll'),
-    # ('leavingDate', 'when leaving roll')
-    # )
     protocolFields =  models.ManyToManyField(ListFields)
 
     

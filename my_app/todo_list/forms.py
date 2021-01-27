@@ -9,7 +9,7 @@ class DateInput(DateInput):
 
 class ListForm(ModelForm):
     # Provide an association between the ModelForm and a model
-    fieldsArray = []
+    
     class Meta:
         model = protocol
         fields = '__all__'

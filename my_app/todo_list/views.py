@@ -28,12 +28,11 @@ def home(request):
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type)
-    
+    typeFields = typeObject.protocolFields
     form = ListForm()
     #set filter attribute from list of fields in type object
-    form.fieldsArray = ['forename', 'surname']
     protocoltypeName = typeObject.protocolTypeName
-    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
+    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName, 'typeFields': typeFields})
 
 # orders items alphabetically
 def order(request):    
@@ -182,6 +181,7 @@ def entityForm(request,list_id,modelName):
                 form = personsForm(request.POST or None, instance=item)
             elif modelName == 'Protocol type' or modelName == 'protocoltype':
                 form = protocolTypeForm(request.POST or None, instance=item)
+                
             elif modelName == 'task' or modelName == 'tasks':
                 form = taskForm(request.POST or None, instance=item)   
         #if request received from 'add' button on entity page (passes id as 0)
