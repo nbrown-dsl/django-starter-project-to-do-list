@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.forms.forms import Form 
+import inspect
 
 
 # CREATE DATABASE MIGRATION: python manage.py makemigrations
@@ -42,6 +43,19 @@ class List(models.Model):
     def __str__(self):
         return self.item + ' completed: ' + str(self.completed)
 
+    def fields(self):
+        return (['forename','surname'])
+
+class ListFields(models.Model):
+    field = models.CharField(max_length=50, default="field")
+
+    def __str__(self):
+        return self.field
+    
+
+
+
+
 #protocol type set by fields selected and tasks allocated
 class protocoltype(models.Model):
     protocolTypeName =  models.CharField(max_length=100,)
@@ -49,14 +63,16 @@ class protocoltype(models.Model):
     #this is list of fields that can be selected 
     #it needs to be returned as an array of field names that can be used to render just these fields in the form for proocol type
     #maybe passed with creation of Listform object 
-    FIELD_NAMES = (
-    ('forename', 'First name'),
-    ('surname', 'Second name'),
-    ('yearLevel', 'year level'),
-    ('arrivalDate', 'when joining roll'),
-    ('leavingDate', 'when leaving roll')
-    )
-    fields =  models.CharField(max_length=50, choices=FIELD_NAMES,default='forename', null=True, blank=True)
+    # FIELD_NAMES = (
+    # ('forename', 'First name'),
+    # ('surname', 'Second name'),
+    # ('yearLevel', 'year level'),
+    # ('arrivalDate', 'when joining roll'),
+    # ('leavingDate', 'when leaving roll')
+    # )
+    protocolFields =  models.ManyToManyField(ListFields)
+
+    
 
     # def __init__(self,protocolTypeName,description):       
     #     self.protocolTypeName = protocolTypeName 

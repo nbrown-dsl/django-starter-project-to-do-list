@@ -31,11 +31,11 @@ class personsForm(ModelForm):
 class protocolTypeForm(ModelForm):
     class Meta:
         model = protocoltype
-        fields = ["protocolTypeName","description","fields"] 
+        fields = '__all__'
         labels = {
             'fields': 'Form fields (ctrl to multiple select)'
         }
-        widgets = { 'fields': CheckboxSelectMultiple}
+        widgets = { 'protocolFields': CheckboxSelectMultiple}
 
 class taskForm(ModelForm):
     class Meta:
