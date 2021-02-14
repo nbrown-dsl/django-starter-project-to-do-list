@@ -27,12 +27,19 @@ def home(request):
     return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects})
 
 def protocolAdd(request,type):
-    typeObject = protocoltype.objects.get(pk=type)
-    typeFields = typeObject.protocolFields
-    form = ListForm()
+    typeObject = protocoltype.objects.get(pk=type) 
+
+    if request.method == 'POST':
+        form = ListForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request,('Protocol created'))
+            return redirect('home')
+    else:  
+        form = ListForm()
     #set filter attribute from list of fields in type object
-    protocoltypeName = typeObject.protocolTypeName
-    return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName, 'typeFields': typeFields})
+        protocoltypeName = typeObject.protocolTypeName
+        return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
 
 # orders items alphabetically
 def order(request):    

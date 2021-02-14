@@ -5,23 +5,21 @@ from .models import *
 class DateInput(DateInput):
     input_type = 'date'
 
-
-
 class ListForm(ModelForm):
     # Provide an association between the ModelForm and a model
-    
-    class Meta:
+
+    class Meta():
         model = protocol
-        fields = '__all__'
+        fields = protocol.visibleFields()
         labels = {
             'surname': 'Surname',
         }
         widgets = {
             'arrivalDate': DateInput(),
             'leavingDate': DateInput(),
-            #'surname': Textarea(attrs={'cols': 80, 'rows': 2}),
-           
+            #'surname': Textarea(attrs={'cols': 80, 'rows': 2}),        
         } 
+
 
 class personsForm(ModelForm):
     class Meta:

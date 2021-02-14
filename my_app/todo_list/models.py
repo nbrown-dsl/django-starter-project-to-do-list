@@ -43,17 +43,12 @@ class List(models.Model):
     def __str__(self):
         return self.item + ' completed: ' + str(self.completed)
 
-    def fields(self):
-        return (['forename','surname'])
 
+#class used to construct list of fields available. 
 class ListFields(models.Model):
     field = models.CharField(max_length=50, default="field")
-
-    def __str__(self):
-        return self.field
-    
-
-
+    def __str__(self): 
+         return self.field
 
 
 #protocol type set by fields selected and tasks allocated
@@ -61,13 +56,6 @@ class protocoltype(models.Model):
     protocolTypeName =  models.CharField(max_length=100,)
     description =  models.CharField(max_length=250,default='')
     protocolFields =  models.ManyToManyField(ListFields)
-
-    
-
-    # def __init__(self,protocolTypeName,description):       
-    #     self.protocolTypeName = protocolTypeName 
-    #     self.description = description
-    #     self.form = List() #composition
 
     def summaryTitle(self):
         return self.protocolTypeName
@@ -77,11 +65,16 @@ class protocoltype(models.Model):
     def __str__(self): 
          return self.protocolTypeName
 
+    def fieldsToShow(self):
+        return ["surname","yearLevel","type"]  
+
 #protocol object with field data, inherits List class fields    
 class protocol(List,models.Model):
     type = models.ForeignKey(protocoltype,on_delete=models.CASCADE)
-    # form = models.OneToOneField(List,on_delete=models.CASCADE)
-
+    #used in Listform to only show fields associated with protocol type
+    def visibleFields():
+        protocolType1 = protocoltype.objects.get(pk=3)
+        return protocolType1.fieldsToShow()
 
 
 class task(models.Model): 
