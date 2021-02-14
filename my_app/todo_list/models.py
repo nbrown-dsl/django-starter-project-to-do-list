@@ -66,7 +66,7 @@ class protocoltype(models.Model):
          return self.protocolTypeName
 
     def fieldsToShow(self):
-        return ["surname","yearLevel","type"]  
+        return ["surname","yearLevel"]  
 
 #protocol object with field data, inherits List class fields    
 class protocol(List,models.Model):
