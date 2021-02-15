@@ -6,7 +6,9 @@ import inspect
 
 # CREATE DATABASE MIGRATION: python manage.py makemigrations
 # MIGRATE THE DATABASE: python manage.py migrate #
-# use in terminal from 'todo_list.models import List' to query list table #
+# use in terminal by starting shell
+# $python manage.py shell
+# $from 'todo_list.models import *' to query models #
 
 # create model classes that correspond to database tables
 
