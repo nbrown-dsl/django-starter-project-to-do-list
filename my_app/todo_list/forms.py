@@ -10,7 +10,8 @@ class ListForm(ModelForm):
 
     class Meta():
         model = protocol
-        exclude = protocol.visibleFields()
+        p = protocol()
+        fields = p.visibleFields()
         labels = {
             'surname': 'Surname',
         }

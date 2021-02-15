@@ -40,11 +40,10 @@ class List(models.Model):
     leavingDate = models.DateField(null=True)
     people = models.ManyToManyField(persons)
 
-    def __str__(self):
-        return self.item + ' completed: ' + str(self.completed)
+    
 
 
-#class used to construct list of fields available. 
+#class used to construct list of fields available in list model. 
 class ListFields(models.Model):
     field = models.CharField(max_length=50, default="field")
     def __str__(self): 
@@ -64,17 +63,22 @@ class protocoltype(models.Model):
         return 'protocoltype'
     def __str__(self): 
          return self.protocolTypeName
-
-    def fieldsToShow(self):
-        return ["surname","yearLevel"]  
+    #returns arrays of field names checked
+    def fieldsToExclude(self):
+        fieldsObjectsArray = ListFields.objects.filter(protocoltype = self)
+        def field(f):
+            return f.field
+        fieldsList = map(field,fieldsObjectsArray)
+        return list(fieldsList) 
 
 #protocol object with field data, inherits List class fields    
 class protocol(List,models.Model):
-    type = models.ForeignKey(protocoltype,on_delete=models.CASCADE)
+    type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
     #used in Listform to only show fields associated with protocol type
-    def visibleFields():
-        protocolType1 = protocoltype.objects.get(pk=3)
-        return protocolType1.fieldsToShow()
+    def visibleFields(self):
+        # protocolType1 = self.type
+        protocolType1 = protocoltype.objects.get(id=3)
+        return protocolType1.fieldsToExclude()
 
 
 class task(models.Model): 
