@@ -1,4 +1,4 @@
-#!C:\Users\Admin\Documents\DP CS projects\todolist2\django-starter-project-to-do-list\.venv\Scripts\python.exe
+#!c:\users\admin\documents\dp cs projects\todolist2\django-starter-project-to-do-list\.venv\scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

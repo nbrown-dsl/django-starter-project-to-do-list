@@ -5,7 +5,7 @@ import inspect
 
 
 # CREATE DATABASE MIGRATION: python manage.py makemigrations
-# MIGRATE THE DATABASE: python manage.py migrate #
+# MIGRATE TO THE DATABASE: python manage.py migrate #
 # use in terminal by starting shell
 # $python manage.py shell
 # $from 'todo_list.models import *' to query models #
@@ -68,6 +68,7 @@ class protocoltype(models.Model):
     #returns arrays of field names checked
     def fieldsToExclude(self):
         fieldsObjectsArray = ListFields.objects.filter(protocoltype = self)
+
         def field(f):
             return f.field
         fieldsList = map(field,fieldsObjectsArray)
@@ -78,10 +79,12 @@ class protocol(List,models.Model):
     type = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
     #used in Listform to only show fields associated with protocol type
     def visibleFields(self):
-        # protocolType1 = self.type
-        protocolType1 = protocoltype.objects.get(id=3)
-        return protocolType1.fieldsToExclude()
-
+        try:
+            protocolType1 = self.type
+            # protocolType1 = protocoltype.objects.get(id=3)
+            return protocolType1.fieldsToExclude()
+        except:
+            return ('__all__')
 
 class task(models.Model): 
     TaskDescription =  models.CharField(max_length=250,default='') 
