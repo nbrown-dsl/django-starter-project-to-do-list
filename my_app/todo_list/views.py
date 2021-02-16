@@ -20,7 +20,7 @@ def home(request):
             form.save()
             messages.success(request,('Item added to list'))
             
-    all_items = List.objects.all
+    all_items = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
     
@@ -34,19 +34,25 @@ def protocolAdd(request,type):
         if form.is_valid():
             form.save()
             messages.success(request,('Protocol created'))
-            return redirect('home')
+        else:
+            messages.success(request,(form.errors))
+        return redirect('home')
     else: 
         newProtocol = protocol()
         newProtocol.type = typeObject 
         form = ListForm(instance=newProtocol)
-        visible_fields = newProtocol.visibleFields()
-        invisible_fields = []
-        for field in form.fields:
-            if field not in visible_fields:
-                invisible_fields.append(field)
-        for field in invisible_fields:
-            if field in form.fields:
-                form.fields.pop(field)
+        removeFields(form,newProtocol)
+        # visible_fields = newProtocol.visibleFields()
+        # visible_fields.append('type')
+        # invisible_fields = []
+        # #generates array of field names not to show on form
+        # for field in form.fields:
+        #     if field not in visible_fields:
+        #         invisible_fields.append(field)
+        # #removes fields not to show from field dictionary        
+        # for field in invisible_fields :
+        #     if field in form.fields:
+        #         form.fields.pop(field)
     #set filter attribute from list of fields in type object
         protocoltypeName = typeObject.protocolTypeName
         return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
@@ -59,12 +65,12 @@ def order(request):
     
     return render(request,'home.html',{'all_items' : all_items,'people' : people})
 
-
+#filter list of protocols
 def filter(request,query):
     people = persons.objects.all
 
     # filters across models using name of manaytomanyfield then attribute in related model, separated by __
-    filtered_items = List.objects.filter(people__name = query)
+    filtered_items = protocol.objects.filter(people__name = query)
 
     if len(filtered_items) > 0:
         messages.success(request,('Filtered by '+query))  
@@ -81,13 +87,13 @@ def about(request):
     return render(request,'about.html',{'name' : my_name})
 
 def delete(request, list_id):
-    item = List.objects.get(pk=list_id)
+    item = protocol.objects.get(pk=list_id)
     item.delete()
     messages.success(request,('Item deleted'))
     return redirect('home')
 
 def cross_off(request, list_id):
-    item = List.objects.get(pk=list_id)
+    item = protocol.objects.get(pk=list_id)
     item.completed = True
     item.save()
     return redirect('home')
@@ -105,7 +111,7 @@ def edit(request,list_id):
     if request.method == 'POST':
         #checks if form submission is from pre-existing item on list
         try:
-            item = List.objects.get(pk=list_id)        
+            item = protocol.objects.get(pk=list_id)        
             form = ListForm(request.POST or None, instance=item)
             message="Item edited"
         #if is new item
@@ -127,8 +133,9 @@ def edit(request,list_id):
     else:
         #if item on list
         if list_id != '0':
-            item = List.objects.get(pk=list_id)
+            item = protocol.objects.get(pk=list_id)
             form = ListForm(request.POST or None, instance=item)
+            removeFields(form,item)
             return render(request,'edit.html',{'form' : form, 'item' : item})
         #if request received from 'add' button on home page (passes id as 0)
         else:
@@ -239,3 +246,17 @@ def deleteInstance(request, list_id,modelName):
     item.delete()
     messages.success(request,(modelName +' deleted'))
     return render(request,'entities.html',{'model' : model,'modelName':modelName})
+
+#sets visible fields in form according to protocol type
+def removeFields(form,protocol):
+    visible_fields = protocol.visibleFields()
+    visible_fields.append('type')
+    invisible_fields = []
+    #generates array of field names not to show on form
+    for field in form.fields:
+        if field not in visible_fields:
+            invisible_fields.append(field)
+    #removes fields not to show from field dictionary        
+    for field in invisible_fields :
+        if field in form.fields:
+            form.fields.pop(field)

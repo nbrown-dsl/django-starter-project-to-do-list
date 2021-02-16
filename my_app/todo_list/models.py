@@ -1,7 +1,9 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
+from django.forms.fields import DateTimeField
 from django.forms.forms import Form 
 import inspect
+import datetime
 
 
 # CREATE DATABASE MIGRATION: python manage.py makemigrations
@@ -36,11 +38,11 @@ class List(models.Model):
     ('2', 'yr 2'),
     ('3', 'yr 3')
     )
-    yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default=None,null=True)
+    yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default=None,null=False)
     completed = models.BooleanField(default=False,null=True)
-    arrivalDate = models.DateField(null=True)
-    leavingDate = models.DateField(null=True)
-    people = models.ManyToManyField(persons)
+    arrivalDate = models.DateField(null=False,default=datetime.date.today, blank = True)
+    leavingDate = models.DateField(null=False,default=datetime.date.today, blank = True)
+    
 
     
 
