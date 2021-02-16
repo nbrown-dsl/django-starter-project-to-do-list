@@ -66,7 +66,7 @@ class protocoltype(models.Model):
     def __str__(self): 
          return self.protocolTypeName
     #returns arrays of field names checked
-    def fieldsToExclude(self):
+    def fieldsToInclude(self):
         fieldsObjectsArray = ListFields.objects.filter(protocoltype = self)
 
         def field(f):
@@ -81,10 +81,9 @@ class protocol(List,models.Model):
     def visibleFields(self):
         try:
             protocolType1 = self.type
-            # protocolType1 = protocoltype.objects.get(id=3)
-            return protocolType1.fieldsToExclude()
+            return protocolType1.fieldsToInclude()
         except:
-            return ('__all__')
+            return []
 
 class task(models.Model): 
     TaskDescription =  models.CharField(max_length=250,default='') 

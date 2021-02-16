@@ -35,8 +35,18 @@ def protocolAdd(request,type):
             form.save()
             messages.success(request,('Protocol created'))
             return redirect('home')
-    else:  
-        form = ListForm()
+    else: 
+        newProtocol = protocol()
+        newProtocol.type = typeObject 
+        form = ListForm(instance=newProtocol)
+        visible_fields = newProtocol.visibleFields()
+        invisible_fields = []
+        for field in form.fields:
+            if field not in visible_fields:
+                invisible_fields.append(field)
+        for field in invisible_fields:
+            if field in form.fields:
+                form.fields.pop(field)
     #set filter attribute from list of fields in type object
         protocoltypeName = typeObject.protocolTypeName
         return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
