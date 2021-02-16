@@ -103,6 +103,10 @@ class taskdata(models.Model):
     notes =  models.CharField(max_length=250,default='')
     protocol = models.ForeignKey(protocol,on_delete=models.CASCADE)
     task = models.ForeignKey(task,on_delete=models.CASCADE)
+    #when protocol is instantiated run loop to create instances of tasks associated with protocol type
+    def __init__(self,protocol,task):
+        self.protocol = protocol
+        self.task = task
 
 # class responsibility(models.Model):
     # task = models.ForeignKey(task,on_delete=models.CASCADE)

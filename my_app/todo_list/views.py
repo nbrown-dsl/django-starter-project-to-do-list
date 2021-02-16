@@ -23,8 +23,9 @@ def home(request):
     all_items = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
+    taskdata = taskdata.objects.all
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'taskdata':taskdata})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 

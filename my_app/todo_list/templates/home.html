@@ -72,8 +72,8 @@
             {% if things.completed %}
                 <tr class="table-secondary">
                     <td><center><div class="form-check"><a href="{% url 'uncross' things.id %}"><input type="checkbox" class="form-check-input" checked /></a></div></center></td>
-                    <td class="striker">{{ things.forename }} </td>
-                    <td class="striker">{{ things.protocolTypeName }} </td>
+                    <td class="striker">{{ things.forename }}</td>
+                    <td class="striker">{{ things.type }} </td>
                     
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
@@ -87,6 +87,7 @@
                 <tr>
                     <td><center><div class="form-check"><a href="{% url 'cross_off' things.id %}"><input type="checkbox" class="form-check-input" unchecked></a></div></center></td>
                     <td>{{ things.forename }} </td>
+                    <td>{{ things.type }} </td>
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
                       </svg></a></center></td>
@@ -104,6 +105,23 @@
     {% endif %}
     
 
+</div>
+
+<div class="accordion" id="accordionExample">
+  {% for things in all_items %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading{{things.forename}}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{things.forename}}" aria-expanded="true" aria-controls="collapse{{things.forename}}">
+        <strong>{{ things.forename }}</strong>&nbsp;{{ things.type }}
+      </button>
+    </h2>
+    <div id="collapse{{things.forename}}" class="accordion-collapse collapse show" aria-labelledby="heading{{things.forename}}" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This {{ things.protocolType }}</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 
