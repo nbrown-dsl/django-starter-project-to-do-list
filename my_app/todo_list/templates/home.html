@@ -72,7 +72,7 @@
             {% if things.completed %}
                 <tr class="table-secondary">
                     <td><center><div class="form-check"><a href="{% url 'uncross' things.id %}"><input type="checkbox" class="form-check-input" checked /></a></div></center></td>
-                    <td class="striker">{{ things.forename }}</td>
+                    <td class="striker">{{ things.TaskDescription }}</td>
                     <td class="striker">{{ things.type }} </td>
                     
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,7 @@
             {% else %}
                 <tr>
                     <td><center><div class="form-check"><a href="{% url 'cross_off' things.id %}"><input type="checkbox" class="form-check-input" unchecked></a></div></center></td>
-                    <td>{{ things.forename }} </td>
+                    <td>{{ things.Taskdescription }} </td>
                     <td>{{ things.type }} </td>
                     <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
@@ -107,7 +107,7 @@
 
 </div>
 
-<div class="accordion" id="accordionExample">
+<!-- <div class="accordion" id="accordionExample">
   {% for things in all_items %}
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading{{things.forename}}">
@@ -122,7 +122,7 @@
     </div>
   </div>
   {% endfor %}
-</div>
+</div> -->
 
 
 

@@ -40,8 +40,8 @@ class List(models.Model):
     )
     yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default=None,null=False)
     completed = models.BooleanField(default=False,null=True)
-    arrivalDate = models.DateField(null=False,default=datetime.date.today, blank = True)
-    leavingDate = models.DateField(null=False,default=datetime.date.today, blank = True)
+    arrivalDate = models.DateField(null=True, blank = True)
+    leavingDate = models.DateField(null=True, blank = True)
     
 
     
@@ -104,9 +104,7 @@ class taskdata(models.Model):
     protocol = models.ForeignKey(protocol,on_delete=models.CASCADE)
     task = models.ForeignKey(task,on_delete=models.CASCADE)
     #when protocol is instantiated run loop to create instances of tasks associated with protocol type
-    def __init__(self,protocol,task):
-        self.protocol = protocol
-        self.task = task
+    
 
 # class responsibility(models.Model):
     # task = models.ForeignKey(task,on_delete=models.CASCADE)

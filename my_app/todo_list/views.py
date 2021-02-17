@@ -20,12 +20,12 @@ def home(request):
             form.save()
             messages.success(request,('Item added to list'))
             
-    all_items = protocol.objects.all
+    protocols = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
-    taskdata = taskdata.objects.all
+    all_items = taskdata.objects.all
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'taskdata':taskdata})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'taskdata':protocols})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 
@@ -34,6 +34,11 @@ def protocolAdd(request,type):
         form = ListForm(request.POST or None)
         if form.is_valid():
             form.save()
+            newprotocol = form.instance
+            tasks = task.objects.filter(protocolType = typeObject)
+            for protocoltask in tasks:
+                newTask = taskdata(task=protocoltask,protocol=newprotocol)
+                newTask.save()
             messages.success(request,('Protocol created'))
         else:
             messages.success(request,(form.errors))
