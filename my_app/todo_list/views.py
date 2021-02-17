@@ -193,6 +193,17 @@ def entityForm(request,list_id,modelName):
                 form = taskForm(request.POST or None)
                 message="task added"
             model = task.objects.all
+
+        elif modelName == 'protocol':
+            if list_id and list_id != "noId":
+                item = protocol.objects.get(pk=list_id)        
+                form = ListForm(request.POST or None, instance=item)
+                message="protocol edited"
+            #if is new item
+            else:
+                form = ListForm(request.POST or None)
+                message="protocol added"
+            model = protocol.objects.all
             
         if form.is_valid():
             form.save()    
@@ -215,10 +226,12 @@ def entityForm(request,list_id,modelName):
             if modelName == 'persons':
                 form = personsForm(request.POST or None, instance=item)
             elif modelName == 'Protocol type' or modelName == 'protocoltype':
-                form = protocolTypeForm(request.POST or None, instance=item)
-                
+                form = protocolTypeForm(request.POST or None, instance=item)    
             elif modelName == 'task' or modelName == 'tasks':
-                form = taskForm(request.POST or None, instance=item)   
+                form = taskForm(request.POST or None, instance=item) 
+            elif modelName == 'protocol' :
+                form = ListForm(request.POST or None, instance=item) 
+                   
         #if request received from 'add' button on entity page (passes id as 0)
         else:   
             if modelName == 'persons':
@@ -227,6 +240,8 @@ def entityForm(request,list_id,modelName):
                 form = protocolTypeForm(request.POST or None)
             elif modelName == 'task' or modelName == 'tasks':
                 form = taskForm(request.POST or None)
+            elif modelName == 'protocol':
+                form = ListForm(request.POST or None)
             else:
                 form = taskForm(request.POST or None)
         
@@ -239,6 +254,8 @@ def entities(request,modelName):
         model = protocoltype.objects.all
     elif modelName == 'tasks':
         model = task.objects.all
+    elif modelName == 'protocols':
+        model = protocol.objects.all
     else:
         model = persons.objects.all
     return render(request,'entities.html',{'model' : model,'modelName':modelName})
@@ -251,9 +268,9 @@ def deleteInstance(request, list_id,modelName):
     elif modelName == 'protocoltype':
         item = protocoltype.objects.get(pk=list_id)
         model = protocoltype.objects.all
-    elif modelName == 'task':
-        item = task.objects.get(pk=list_id)
-        model = task.objects.all 
+    elif modelName == 'protocols':
+        item = protocol.objects.get(pk=list_id)
+        model = protocol.objects.all 
     item.delete()
     messages.success(request,(modelName +' deleted'))
     return render(request,'entities.html',{'model' : model,'modelName':modelName})

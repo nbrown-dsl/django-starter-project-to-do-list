@@ -86,6 +86,11 @@ class protocol(List,models.Model):
             return protocolType1.fieldsToInclude()
         except:
             return []
+    def summaryTitle(self):
+        return self.forename
+
+    def className(self):
+        return 'protocol'
 
 class task(models.Model): 
     TaskDescription =  models.CharField(max_length=250,default='') 
