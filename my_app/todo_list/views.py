@@ -25,7 +25,7 @@ def home(request):
     protocoltypeObjects = protocoltype.objects.all
     all_items = taskdata.objects.all
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'taskdata':protocols})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 
@@ -73,20 +73,25 @@ def order(request):
 
 #filter list of protocols
 def filter(request,query):
-    people = persons.objects.all
+    
 
     # filters across models using name of manaytomanyfield then attribute in related model, separated by __
-    filtered_items = protocol.objects.filter(people__name = query)
+    filtered_items = taskdata.objects.filter(protocol__id=query)
+    forename = protocol.objects.get(pk=query).forename
 
     if len(filtered_items) > 0:
-        messages.success(request,('Filtered by '+query))  
+        messages.success(request,('Filtered by '+forename))  
     elif query == "all":
-        filtered_items = List.objects.all()
+        filtered_items = taskdata.objects.all()
         messages.success(request,('All items'))  
     else:
         messages.success(request,('No filtered items')) 
 
-    return render(request,'home.html',{'all_items' : filtered_items,'people' : people})   
+    protocols = protocol.objects.all
+    people = persons.objects.all
+    protocoltypeObjects = protocoltype.objects.all
+    
+    return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
 
 def about(request):
     my_name ="Nick"
@@ -99,13 +104,13 @@ def delete(request, list_id):
     return redirect('home')
 
 def cross_off(request, list_id):
-    item = protocol.objects.get(pk=list_id)
+    item = taskdata.objects.get(pk=list_id)
     item.completed = True
     item.save()
     return redirect('home')
 
 def uncross(request, list_id):
-    item = List.objects.get(pk=list_id)
+    item = taskdata.objects.get(pk=list_id)
     item.completed = False
     item.save()
     return redirect('home')
