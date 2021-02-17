@@ -73,19 +73,19 @@ def order(request):
 
 #filter list of protocols
 def filter(request,query):
-    
-
-    # filters across models using name of manaytomanyfield then attribute in related model, separated by __
-    filtered_items = taskdata.objects.filter(protocol__id=query)
-    forename = protocol.objects.get(pk=query).forename
-
-    if len(filtered_items) > 0:
-        messages.success(request,('Filtered by '+forename))  
-    elif query == "all":
+    if query == "all":
         filtered_items = taskdata.objects.all()
-        messages.success(request,('All items'))  
-    else:
-        messages.success(request,('No filtered items')) 
+        messages.success(request,('All items')) 
+
+    else:# filters across models using name of manaytomanyfield then attribute in related model, separated by __
+        filtered_items = taskdata.objects.filter(protocol__id=query)
+        forename = protocol.objects.get(pk=query).forename
+
+        if len(filtered_items) > 0:
+            messages.success(request,('Filtered by '+forename))  
+     
+        else:
+            messages.success(request,('No filtered items')) 
 
     protocols = protocol.objects.all
     people = persons.objects.all
