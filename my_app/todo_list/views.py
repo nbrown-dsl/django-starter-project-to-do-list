@@ -23,7 +23,7 @@ def home(request):
     protocols = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
-    all_items = taskdata.objects.all
+    all_items = taskdata.objects.order_by('protocol').all()
     
     return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})
 
