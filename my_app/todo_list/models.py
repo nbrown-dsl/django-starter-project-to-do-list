@@ -95,6 +95,7 @@ class protocol(List,models.Model):
 class task(models.Model): 
     TaskDescription =  models.CharField(max_length=250,default='') 
     protocolType = models.ForeignKey(protocoltype,on_delete=models.DO_NOTHING)
+    person = models.ForeignKey(persons,default=1, on_delete=models.DO_NOTHING)
 
     def summaryTitle(self):
         return self.TaskDescription
