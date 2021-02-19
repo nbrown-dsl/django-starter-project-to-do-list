@@ -83,10 +83,7 @@ def filter(request,query,model):
         if model=="protocol":
             filtered_items = taskdata.objects.filter(protocol__id=query)
         
-        if len(filtered_items) > 0:
-            messages.success(request,('Filtered'))  
-     
-        else:
+        if len(filtered_items) == 0:
             messages.success(request,('No filtered items')) 
 
     protocols = protocol.objects.all
