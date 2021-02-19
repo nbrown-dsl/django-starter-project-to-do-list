@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'todo_list',
     'my_app',
     'crispy_forms',
-    'django_extensions'
+    'django_extensions',
+    'django.contrib.sites',  
+    '‘allauth’',   
+    'allauth.account',   
+    'allauth.socialaccount',   
+    'allauth.socialaccount.providers.google'   
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -128,3 +133,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     
 ]
+
+AUTHENTICATION_BACKENDS = (
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
+ )
