@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+  
+  <a class="button" href="{% url 'home' %}">Protocols app</a>
+ 
+  {% else %}
+  <a href="{% provider_login_url 'google' %}">Login with Google</a>
+  {% endif %}
+
+{% endblock %}

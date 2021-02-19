@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponseRedirect
 # module to read string from entity list as class name
 import sys
@@ -73,8 +74,10 @@ def order(request):
 
 #filter list of protocols
 def filter(request,query,model):
-    if query == "all":
-        filtered_items = taskdata.objects.all()
+    filtered_items = taskdata.objects.all()
+
+    if query == "all" or len(query)<1:
+        
         messages.success(request,('All items')) 
 
     else:# filters across models using name of manaytomanyfield then attribute in related model, separated by __
@@ -287,3 +290,7 @@ def removeFields(form,protocol):
     for field in invisible_fields :
         if field in form.fields:
             form.fields.pop(field)
+
+def logout_request(request):
+    logout(request)
+    return render (request,'index.html')
