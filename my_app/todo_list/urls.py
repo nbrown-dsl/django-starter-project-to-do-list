@@ -18,9 +18,10 @@ urlpatterns = [
     path('protocolAdd/<type>',views.protocolAdd,name='protocolAdd'),
     path('entityForm/<list_id>/<modelName>/',views.entityForm,name='entityForm'),
     path('filter/<query>/<model>',views.filter,name='filter'),
-    path('order',views.order,name='order'),
+    # path('order',views.order,name='order'),
     path('entities/<modelName>',views.entities,name='entities'),
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
+    path('email',views.email,name='email'),
 
     
 ]

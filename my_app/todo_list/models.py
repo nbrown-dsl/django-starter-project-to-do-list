@@ -34,11 +34,24 @@ class List(models.Model):
     forename =  models.CharField(max_length=50,default=None,null=True)
     surname = models.CharField(max_length=50,default=None,null=True)
     YEAR_LEVELS = (
-    ('1', 'yr 1'),
-    ('2', 'yr 2'),
-    ('3', 'yr 3')
+    ('K1', 'K1'),
+    ('K2', 'K2'),
+    ('R', 'R'),
+    ('P1', 'P1'),
+    ('P2', 'P2'),
+    ('P3', 'P3'),
+    ('P4', 'P4'),
+    ('P5', 'P5'),
+    ('P6', 'P6'),
+    ('M1', 'M1'),
+    ('M2', 'M2'),
+    ('M3', 'M3'),
+    ('M4', 'M4'),
+    ('M5', 'M5'),
+    ('D1', 'D1'),
+    ('D2', 'D2')
     )
-    yearLevel = models.CharField(max_length=1, choices=YEAR_LEVELS,default=None,null=False)
+    yearLevel = models.CharField(max_length=2, choices=YEAR_LEVELS,default=None,null=False)
     completed = models.BooleanField(default=False,null=True)
     arrivalDate = models.DateField(null=True, blank = True)
     leavingDate = models.DateField(null=True, blank = True)
@@ -87,6 +100,9 @@ class protocol(List,models.Model):
         except:
             return []
     def summaryTitle(self):
+        return self.forename
+
+    def __str__(self):
         return self.forename
 
     def className(self):

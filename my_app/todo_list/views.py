@@ -6,6 +6,8 @@ from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponseRedirect
 # module to read string from entity list as class name
 import sys
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -15,18 +17,27 @@ def str_to_class(classname):
 # Create your views here.
 def home(request):
 
+    all_items = taskdata.objects.order_by('protocol').all()
+    filterFormNew = filterForm()
+
     if request.method == 'POST':
-        form = ListForm(request.POST or None)
+        
+        form = filterForm(request.POST or None)
         if form.is_valid():
-            form.save()
-            messages.success(request,('Item added to list'))
+            protocolName = form.cleaned_data['protocols']
+            personName = form.cleaned_data['person']
+            protocolTypeName = form.cleaned_data['protocolType']
+            all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
+            filterFormNew = form
+            
+            messages.success(request,('Filtered'))
             
     protocols = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
-    all_items = taskdata.objects.order_by('protocol').all()
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})
+    
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': filterFormNew})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 
@@ -65,12 +76,12 @@ def protocolAdd(request,type):
         return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
 
 # orders items alphabetically
-def order(request):    
-    # order items (minus sign for descending order) use eg [:5] at end of line to limit items returned
-    people = persons.objects.all
-    all_items = List.objects.order_by('item')
+# def order(request):    
+#     # order items (minus sign for descending order) use eg [:5] at end of line to limit items returned
+#     people = persons.objects.all
+#     all_items = List.objects.order_by('item')
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people})
+#     return render(request,'home.html',{'all_items' : all_items,'people' : people})
 
 #filter list of protocols
 def filter(request,query,model):
@@ -102,7 +113,7 @@ def about(request):
 def delete(request, list_id):
     item = protocol.objects.get(pk=list_id)
     item.delete()
-    messages.success(request,('Item deleted'))
+    messages.success(request,('item deleted'))
     return redirect('home')
 
 def cross_off(request, list_id):
@@ -270,7 +281,7 @@ def deleteInstance(request, list_id,modelName):
     elif modelName == 'protocoltype':
         item = protocoltype.objects.get(pk=list_id)
         model = protocoltype.objects.all
-    elif modelName == 'protocols':
+    elif modelName == 'protocol':
         item = protocol.objects.get(pk=list_id)
         model = protocol.objects.all 
     item.delete()
@@ -294,3 +305,11 @@ def removeFields(form,protocol):
 def logout_request(request):
     logout(request)
     return render (request,'index.html')
+
+def email(request):
+    subject = 'Thank you for registering to our site'
+    message = ' it  means a world to us '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['nick@browndesign.co.uk',]
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('home')

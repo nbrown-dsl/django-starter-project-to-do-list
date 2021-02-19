@@ -1,4 +1,5 @@
-from django.forms import ModelForm,DateInput,Textarea
+from django.forms import ModelForm,DateInput,Textarea,forms
+from django import forms
 from django.forms.widgets import CheckboxInput, CheckboxSelectMultiple
 from .models import *
 
@@ -11,6 +12,7 @@ class ListForm(ModelForm):
         model = protocol
 
         fields = "__all__"
+        # exclude = ["type"]
         widgets = { 'arrivalDate': DateInput,
                     'leavingDate': DateInput}
         
@@ -33,6 +35,17 @@ class taskForm(ModelForm):
     class Meta:
         model = task
         fields = ["TaskDescription","protocolType","person"] 
+
+class filterForm(ModelForm):
+    protocols = forms.ModelChoiceField(queryset= protocol.objects.all(), initial=0)
+
+    class Meta:
+        model = task
+        fields = ["protocolType","person","protocols"]
+
+    
+        
+
 
 
         
