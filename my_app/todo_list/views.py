@@ -10,27 +10,38 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
 
 # Create your views here.
 def home(request):
 
-    all_items = taskdata.objects.order_by('protocol').all()
-    filterFormNew = filterForm()
-
     if request.method == 'POST':
         
         form = filterForm(request.POST or None)
         if form.is_valid():
+            global protocolName
             protocolName = form.cleaned_data['protocols']
+            global personName
             personName = form.cleaned_data['person']
+            global protocolTypeName
             protocolTypeName = form.cleaned_data['protocolType']
             all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
+            global filterFormNew
             filterFormNew = form
             
             messages.success(request,('Filtered'))
+
+    else:
+        try:
+            all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
+            protocols = protocol.objects.all
+            people = persons.objects.all
+            protocoltypeObjects = protocoltype.objects.all
+
+        except:
+            all_items = taskdata.objects.order_by('protocol').all()
+            filterFormNew = filterForm()
             
     protocols = protocol.objects.all
     people = persons.objects.all
@@ -120,7 +131,9 @@ def cross_off(request, list_id):
     item = taskdata.objects.get(pk=list_id)
     item.completed = True
     item.save()
+      
     return redirect('home')
+
 
 def uncross(request, list_id):
     item = taskdata.objects.get(pk=list_id)
