@@ -22,6 +22,7 @@ urlpatterns = [
     path('entities/<modelName>',views.entities,name='entities'),
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
     path('email',views.email,name='email'),
+    path('clear',views.clear,name='clear'),
 
     
 ]

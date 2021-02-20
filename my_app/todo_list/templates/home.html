@@ -14,21 +14,20 @@
       <div class="dropdown">
         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Start New protocol
-        </button>&nbsp;
+        </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         {% for type in protocoltype %}  
           <a class="dropdown-item" href="{% url 'protocolAdd' type.id  %}">{{ type }}</a>
         {% endfor %}  
       
         </div>
-      </div>
-
+      </div>&nbsp;
+      <a class="btn btn-primary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Entities
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="{% url 'entities' 'protocols' %}">Protocols</a>
           <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
           <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
           <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
@@ -79,8 +78,8 @@
   <form action="" method="POST">
     {% csrf_token %}
     {{filterForm|crispy}}<br>
-    <button class="btn btn-primary" type="submit">Filter</button>
-  </form>  
+    <button class="btn btn-primary" type="submit">Filter</button>&nbsp;
+  </form><a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a>
  <br>
     {% if all_items %}
     <table class="table table-dark">

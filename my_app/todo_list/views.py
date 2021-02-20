@@ -15,7 +15,7 @@ def str_to_class(classname):
 
 # Create your views here.
 def home(request):
-
+    #if from filter form
     if request.method == 'POST':
         
         form = filterForm(request.POST or None)
@@ -31,7 +31,7 @@ def home(request):
             filterFormNew = form
             
             messages.success(request,('Filtered'))
-
+    #redirect from uncross/cross (only works if global variables instantiated by filter form)
     else:
         try:
             all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
@@ -116,6 +116,10 @@ def filter(request,query,model):
     protocoltypeObjects = protocoltype.objects.all
     
     return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
+
+def clear(request):
+    
+    return redirect ('home')
 
 def about(request):
     my_name ="Nick"
