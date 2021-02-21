@@ -9,6 +9,10 @@ import sys
 from django.core.mail import send_mail
 from django.conf import settings
 
+protocolName = "All protocols"
+personName = "All people"
+protocolTypeName = "All types"
+
 
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
@@ -36,12 +40,21 @@ def home(request):
                 all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName)
             
             messages.success(request,('Filtered'))
-    #redirect from uncross/cross (only works if global variables instantiated by filter form)
+    #redirect from uncross/cross or initial rendering or clear
     else:
-        try:
-            all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
-    #initial rendering
-        except: 
+        #flag for clearing form or not 
+        clearForm = True
+        if str(protocolName) != "All protocols":
+                all_items = all_items.filter(protocol__forename__contains=protocolName)
+                clearForm = False
+        if str(personName) != "All people":
+                all_items = all_items.filter(task__person__name__contains=personName)
+                clearForm = False
+        if str(protocolTypeName) != "All types":
+                all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName) 
+                clearForm = False
+        #sets form to no filters
+        if clearForm:
             form = filterForm({'person':4,'protocols':21, 'protocolType':6})
             
     protocols = protocol.objects.all
@@ -119,7 +132,12 @@ def filter(request,query,model):
     return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
 
 def clear(request):
-    
+    global protocolName
+    protocolName = "All protocols"
+    global personName
+    personName = "All people"
+    global protocolTypeName
+    protocolTypeName = "All types"
     return redirect ('home')
 
 def about(request):
