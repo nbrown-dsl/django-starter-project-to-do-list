@@ -16,39 +16,40 @@ def str_to_class(classname):
 # Create your views here.
 def home(request):
     #if from filter form
+    all_items = taskdata.objects.order_by('protocol').all()
+    #form filter form request, cumalatively builds up filter queryset
     if request.method == 'POST':
-        
+        global form
         form = filterForm(request.POST or None)
         if form.is_valid():
             global protocolName
             protocolName = form.cleaned_data['protocols']
+            if str(protocolName) != "All protocols":
+                all_items = all_items.filter(protocol__forename__contains=protocolName)
             global personName
             personName = form.cleaned_data['person']
+            if str(personName) != "All people":
+                all_items = all_items.filter(task__person__name__contains=personName)
             global protocolTypeName
             protocolTypeName = form.cleaned_data['protocolType']
-            all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
-            global filterFormNew
-            filterFormNew = form
+            if str(protocolTypeName) != "All types":
+                all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName)
             
             messages.success(request,('Filtered'))
     #redirect from uncross/cross (only works if global variables instantiated by filter form)
     else:
         try:
             all_items = taskdata.objects.filter(task__person__name__contains=personName).filter(protocol__forename__contains=protocolName).filter(protocol__type__protocolTypeName__contains=protocolTypeName)
-            protocols = protocol.objects.all
-            people = persons.objects.all
-            protocoltypeObjects = protocoltype.objects.all
-
-        except:
-            all_items = taskdata.objects.order_by('protocol').all()
-            filterFormNew = filterForm()
+    #initial rendering
+        except: 
+            form = filterForm({'person':4,'protocols':21, 'protocolType':6})
             
     protocols = protocol.objects.all
     people = persons.objects.all
     protocoltypeObjects = protocoltype.objects.all
     
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': filterFormNew})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 

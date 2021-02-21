@@ -32,17 +32,23 @@ class protocolTypeForm(ModelForm):
         widgets = { 'protocolFields': CheckboxSelectMultiple}
 
 class taskForm(ModelForm):
+    
     class Meta:
         model = task
         fields = ["TaskDescription","protocolType","person"] 
+        labels = { 'person': 'Responsibility'}
 
 class filterForm(ModelForm):
-    protocols = forms.ModelChoiceField(queryset= protocol.objects.all(), initial=0)
+    
+    protocols = forms.ModelChoiceField(queryset= protocol.objects.all(), initial="No filter")
+    
 
     class Meta:
+        
         model = task
-        fields = ["protocolType","person","protocols"]
+        fields = ["person","protocols","protocolType"]
 
+    
     
         
 

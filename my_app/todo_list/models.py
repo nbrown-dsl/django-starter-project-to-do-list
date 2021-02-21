@@ -69,7 +69,7 @@ class ListFields(models.Model):
 
 #protocol type set by fields selected and tasks allocated
 class protocoltype(models.Model):
-    protocolTypeName =  models.CharField(max_length=100,)
+    protocolTypeName =  models.CharField(max_length=100)
     description =  models.CharField(max_length=250,default='')
     protocolFields =  models.ManyToManyField(ListFields)
 
