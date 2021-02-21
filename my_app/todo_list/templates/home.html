@@ -74,12 +74,12 @@
     </button> -->
 
   </div>
-
+  <div class="btn-group" role="group" aria-label="Basic example">
   <form action="" method="POST">
     {% csrf_token %}
     {{filterForm|crispy}}<br>
     <button class="btn btn-primary" type="submit">Filter</button>&nbsp;
-  </form><a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a>
+  </form><a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a></div>
  <br>
     {% if all_items %}
     <table class="table table-dark">
