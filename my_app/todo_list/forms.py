@@ -47,6 +47,9 @@ class filterForm(ModelForm):
         
         model = task
         fields = ["person","protocols","protocolType"]
+        labels = { 'person': 'Responsibility',
+                    'protocols': 'Protocol',
+                    'protocolType': 'Type of protocol'}
 
     
     

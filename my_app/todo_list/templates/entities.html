@@ -6,14 +6,13 @@
 
 {% block content %}
 
-<div class="container-fluid">
 
  
  <a href="{% url 'entityForm' 'noId' modelName %}"><button class="btn btn-secondary" type="submit">Add {{modelName}}</button></a>
  <br>
 
 
- <br><br>
+ <br>
     {% if model %}
     <table class="table table-dark">
         <tr class="table-primary">
@@ -46,7 +45,7 @@
     {% endif %}
     
 
-</div>
+
 
 
 

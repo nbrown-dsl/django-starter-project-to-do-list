@@ -22,9 +22,9 @@ def home(request):
     #if from filter form
     all_items = taskdata.objects.order_by('protocol').all()
     #for populating dropdown menus
-    protocols = protocol.objects.all
-    people = persons.objects.all
-    protocoltypeObjects = protocoltype.objects.all
+    protocols = protocol.objects.all()
+    people = persons.objects.all()
+    protocoltypeObjects = protocoltype.objects.all()
 
     #form filter form request, cumalatively builds up filter queryset
     if request.method == 'POST':
@@ -60,7 +60,9 @@ def home(request):
                 clearForm = False
         #sets form to no filters
         if clearForm:
-            form = filterForm({'person':4,'protocols':21, 'protocolType':6})  
+            form = filterForm({'person':4,'protocols':24, 'protocolType':6})  
+    
+    all_items = all_items.order_by('protocol')
     
     return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form})
 

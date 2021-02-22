@@ -6,6 +6,7 @@
 {%load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="d-flex flex-column ">
 
 <div class="d-flex flex-row bd-highlight mb-3">
@@ -40,20 +41,20 @@
 <div class="d-flex flex-row bd-highlight">
  
 <!--form to filter task data-->
-  <div class="btn-group bd-highlight flex-column align-items-start" role="group" aria-label="Basic example">
+  <div class="bd-highlight flex-column justify-content-baseline" >
     <form action="" method="POST">
       {% csrf_token %}
-      {{filterForm|crispy}}<br>
-      <button class="btn btn-primary" type="submit">Filter</button>
+      {{filterForm|crispy}}
+      <button class="btn btn-info" type="submit">Filter</button>
     </form><br>
-    <a role="button" class="btn btn-info bd-highlight align-self-start" href="{% url 'clear' %}">Clear</a>
+    <a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a>
   </div>
   <div class="bd-highlight">
  <!--list of task data-->
     {% if all_items %}
     <table class="table table-dark">
-        <tr class="table-success">
-            <th></th>
+        <tr>
+            <th>Complete</th>
             <th>Name</th>
             <th>Description</th>
               <th>Responsibility</th>
@@ -64,8 +65,8 @@
           <!--iterates through all_items object-->
         {% for things in all_items %}
             {% if things.completed %}
-                <tr class="table-secondary">
-                    <td><center><div class="form-check"><a href="{% url 'uncross' things.id %}"><input type="checkbox" class="form-check-input" checked /></a></div></center></td>
+                <tr>
+                    <td class="striker"><center><a href="{% url 'uncross' things.id %}"><input type="checkbox" checked /></a></center></td>
                     <td class="striker">{{ things.protocol.forename }}</td>
                     <td class="striker">{{ things.task.TaskDescription }}</td>
                     <td class="striker">{{ things.task.person.name }}</td>
@@ -74,7 +75,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td><center><div class="form-check"><a href="{% url 'cross_off' things.id %}"><input type="checkbox" class="form-check-input" unchecked></a></div></center></td>
+                    <td><center><a href="{% url 'cross_off' things.id %}"><input type="checkbox" unchecked ></a></center></td>
                     <td>{{ things.protocol.forename }}</td>
                     <td>{{ things.task.TaskDescription }} </td>
                     <td >{{ things.task.person.name }}</td>
@@ -91,6 +92,7 @@
 
 </div>
 </div>
+
 
 
 
