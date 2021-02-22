@@ -6,10 +6,10 @@
 {%load crispy_forms_tags %}
 
 {% block content %}
+<div class="d-flex flex-column ">
 
-<div class="container-fluid">
-    
- 
+<div class="d-flex flex-row bd-highlight mb-3">
+     
   <div class="btn-group" role="group" aria-label="Basic example">
       <div class="dropdown">
         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,51 +36,20 @@
         </div>
       </div>
     </div>
- <br><br>
-
- <!-- iterates through people (passed to template from home view) and filters list on selection -->
- <!-- <div class="btn-group" role="group" aria-label="Basic example">
-      Filters:&nbsp; 
-      <div class="dropdown">
-      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        People
-      </button>&nbsp;
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="{% url 'filter' 'all' 'noModel' %}">All people</a>
-        <div class="dropdown-divider"></div>
-        {% for person in people %}
-        <a class="dropdown-item" href="{% url 'filter' person.id 'person' %}">{{ person.name }}</a>
-        {% endfor %} 
-        
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Protocols
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="{% url 'filter' 'all' 'noModel' %}">All protocols</a>
-        <div class="dropdown-divider"></div>
-        {% for protocol in protocols %}
-        <a class="dropdown-item" href="{% url 'filter' protocol.id 'protocol' %}">{{ protocol.forename }} {{ protocol.surname }}</a>
-        {% endfor %} 
-        
-      </div>
-    </div> -->
-<!-- doesn't work with 2fa gmail account -->
-    <!-- <button class="button" type="button" >
-      <a href="{% url 'email' %}">Email</a>
-    </button> -->
-
   </div>
-  <div class="btn-group" role="group" aria-label="Basic example">
-  <form action="" method="POST">
-    {% csrf_token %}
-    {{filterForm|crispy}}<br>
-    <button class="btn btn-primary" type="submit">Filter</button>&nbsp;
-  </form><a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a></div>
- <br>
+<div class="d-flex flex-row bd-highlight">
+ 
+<!--form to filter task data-->
+  <div class="btn-group bd-highlight flex-column align-items-start" role="group" aria-label="Basic example">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{filterForm|crispy}}<br>
+      <button class="btn btn-primary" type="submit">Filter</button>
+    </form><br>
+    <a role="button" class="btn btn-info bd-highlight align-self-start" href="{% url 'clear' %}">Clear</a>
+  </div>
+  <div class="bd-highlight">
+ <!--list of task data-->
     {% if all_items %}
     <table class="table table-dark">
         <tr class="table-success">
@@ -102,13 +71,6 @@
                     <td class="striker">{{ things.task.person.name }}</td>
                     <td class="striker">{{ things.protocol.type }} </td>
                     
-                    <!-- <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
-                      </svg></a></center></td>
-                    <td><center><a href="{% url 'edit' things.id %}"><svg class="bi bi-pencil" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                      </svg></a></center></td> -->
                 </tr>
             {% else %}
                 <tr>
@@ -117,13 +79,6 @@
                     <td>{{ things.task.TaskDescription }} </td>
                     <td >{{ things.task.person.name }}</td>
                     <td>{{ things.protocol.type }} </td>
-                    <!-- <td><center><a href="{% url 'delete' things.id %}"><svg class="bi bi-x-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="#cf2027" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
-                      </svg></a></center></td>
-                    <td><center><a href="{% url 'edit' things.id %}"><svg class="bi bi-pencil" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
-                      </svg></a></center></td> -->
                 </tr>
             {% endif %}
 
@@ -132,8 +87,9 @@
     
 
     {% endif %}
-    
+  </div>   
 
+</div>
 </div>
 
 
