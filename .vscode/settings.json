@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": ".venv\\Scripts\\python.exe",
+    "python.pythonPath": "C:\\Users\\Admin\\python.exe",
     "python.terminal.activateEnvironment": false,
     
     "git.ignoreLimitWarning": true,
