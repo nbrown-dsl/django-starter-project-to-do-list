@@ -1,1 +1,1 @@
-web: gunicorn django-starter-project-to-do-list.wsgi
+web: gunicorn todo_list.wsgi
