@@ -1,1 +1,1 @@
-web: gunicorn my_app.wsgi
+web: gunicorn django-starter-project-to-do-list.wsgi
