@@ -1,1 +1,1 @@
-web: gunicorn --chdir my_app todo_list.wsgi:application
+web: gunicorn --chdir my_app todo_list.wsgi
