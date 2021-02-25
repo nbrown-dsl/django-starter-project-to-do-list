@@ -1,1 +1,1 @@
-web: gunicorn --chdir my_app my_app.wsgi
+web: gunicorn my_app.wsgi
