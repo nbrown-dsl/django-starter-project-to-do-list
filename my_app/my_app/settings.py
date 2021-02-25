@@ -51,6 +51,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google'   
 ]
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'nbrown@dwightlondon.org'
+# EMAIL_HOST_PASSWORD = '1234'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -163,5 +169,5 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# # Activate Django-Heroku.
+# Activate Django-Heroku.
 django_heroku.settings(locals())
