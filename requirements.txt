@@ -9,11 +9,13 @@ decorator==4.4.2
 defusedxml==0.6.0
 distlib==0.3.1
 dj-database-url==0.5.0
+dj-static==0.0.6
 Django==3.1.4
 django-allauth==0.44.0
 django-crispy-forms==1.10.0
 django-extensions==3.1.0
 django-heroku==0.3.1
+django-toolbelt==0.0.1
 dnspython==2.1.0
 dominate==2.6.0
 email-validator==1.1.2
@@ -44,6 +46,7 @@ six==1.15.0
 SQLAlchemy==1.3.23
 SQLAlchemy-Utils==0.36.8
 sqlparse==0.4.1
+static3==0.7.0
 urllib3==1.26.2
 validators==0.18.2
 virtualenv==20.4.2
