@@ -56,14 +56,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',   
+    'allauth.account',   
+    'allauth.socialaccount',   
+    'allauth.socialaccount.providers.google'
     'todo_list',
     'my_app',
     'crispy_forms',
     'django_extensions',
-    'allauth',   
-    'allauth.account',   
-    'allauth.socialaccount',   
-    'allauth.socialaccount.providers.google'   
+       
 ]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
