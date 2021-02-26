@@ -14,6 +14,27 @@ import os
 from decouple import config
 import dj_database_url
 
+#stackoverflow code
+# https://stackoverflow.com/questions/66370495/heroku-build-of-django-app-successful-but-open-app-throws-error
+
+if 'DYNO' in os.environ:    # Running on Heroku
+    DEBUG = False
+
+if DEBUG:   # Running on the development environment
+    DATABASES = {
+        'default': {
+            ........
+        }
+    }
+else:   # Running on Heroku
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES = {'default':dj_database_url.config()}
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+#stock overflow end 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
