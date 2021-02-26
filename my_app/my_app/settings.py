@@ -28,27 +28,27 @@ SECRET_KEY = config("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #stackoverflow code
 # https://stackoverflow.com/questions/66370495/heroku-build-of-django-app-successful-but-open-app-throws-error
 
-if 'DYNO' in os.environ:    # Running on Heroku
-    DEBUG = False
+# if 'DYNO' in os.environ:    # Running on Heroku
+#     DEBUG = False
 
-if DEBUG:   # Running on the development environment
-    DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-    }
-else:   # Running on Heroku
-    # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    DATABASES = {'default':dj_database_url.config()}
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# if DEBUG:   # Running on the development environment
+#     DATABASES = {
+#         'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+#     }
+# else:   # Running on Heroku
+#     # Parse database configuration from $DATABASE_URL
+#     import dj_database_url
+#     DATABASES = {'default':dj_database_url.config()}
+#     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 #stack overflow end 
 
@@ -57,12 +57,12 @@ else:   # Running on Heroku
 
 #commented out database setting because of added code above
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 

@@ -19,7 +19,7 @@ application = get_wsgi_application()
 
 
 #from stack overflow
-from my_app.settings import DEBUG
-if not DEBUG:    # Running on Heroku
-    from dj_static import Cling
-    application = Cling(get_wsgi_application())
+# from my_app.settings import DEBUG
+# if not DEBUG:    # Running on Heroku
+#     from dj_static import Cling
+#     application = Cling(get_wsgi_application())
