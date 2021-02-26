@@ -5,10 +5,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')), # <--
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('logout', views.logout_request, name='logout'),
-    path('accounts/', include('allauth.urls')),
     path('home',views.home,name='home'),
     path('about',views.about,name='about'),
     path('delete/<list_id>',views.delete,name='delete'),
