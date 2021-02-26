@@ -72,6 +72,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +83,6 @@ INSTALLED_APPS = [
     'my_app',
     'crispy_forms',
     'django_extensions',
-    'django.contrib.sites',  
     'allauth',   
     'allauth.account',   
     'allauth.socialaccount',   
@@ -184,7 +184,7 @@ AUTHENTICATION_BACKENDS = (
  'allauth.account.auth_backends.AuthenticationBackend',
  )
 
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
