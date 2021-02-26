@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #stackoverflow code
 # https://stackoverflow.com/questions/66370495/heroku-build-of-django-app-successful-but-open-app-throws-error
@@ -50,7 +50,7 @@ else:   # Running on Heroku
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-#stock overflow end 
+#stack overflow end 
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
