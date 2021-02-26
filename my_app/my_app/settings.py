@@ -58,10 +58,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'allauth',   
     'allauth.account',   
-    'allauth.socialaccount',   
+    'allauth.socialaccount',
+    'todo_list', 
+    'my_app',  
     'allauth.socialaccount.providers.google'
-    'todo_list',
-    'my_app',
     'crispy_forms',
     'django_extensions',
        
