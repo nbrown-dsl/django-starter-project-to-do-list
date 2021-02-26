@@ -39,8 +39,9 @@ if 'DYNO' in os.environ:    # Running on Heroku
 if DEBUG:   # Running on the development environment
     DATABASES = {
         'default': {
-            ........
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
     }
 else:   # Running on Heroku
     # Parse database configuration from $DATABASE_URL
@@ -50,6 +51,18 @@ else:   # Running on Heroku
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 #stock overflow end 
+
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+#commented out database setting because of added code above
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 
@@ -117,15 +130,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_app.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
