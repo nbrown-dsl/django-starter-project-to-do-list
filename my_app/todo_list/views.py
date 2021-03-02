@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
-from django.contrib.auth import login,logout,authenticate
+# from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponseRedirect
 # module to read string from entity list as class name
 import sys
