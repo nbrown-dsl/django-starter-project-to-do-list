@@ -67,7 +67,7 @@
         {% for things in all_items %}
             {% if things.completed %}
                 <tr>
-                    <td class="striker"><center><a href="{% url 'uncross' things.id %}"><input type="checkbox" checked /></a></center></td>
+                    <td class="striker"><center><input type="checkbox" checked onclick="location.href='{% url 'uncross' things.id %}'"></center></td>
                     <td class="striker">{{ things.protocol.forename }}</td>
                     <td class="striker">{{ things.task.TaskDescription }}</td>
                     <td class="striker">{{ things.task.person.name }}</td>
@@ -76,7 +76,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td><center><a href="{% url 'crossoff' things.id %}"><input type="checkbox" unchecked ></a></center></td>
+                    <td><center><input type="checkbox" unchecked onclick="location.href='{% url 'crossoff' things.id %}'"></center></td>
                     <td>{{ things.protocol.forename }}</td>
                     <td>{{ things.task.TaskDescription }} </td>
                     <td >{{ things.task.person.name }}</td>
