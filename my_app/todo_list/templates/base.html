@@ -21,9 +21,10 @@
     <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
     <title>{% block title %}{% endblock %}</title>
   </head>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        Dwight Protocols
+      <img src="{% static 'Dwight_School_Logo.png' %}" class="rounded mr-2" width = 35px alt="Dwight School">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -65,7 +66,7 @@
       <div class="toast" style="position: absolute; top: 0; left: 0; z-index: 1500;">
     
       <div class="toast-header">
-        <img src="..." class="rounded mr-2" alt="...">
+        <img src="{% static 'Dwight_School_Logo.png' %}" class="rounded mr-2" width = 25px>
         <small>Protocol app</small>
       </div>
       <div class="toast-body">
@@ -77,30 +78,6 @@
   {% endif %}
         
       </div>
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyCqchuIMkJiS6WV25RFC56bFdUJ4wOUhRM",
-    authDomain: "protocols-305310.firebaseapp.com",
-    projectId: "protocols-305310",
-    storageBucket: "protocols-305310.appspot.com",
-    messagingSenderId: "103127421031",
-    appId: "1:103127421031:web:4254c0725a128e39eec4c2",
-    measurementId: "G-936P19P1R8"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
   
   </body>
 </html>
