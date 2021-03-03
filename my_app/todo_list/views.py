@@ -62,10 +62,22 @@ def home(request):
                 clearForm = False
         #sets form to no filters
         if clearForm:
-            allpeopleFilter = persons.objects.get(name="All people")
-            allprotocolTypeFilter = protocoltype.objects.get(protocolTypeName="All types")
-            allprotocolFilter = protocol.objects.get(forename="All protocols")
-            form = filterForm({'person':allpeopleFilter.id,'protocols':allprotocolFilter.id, 'protocolType':allprotocolTypeFilter.id})  
+            try:
+                allpeople = persons.objects.get(name="All people")
+                allpeopleFilter = allpeople.id
+            except persons.DoesNotExist:
+                allpeopleFilter = 1
+            try:
+                allprotocolType = protocoltype.objects.get(protocolTypeName="All types")
+                allprotocolTypeFilter = allprotocolType.id
+            except protocoltype.DoesNotExist:
+                allprotocolTypeFilter = 1
+            try:
+                allprotocol = protocol.objects.get(forename="All protocols")
+                allprotocolFilter = allprotocol.id
+            except protocol.DoesNotExist:
+                allprotocolFilter = 1
+            form = filterForm({'person':allpeopleFilter,'protocols':allprotocolFilter, 'protocolType':allprotocolTypeFilter})  
     
     all_items = all_items.order_by('protocol')
     
