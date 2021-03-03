@@ -76,7 +76,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td><center><a href="{% url 'cross_off' things.id %}"><input type="checkbox" unchecked ></a></center></td>
+                    <td><center><a href="{% url 'crossoff' things.id %}"><input type="checkbox" unchecked ></a></center></td>
                     <td>{{ things.protocol.forename }}</td>
                     <td>{{ things.task.TaskDescription }} </td>
                     <td >{{ things.task.person.name }}</td>

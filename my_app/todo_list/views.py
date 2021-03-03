@@ -169,7 +169,7 @@ def delete(request, list_id):
     messages.success(request,('item deleted'))
     return redirect('home')
 
-def cross_off(request, list_id):
+def crossoff(request, list_id):
     item = taskdata.objects.get(pk=list_id)
     item.completed = True
     item.save()
