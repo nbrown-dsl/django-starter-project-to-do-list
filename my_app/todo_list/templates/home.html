@@ -24,19 +24,19 @@
         </div>
       </div>&nbsp;
       <a class="btn btn-primary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
+      <a class="btn btn-primary" role="button" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{ emails }}&su=Dwight%20Protocols&body=Click%20below%0Dhttps://dwight-london-protocols.herokuapp.com/" target="_blank">Send email</a>&nbsp;
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Entities
-        </button>
+        </button>&nbsp;
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
           <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
           <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
           <a class="dropdown-item" href="{% url 'entities' 'ListFields' %}">Fields</a>
-        
-      
-        </div>
+        </div>       
       </div>
+ 
     </div>
   </div>
 <div class="d-flex flex-row bd-highlight">

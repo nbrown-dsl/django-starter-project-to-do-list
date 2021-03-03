@@ -80,8 +80,14 @@ def home(request):
             form = filterForm({'person':allpeopleFilter,'protocols':allprotocolFilter, 'protocolType':allprotocolTypeFilter})  
     
     all_items = all_items.order_by('protocol')
+
+    #compile comma separated string of emails of those people who have tasks incomplete on selected items
+    incompleteTasks = all_items.filter(completed=False)
+    emails = ""
+    for taskdataRecord in incompleteTasks:
+        emails=emails+taskdataRecord.task.person.email+","
     
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form,'emails': emails})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 
@@ -128,27 +134,27 @@ def protocolAdd(request,type):
 #     return render(request,'home.html',{'all_items' : all_items,'people' : people})
 
 #filter list of protocols
-def filter(request,query,model):
-    filtered_items = taskdata.objects.order_by('protocol').all()
+# def filter(request,query,model):
+#     filtered_items = taskdata.objects.order_by('protocol').all()
 
-    if query == "all" or len(query)<1:
+#     if query == "all" or len(query)<1:
         
-        messages.success(request,('All items')) 
+#         messages.success(request,('All items')) 
 
-    else:# filters across models using name of manaytomanyfield then attribute in related model, separated by __
-        if model=="person":
-            filtered_items = taskdata.objects.filter(task__person__id=query)
-        if model=="protocol":
-            filtered_items = taskdata.objects.filter(protocol__id=query)
+#     else:# filters across models using name of manaytomanyfield then attribute in related model, separated by __
+#         if model=="person":
+#             filtered_items = taskdata.objects.filter(task__person__id=query)
+#         if model=="protocol":
+#             filtered_items = taskdata.objects.filter(protocol__id=query)
         
-        if len(filtered_items) == 0:
-            messages.success(request,('No filtered items')) 
+#         if len(filtered_items) == 0:
+#             messages.success(request,('No filtered items')) 
 
-    protocols = protocol.objects.all
-    people = persons.objects.all
-    protocoltypeObjects = protocoltype.objects.all
+#     protocols = protocol.objects.all
+#     people = persons.objects.all
+#     protocoltypeObjects = protocoltype.objects.all
     
-    return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
+#     return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
 
 def clear(request):
     global protocolName
