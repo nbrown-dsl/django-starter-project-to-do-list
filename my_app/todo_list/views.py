@@ -129,7 +129,7 @@ def protocolAdd(request,type):
 
 #filter list of protocols
 def filter(request,query,model):
-    filtered_items = taskdata.objects.all()
+    filtered_items = taskdata.objects.order_by('protocol').all()
 
     if query == "all" or len(query)<1:
         
