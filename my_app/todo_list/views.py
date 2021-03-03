@@ -262,7 +262,7 @@ def entityForm(request,list_id,modelName):
                 message="task added"
             model = task.objects.all
 
-        elif modelName == 'protocol':
+        elif modelName == 'protocol' or modelName == 'protocols':
             if list_id and list_id != "noId":
                 item = protocol.objects.get(pk=list_id)        
                 form = ListForm(request.POST or None, instance=item)
