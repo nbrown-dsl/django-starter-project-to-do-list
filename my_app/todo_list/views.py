@@ -173,7 +173,7 @@ def crossoff(request, list_id):
     item = taskdata.objects.get(pk=list_id)
     item.completed = True
     item.save()
-      
+    messages.success(request,('Task complete'))   
     return redirect('home')
 
 
@@ -181,6 +181,7 @@ def uncross(request, list_id):
     item = taskdata.objects.get(pk=list_id)
     item.completed = False
     item.save()
+    messages.success(request,('Task uncomplete')) 
     return redirect('home')
 
 #view for editing or adding items
