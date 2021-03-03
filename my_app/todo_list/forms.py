@@ -52,7 +52,12 @@ class filterForm(ModelForm):
                     'protocolType': 'Type of protocol'}
 
     
+class fieldForm(ModelForm):
     
+    class Meta:
+        model = ListFields
+        fields = ["field"] 
+        labels = { 'field': 'Field (must property from List model'}    
         
 
 

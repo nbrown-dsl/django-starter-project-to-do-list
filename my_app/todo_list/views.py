@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
-# from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponseRedirect
 # module to read string from entity list as class name
 import sys
@@ -62,7 +62,10 @@ def home(request):
                 clearForm = False
         #sets form to no filters
         if clearForm:
-            form = filterForm({'person':4,'protocols':24, 'protocolType':6})  
+            allpeopleFilter = persons.objects.get(name="All people")
+            allprotocolTypeFilter = protocoltype.objects.get(protocolTypeName="All types")
+            allprotocolFilter = protocol.objects.get(forename="All protocols")
+            form = filterForm({'person':allpeopleFilter.id,'protocols':allprotocolFilter.id, 'protocolType':allprotocolTypeFilter.id})  
     
     all_items = all_items.order_by('protocol')
     
@@ -257,6 +260,17 @@ def entityForm(request,list_id,modelName):
                 form = ListForm(request.POST or None)
                 message="protocol added"
             model = protocol.objects.all
+        
+        elif modelName == 'ListFields':
+            if list_id and list_id != "noId":
+                item = ListFields.objects.get(pk=list_id)        
+                form = fieldForm(request.POST or None, instance=item)
+                message="field edited"
+            #if is new item
+            else:
+                form = fieldForm(request.POST or None)
+                message="field added"
+            model = ListFields.objects.all
             
         if form.is_valid():
             form.save()    
@@ -284,6 +298,8 @@ def entityForm(request,list_id,modelName):
                 form = taskForm(request.POST or None, instance=item) 
             elif modelName == 'protocol' :
                 form = ListForm(request.POST or None, instance=item) 
+            elif modelName == 'ListFields' :
+                form = fieldForm(request.POST or None, instance=item) 
                    
         #if request received from 'add' button on entity page (passes id as 0)
         else:   
@@ -295,6 +311,8 @@ def entityForm(request,list_id,modelName):
                 form = taskForm(request.POST or None)
             elif modelName == 'protocol':
                 form = ListForm(request.POST or None)
+            elif modelName == 'ListFields':
+                form = fieldForm(request.POST or None)
             else:
                 form = taskForm(request.POST or None)
         
@@ -309,6 +327,8 @@ def entities(request,modelName):
         model = task.objects.all
     elif modelName == 'protocols':
         model = protocol.objects.all
+    elif modelName == 'ListFields':
+        model = ListFields.objects.all
     else:
         model = persons.objects.all
     return render(request,'entities.html',{'model' : model,'modelName':modelName})
@@ -324,6 +344,9 @@ def deleteInstance(request, list_id,modelName):
     elif modelName == 'protocol':
         item = protocol.objects.get(pk=list_id)
         model = protocol.objects.all 
+    elif modelName == 'ListFields':
+        item = ListFields.objects.get(pk=list_id)
+        model = ListFields.objects.all 
     item.delete()
     messages.success(request,(modelName +' deleted'))
     return render(request,'entities.html',{'model' : model,'modelName':modelName})

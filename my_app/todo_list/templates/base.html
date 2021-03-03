@@ -56,11 +56,13 @@
       <br>
 <div class="container">
 
+    {% block content %}
+    {% endblock %}
 
-      {% if messages %}
+    {% if messages %}
     {% for message in messages %}
-    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-      <div class="toast" style="position: absolute; top: 0; right: 0;">
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; min-width: 300px;">
+      <div class="toast" style="position: absolute; top: 0; left: 0; z-index: 1500;">
     
       <div class="toast-header">
         <img src="..." class="rounded mr-2" alt="...">
@@ -73,12 +75,6 @@
   </div>
     {% endfor %}
   {% endif %}
- 
-
-      
-        
-    {% block content %}
-    {% endblock %}
         
       </div>
 

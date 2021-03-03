@@ -65,6 +65,10 @@ class ListFields(models.Model):
     field = models.CharField(max_length=50, default="field")
     def __str__(self): 
          return self.field
+    def className(self):
+        return 'ListFields'
+    def summaryTitle(self):
+        return self.field
 
 
 #protocol type set by fields selected and tasks allocated
