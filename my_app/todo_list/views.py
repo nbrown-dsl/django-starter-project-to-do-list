@@ -28,7 +28,7 @@ def home(request):
     people = persons.objects.all()
     protocoltypeObjects = protocoltype.objects.all()
 
-    #form filter form request, cumalatively builds up filter queryset
+    #form filter form request from form post, cumalatively builds up filter queryset
     if request.method == 'POST':
         global form
         form = filterForm(request.POST or None)
@@ -85,7 +85,8 @@ def home(request):
     incompleteTasks = all_items.filter(completed=False)
     emails = ""
     for taskdataRecord in incompleteTasks:
-        emails=emails+taskdataRecord.task.person.email+","   
+        emails=emails+taskdataRecord.task.person.email+"," 
+          
     return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form,'emails': emails})
 
 def protocolAdd(request,type):
@@ -138,7 +139,7 @@ def crossoff(request, list_id):
     item.completed = True
     item.save()
     messages.success(request,('Task complete'))   
-    return redirect('home')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def uncross(request, list_id):
@@ -146,7 +147,7 @@ def uncross(request, list_id):
     item.completed = False
     item.save()
     messages.success(request,('Task uncomplete')) 
-    return redirect('home')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 #view for editing or adding items
 def edit(request,list_id):
