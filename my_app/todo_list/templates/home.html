@@ -10,10 +10,10 @@
 
 {% if user.is_authenticated %}
 
-<div class="d-flex flex-column ">
 
-<div class="d-flex flex-row bd-highlight mb-3">
-     
+
+<div class="d-flex flex-row bd-highlight mb-1 col">
+ <!--buttons to navigate-->    
   <div class="btn-group" role="group" aria-label="Basic example">
       <div class="dropdown">
         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,7 +42,8 @@
  
     </div>
   </div>
-<div class="d-flex flex-row bd-highlight">
+
+
  
 <!--form to filter task data-->
   <div class="bd-highlight flex-column justify-content-baseline" >
@@ -50,10 +51,12 @@
       {% csrf_token %}
       {{filterForm|crispy}}
       <button class="btn btn-info" type="submit">Filter</button>
+      <a role="button" class="btn btn-secondary" href="{% url 'clear' %}">Clear</a>
     </form><br>
-    <a role="button" class="btn btn-info" href="{% url 'clear' %}">Clear</a>
+    
   </div>
-  <div class="bd-highlight">
+
+  <div class="bd-highlight flex-column justify-content-baseline">
  <!--list of task data-->
     {% if all_items %}
     <table class="table table-dark">
@@ -70,7 +73,7 @@
         {% for things in all_items %}
             {% if things.completed %}
                 <tr>
-                    <td class="striker"><center><input type="checkbox" checked onclick="location.href='{% url 'uncross' things.id %}'"></center></td>
+                    <td class="striker"><input type="checkbox" checked onclick="location.href='{% url 'uncross' things.id %}'"></center></td>
                     <td class="striker">{{ things.protocol.forename }}</td>
                     <td class="striker">{{ things.task.TaskDescription }}</td>
                     <td class="striker">{{ things.task.person.name }}</td>
@@ -79,7 +82,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td><center><input type="checkbox" unchecked onclick="location.href='{% url 'crossoff' things.id %}'"></center></td>
+                    <td><input type="checkbox" unchecked onclick="location.href='{% url 'crossoff' things.id %}'"></center></td>
                     <td>{{ things.protocol.forename }}</td>
                     <td>{{ things.task.TaskDescription }} </td>
                     <td >{{ things.task.person.name }}</td>
@@ -94,28 +97,9 @@
     {% endif %}
   </div>   
 
-</div>
-</div>
 
 
 
-
-<!-- <div class="accordion" id="accordionExample">
-  {% for things in all_items %}
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading{{things.forename}}">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{things.forename}}" aria-expanded="true" aria-controls="collapse{{things.forename}}">
-        <strong>{{ things.forename }}</strong>&nbsp;{{ things.type }}
-      </button>
-    </h2>
-    <div id="collapse{{things.forename}}" class="accordion-collapse collapse show" aria-labelledby="heading{{things.forename}}" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This {{ things.protocolType }}</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-</div> -->
 
 {% else %}
 <a href="{% provider_login_url 'google' %}">Login with Google</a>

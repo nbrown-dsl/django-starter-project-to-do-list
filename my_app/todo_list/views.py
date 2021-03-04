@@ -163,6 +163,7 @@ def clear(request):
     personName = "All people"
     global protocolTypeName
     protocolTypeName = "All types"
+    messages.success(request,('Filters cleared')) 
     return redirect ('home')
 
 def about(request):
