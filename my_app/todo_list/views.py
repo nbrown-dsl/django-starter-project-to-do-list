@@ -22,7 +22,7 @@ def str_to_class(classname):
 # Create your views here.
 def home(request):
     #if from filter form
-    all_items = taskdata.objects.order_by('protocol').all()
+    all_items = taskdata.objects.all()
     #for populating dropdown menus
     protocols = protocol.objects.all()
     people = persons.objects.all()
@@ -85,8 +85,7 @@ def home(request):
     incompleteTasks = all_items.filter(completed=False)
     emails = ""
     for taskdataRecord in incompleteTasks:
-        emails=emails+taskdataRecord.task.person.email+","
-    
+        emails=emails+taskdataRecord.task.person.email+","   
     return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form,'emails': emails})
 
 def protocolAdd(request,type):
@@ -109,52 +108,10 @@ def protocolAdd(request,type):
         newProtocol = protocol()
         newProtocol.type = typeObject 
         form = ListForm(instance=newProtocol)
-        removeFields(form,newProtocol)
-        # visible_fields = newProtocol.visibleFields()
-        # visible_fields.append('type')
-        # invisible_fields = []
-        # #generates array of field names not to show on form
-        # for field in form.fields:
-        #     if field not in visible_fields:
-        #         invisible_fields.append(field)
-        # #removes fields not to show from field dictionary        
-        # for field in invisible_fields :
-        #     if field in form.fields:
-        #         form.fields.pop(field)
-    #set filter attribute from list of fields in type object
+        removeFields(form,newProtocol)        
         protocoltypeName = typeObject.protocolTypeName
         return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
 
-# orders items alphabetically
-# def order(request):    
-#     # order items (minus sign for descending order) use eg [:5] at end of line to limit items returned
-#     people = persons.objects.all
-#     all_items = List.objects.order_by('item')
-    
-#     return render(request,'home.html',{'all_items' : all_items,'people' : people})
-
-#filter list of protocols
-# def filter(request,query,model):
-#     filtered_items = taskdata.objects.order_by('protocol').all()
-
-#     if query == "all" or len(query)<1:
-        
-#         messages.success(request,('All items')) 
-
-#     else:# filters across models using name of manaytomanyfield then attribute in related model, separated by __
-#         if model=="person":
-#             filtered_items = taskdata.objects.filter(task__person__id=query)
-#         if model=="protocol":
-#             filtered_items = taskdata.objects.filter(protocol__id=query)
-        
-#         if len(filtered_items) == 0:
-#             messages.success(request,('No filtered items')) 
-
-#     protocols = protocol.objects.all
-#     people = persons.objects.all
-#     protocoltypeObjects = protocoltype.objects.all
-    
-#     return render(request,'home.html',{'all_items' : filtered_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols})  
 
 def clear(request):
     global protocolName
