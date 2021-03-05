@@ -141,6 +141,7 @@ def crossoff(request, list_id):
     #trying to load same page with same data (ie same filters) but seems ot same as redirect to home def  
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+#from ajax javascript call
 def cross(request):
         if request.method == 'GET':
                post_id = request.GET['post_id']

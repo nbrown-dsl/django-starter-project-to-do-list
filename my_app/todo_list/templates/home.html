@@ -73,8 +73,9 @@
         {% for things in all_items %}
             
                 <tr>
-                    <td ><a class="taskCheckbox" id="check{{things.id}}" href="#" data-catid="{{ things.id }}"><input type="checkbox" {% if things.completed %} checked  {% else %} unchecked {% endif %} ></a></center></td>
-                    
+                    <td >
+                    <div class="checkbox checkbox-md"><input class="taskCheckbox" type="checkbox" id="check{{things.id}}" data-catid="{{ things.id }}" {% if things.completed %} checked  {% else %} unchecked {% endif %} ></center>
+                    </div></td>
                     <td >{{ things.protocol.forename }}</td>
                     <td >{{ things.task.TaskDescription }}</td>
                     <td >{{ things.task.person.name }}</td>
