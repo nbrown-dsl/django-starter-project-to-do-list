@@ -3,12 +3,11 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 # module to read string from entity list as class name
 import sys
 from django.core.mail import send_mail
 from django.conf import settings
-
 
 
 protocolName = "All protocols"
@@ -138,8 +137,22 @@ def crossoff(request, list_id):
     item = taskdata.objects.get(pk=list_id)
     item.completed = True
     item.save()
-    messages.success(request,('Task complete'))   
+    messages.success(request,('Task complete')) 
+    #trying to load same page with same data (ie same filters) but seems ot same as redirect to home def  
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def cross(request):
+        if request.method == 'GET':
+               post_id = request.GET['post_id']
+               item = taskdata.objects.get(pk=post_id) #getting the liked posts
+               if item.completed:
+                   item.completed = False
+               else:
+                   item.completed = True
+               item.save()
+               return HttpResponse("Success!") # Sending an success response
+        else:
+               return HttpResponse("Request method is not a GET")
 
 
 def uncross(request, list_id):

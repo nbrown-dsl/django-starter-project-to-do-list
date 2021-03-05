@@ -71,31 +71,44 @@
          
           <!--iterates through all_items object-->
         {% for things in all_items %}
-            {% if things.completed %}
+            
                 <tr>
-                    <td class="striker"><input type="checkbox" checked onclick="location.href='{% url 'uncross' things.id %}'"></center></td>
-                    <td class="striker">{{ things.protocol.forename }}</td>
-                    <td class="striker">{{ things.task.TaskDescription }}</td>
-                    <td class="striker">{{ things.task.person.name }}</td>
-                    <td class="striker">{{ things.protocol.type }} </td>
+                    <td ><a class="taskCheckbox" id="check{{things.id}}" href="#" data-catid="{{ things.id }}"><input type="checkbox" {% if things.completed %} checked  {% else %} unchecked {% endif %} ></a></center></td>
+                    
+                    <td >{{ things.protocol.forename }}</td>
+                    <td >{{ things.task.TaskDescription }}</td>
+                    <td >{{ things.task.person.name }}</td>
+                    <td >{{ things.protocol.type }} </td>
                     
                 </tr>
-            {% else %}
-                <tr>
-                    <td><input type="checkbox" unchecked onclick="location.href='{% url 'crossoff' things.id %}'"></center></td>
-                    <td>{{ things.protocol.forename }}</td>
-                    <td>{{ things.task.TaskDescription }} </td>
-                    <td >{{ things.task.person.name }}</td>
-                    <td>{{ things.protocol.type }} </td>
-                </tr>
-            {% endif %}
-
+         
         {% endfor %}
     </table>    
     
 
     {% endif %}
-  </div>   
+  </div> 
+  <!--ajax call to server to update cross/uncross without reloading page-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $('.taskCheckbox').click(function(){
+    var catid;
+    catid = $(this).attr("data-catid");
+    $.ajax(
+    {
+        type:"GET",
+        url: "/cross",
+        data:{
+                 post_id: catid
+        },
+        success: function( data ) 
+        {
+            // $( '#check'+ catid ).remove();
+            $( '#message' ).text(data);
+        }
+     })
+});
+</script>
 
 
 

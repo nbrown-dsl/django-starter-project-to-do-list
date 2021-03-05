@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.contrib import admin
+from django.conf.urls import url
 # from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
     path('email',views.email,name='email'),
     path('clear',views.clear,name='clear'),
+    url(r'^cross/$', views.cross, name='cross'),
 
     
 ]
