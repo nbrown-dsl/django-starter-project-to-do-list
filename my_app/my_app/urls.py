@@ -8,5 +8,11 @@ urlpatterns = [
     path('',include('todo_list.urls')),
     path('admin/', admin.site.urls),
     # path('login/',views.LoginView)
+    # path('login/',
+    # views.LoginView, {'template_name': 'login.html'}
+    # ),
+    # path('logout/',
+    # views.LogoutView, {'next_page': '/login/'}
+    # ),
     
 ]

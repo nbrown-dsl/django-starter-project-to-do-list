@@ -1,10 +1,19 @@
+
 {% extends 'base.html' %}
+
+{% load static %}
+
 
 {% block title %}about app{% endblock %}
 
 {% block content %}
+
 <h1>Protocols app</h1>
-<h2>Guide</h2>
+
 <p>This is a service for keeping a log of the progression of various protocols common to the school. <br>
-  These protocols may be such repeated workflows as inducting new students, new staff etc etc. </p>
+  These protocols may be such repeated workflows as inducting new students, new staff etc etc. </p><br>
+  Click below for Guide<br>
+<a href="https://sites.google.com/dwightlondon.org/whole-school-hub/protocols" target="_blank">https://sites.google.com/dwightlondon.org/whole-school-hub/protocols</a><br><br>
+<img src="{% static 'guide.png' %}" width="800px">
+
 {% endblock %}
