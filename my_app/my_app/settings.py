@@ -34,6 +34,7 @@ DEBUG = True
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 DATABASES = {
     #default sqlite
@@ -149,7 +150,7 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-#for google useer authentication
+#for google user authentication
 
 AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',

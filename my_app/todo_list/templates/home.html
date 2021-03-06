@@ -12,7 +12,7 @@
 
 
 
-<div class="d-flex flex-row bd-highlight mb-1 col">
+<div class="d-flex flex-row-reverse bd-highlight mb-1 col">
  <!--buttons to navigate-->    
   <div class="btn-group" role="group" aria-label="Basic example">
       <div class="dropdown">
@@ -28,7 +28,8 @@
       </div>&nbsp;      
       <a class="btn btn-primary" role="button" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{ emails }}&su=Dwight%20Protocols&body=Click%20below%20to%20see%20tasks%20to%20complete%0Dhttps://dwight-london-protocols.herokuapp.com/" target="_blank" alt="Compose email to listed taskholders with incomplete tasks">Send email</a>&nbsp;
       <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
-      <div class="dropdown">
+      {% if user.is_superuser %}
+        <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Entities
         </button>&nbsp;
@@ -39,6 +40,7 @@
           <a class="dropdown-item" href="{% url 'entities' 'ListFields' %}">Fields</a>
         </div>       
       </div>
+      {% endif %}
  
     </div>
   </div>
@@ -74,10 +76,10 @@
             
                 <tr>
     
-                    <td><label class="container">
+                    <td><label class="container"><center>
                       <input class="taskCheckbox" type="checkbox" id="check{{things.id}}" data-catid="{{ things.id }}" {% if things.completed %} checked  {% else %} unchecked {% endif %}>
                       <span class="checkmark"></span>
-                    </label></td>
+                    </label></center></td>
                     <td ><a data-toggle="modal" data-target="#exampleModal{{things.id}}" data-whatever="" href="#">{{ things.protocol.forename }}</a></td>
                     <td >{{ things.task.TaskDescription }}</td>
                     <td >{{ things.task.person.name }}</td>
