@@ -19,7 +19,7 @@ def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
 
 # Create your views here.
-def home(request):
+def home(request,nameFilter=""):
     #if from filter form
     all_items = taskdata.objects.all()
     #for populating dropdown menus
@@ -46,6 +46,12 @@ def home(request):
                 all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName)
             
             messages.success(request,('Filtered'))
+    #if request from email link with filter 
+    elif (nameFilter):
+        
+        all_items = all_items.filter(task__person__name__contains=nameFilter)
+        
+        
     #redirect from uncross/cross or initial rendering or clear
     else:
         #flag for clearing form or not 
