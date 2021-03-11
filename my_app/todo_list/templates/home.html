@@ -26,7 +26,7 @@
       
         </div>
       </div>&nbsp; 
-      <button class="btn btn-primary dropdown-toggle" type="button" onclick="sendEmail()">
+      <button class="btn btn-primary" type="button" onclick="sendEmail()">
         Send Email
       </button>&nbsp;     
       <!-- <a class="btn btn-primary" role="button"   href="" alt="Compose email to listed taskholders with incomplete tasks">Send email</a>&nbsp; -->
@@ -56,12 +56,12 @@
       {% csrf_token %}
       {{filterForm|crispy}}
       <button class="btn btn-info" type="submit">Filter</button>
-      <a role="button" class="btn btn-secondary" href="{% url 'clear' %}">Clear</a>
+      <a role="button" class="btn btn-secondary" href="{% url 'home' 'clear' %}">Clear</a>
     </form><br>
     
   </div>
 
-  <div class="emailTable bd-highlight flex-column justify-content-baseline">
+  <div class="bd-highlight flex-column justify-content-baseline">
  <!--list of task data-->
     {% if all_items %}
     <table class="table table-dark">
@@ -131,9 +131,8 @@
 
   <script>
 function sendEmail() {
-  taskList = $( "div.emailTable").html()
-  email = "{{ emails }}".slice(0,-1)
-  window.open("https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+email+"&su=Dwight%20Protocols&body=Click%20below%20to%20see%20tasks%20to%20complete%0Dhttps://dwight-london-protocols.herokuapp.com/%0D"+taskList);
+   
+  window.open("https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{ emails }}&su=Dwight%20Protocols&body=Click%20below%20to%20see%20tasks%20to%20complete%0Dhttps://dwight-london-protocols.herokuapp.com/%0D{{ links }}");
 }
 
 

@@ -10,11 +10,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-protocolName = "All protocols"
-personName = "All people"
-protocolTypeName = "All types"
-
-
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
 
@@ -29,70 +24,67 @@ def home(request,nameFilter=""):
 
     #form filter form request from form post, cumalatively builds up filter queryset
     if request.method == 'POST':
-        global form
+        
         form = filterForm(request.POST or None)
         if form.is_valid():
-            global protocolName
             protocolName = form.cleaned_data['protocols']
             if str(protocolName) != "All protocols":
                 all_items = all_items.filter(protocol__forename__contains=protocolName)
-            global personName
             personName = form.cleaned_data['person']
             if str(personName) != "All people":
                 all_items = all_items.filter(task__person__name__contains=personName)
-            global protocolTypeName
             protocolTypeName = form.cleaned_data['protocolType']
             if str(protocolTypeName) != "All types":
                 all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName)
             
             messages.success(request,('Filtered'))
-    #if request from email link with filter 
-    elif (nameFilter):
-        
-        all_items = all_items.filter(task__person__name__contains=nameFilter)
-        
-        
-    #redirect from uncross/cross or initial rendering or clear
+    
     else:
-        #flag for clearing form or not 
-        clearForm = True
-        if str(protocolName) != "All protocols":
-                all_items = all_items.filter(protocol__forename__contains=protocolName)
-                clearForm = False
-        if str(personName) != "All people":
-                all_items = all_items.filter(task__person__name__contains=personName)
-                clearForm = False
-        if str(protocolTypeName) != "All types":
-                all_items = all_items.filter(protocol__type__protocolTypeName__contains=protocolTypeName) 
-                clearForm = False
-        #sets form to no filters
-        if clearForm:
+        #if request from email link with name filter or from 'clear' button 
+        if nameFilter:
+            if nameFilter != "clear":
+                name = nameFilter
+                all_items = all_items.filter(task__person__name__contains=name)
+            else:
+                name = "All people"            
+            try:
+                allpeople = persons.objects.get(name=name)
+                peopleFilter = allpeople.id
+            except persons.DoesNotExist:
+                peopleFilter = 1
+        else:
             try:
                 allpeople = persons.objects.get(name="All people")
-                allpeopleFilter = allpeople.id
-            except persons.DoesNotExist:
-                allpeopleFilter = 1
-            try:
-                allprotocolType = protocoltype.objects.get(protocolTypeName="All types")
-                allprotocolTypeFilter = allprotocolType.id
+                peopleFilter = allpeople.id
             except protocoltype.DoesNotExist:
-                allprotocolTypeFilter = 1
-            try:
-                allprotocol = protocol.objects.get(forename="All protocols")
-                allprotocolFilter = allprotocol.id
-            except protocol.DoesNotExist:
-                allprotocolFilter = 1
-            form = filterForm({'person':allpeopleFilter,'protocols':allprotocolFilter, 'protocolType':allprotocolTypeFilter})  
+                peopleFilter = 1    
+        try:
+            allprotocolType = protocoltype.objects.get(protocolTypeName="All types")
+            protocolTypeFilter = allprotocolType.id
+        except protocoltype.DoesNotExist:
+            protocolTypeFilter = 1
+        try:
+            allprotocol = protocol.objects.get(forename="All protocols")
+            protocolFilter = allprotocol.id
+        except protocol.DoesNotExist:
+            protocolFilter = 1
+        form = filterForm({'person':peopleFilter,'protocols':protocolFilter, 'protocolType':protocolTypeFilter})  
     
     all_items = all_items.order_by('protocol')
 
     #compile comma separated string of emails of those people who have tasks incomplete on selected items
     incompleteTasks = all_items.filter(completed=False)
     emails = ""
+    links = ""
     for taskdataRecord in incompleteTasks:
-        emails=emails+taskdataRecord.task.person.email+"," 
+        email = taskdataRecord.task.person.email
+        if email not in emails:
+            emails=emails+email+"," 
+            username = email.split("@")[0]       
+            links = links + "<a href=\'https://dwight-london-protocols.herokuapp.com/home/" + username + "\' target=\'_blank\'>" + username + "</a><br>"
+
           
-    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form,'emails': emails})
+    return render(request,'home.html',{'all_items' : all_items,'people' : people,'protocoltype':protocoltypeObjects,'protocols':protocols, 'filterForm': form,'emails': emails, 'links': links})
 
 def protocolAdd(request,type):
     typeObject = protocoltype.objects.get(pk=type) 
@@ -117,17 +109,6 @@ def protocolAdd(request,type):
         removeFields(form,newProtocol)        
         protocoltypeName = typeObject.protocolTypeName
         return render(request,'protocolAdd.html',{'form' : form, 'protocoltype' : protocoltypeName})
-
-
-def clear(request):
-    global protocolName
-    protocolName = "All protocols"
-    global personName
-    personName = "All people"
-    global protocolTypeName
-    protocolTypeName = "All types"
-    messages.success(request,('Filters cleared')) 
-    return redirect ('home')
 
 def about(request):
     my_name ="Nick"
