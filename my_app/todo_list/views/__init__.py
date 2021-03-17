@@ -1,1 +1,2 @@
-from .views import *
+from .viewsProtocols import *
+from .viewsCompetencies import *

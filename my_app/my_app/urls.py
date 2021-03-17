@@ -6,6 +6,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('',include('todo_list.urls')),
+    path('',include('competencies.urls')),
     path('admin/', admin.site.urls),
     # path('login/',views.LoginView)
     # path('login/',

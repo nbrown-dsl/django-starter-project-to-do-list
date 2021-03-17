@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo_list',
+    'competencies',
     'my_app',
     'crispy_forms',
     'django_extensions',
