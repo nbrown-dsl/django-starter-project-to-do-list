@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
-# from django.contrib import admin
-# from django.conf.urls import url
+# from .views import taskList
+
 # from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -20,6 +20,8 @@ urlpatterns = [
     path('entities/<modelName>',views.entities,name='entities'),
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
     path('email',views.email,name='email'),
+    #comp views
+    # path('persons_list/', taskList.as_view()),
 
     
 ]

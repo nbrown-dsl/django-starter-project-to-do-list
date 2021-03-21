@@ -40,7 +40,7 @@
     <h2>Competencies list</h2>
     <ul>
         {% for task in userTasks %}
-            <li>{{ task.name }}</li>
+            <li>{{ task.upvote }}</li>
         {% empty %}
         <li>No competencies yet</li>
         {% endfor %}

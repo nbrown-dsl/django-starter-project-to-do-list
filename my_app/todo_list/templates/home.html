@@ -1,15 +1,11 @@
 <!--html template with django code snippets-->
 
 {% extends 'base.html' %}
-{% load socialaccount %}
 
 {% block title %}protocols{% endblock %}
 {%load crispy_forms_tags %}
 
 {% block content %}
-
-{% if user.is_authenticated %}
-
 
 
 <div class="d-flex flex-row-reverse bd-highlight mb-1 col">
@@ -169,13 +165,6 @@ function sendEmail() {
 });
 </script>
 
-
-
-
-
-{% else %}
-<a href="{% provider_login_url 'google' %}">Login with Google</a>
-  {% endif %}
 
 
 {% endblock %}
