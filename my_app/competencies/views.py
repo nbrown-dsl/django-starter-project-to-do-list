@@ -1,8 +1,10 @@
+from django.db.models import fields
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import *
-from .forms import *
+# from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
+from django.forms import modelform_factory
 
 
 
@@ -35,8 +37,8 @@ def editInstance(request,objectId):
             for instance in table.objects.all():
                 if instance.id == int(objectId):
                     object = table.objects.get(pk=objectId)
-                    formObject = TaskForm(request.POST or None, instance=object)
+                    formObject = modelform_factory(table,fields=("__all__"))
+                    form = formObject(instance=object)
 
-
-    return render (request,'editInstance.html',{'formObject':formObject})
+    return render (request,'editInstance.html',{'formObject':form})
 

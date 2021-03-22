@@ -6,18 +6,6 @@ from .models import *
 class DateInput(DateInput):
     input_type = 'date'
 
-class TaskForm(ModelForm):   
-
-    class Meta():
-        model = Task
-
-        fields = "__all__"
-        
-
-class UsertaskForm(ModelForm):
-    class Meta:
-        model = Usertask
-        fields =  "__all__"
 
 
 
