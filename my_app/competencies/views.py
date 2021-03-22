@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import *
+from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 
 
@@ -24,5 +25,18 @@ def comps(request):
 
     
 def editInstance(request,objectId):
-    redirect ('home.html')
+
+    if request.method == 'POST':
+        pass
+
+    else:
+    
+        for table in entity.__subclasses__():
+            for instance in table.objects.all():
+                if instance.id == int(objectId):
+                    object = table.objects.get(pk=objectId)
+                    formObject = TaskForm(request.POST or None, instance=object)
+
+
+    return render (request,'editInstance.html',{'formObject':formObject})
 
