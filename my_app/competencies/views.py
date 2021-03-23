@@ -29,7 +29,12 @@ def comps(request):
 def editInstance(request,objectId):
 
     if request.method == 'POST':
-        pass
+        # form = TaskForm(request.POST or None)
+
+        # if form.is_valid():
+        #     form.save()
+        print (request.POST)
+        return redirect ('comps')
 
     else:
     
