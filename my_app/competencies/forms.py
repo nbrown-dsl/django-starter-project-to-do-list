@@ -7,6 +7,9 @@ class DateInput(DateInput):
     input_type = 'date'
 
 
-
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = "__all__"
 
         

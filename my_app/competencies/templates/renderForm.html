@@ -9,7 +9,7 @@
 
 {% block content %} 
 
-  <form action="" method="post">
+  <form action="/comps/{{ object }}/" method="POST">
     {% csrf_token %}
     {{formObject|crispy}}
     <br><br>
