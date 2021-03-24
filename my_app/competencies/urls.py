@@ -10,5 +10,6 @@ urlpatterns = [
     path('comps/', views.comps, name='comps'),
     path('comps/<object>/', views.saveForm, name='saveForm'),
     path('renderForm/<object>/', views.renderForm, name='renderForm'),
-    
+    path('deleteInstance/<int:objectID>/', views.deleteInstance, name='deleteInstance'),
+ 
  ]

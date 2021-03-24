@@ -2,7 +2,7 @@ from django.db.models import fields
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import *
-from .forms import TaskForm
+from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.forms import modelform_factory
 
@@ -33,18 +33,20 @@ def saveForm(request,object):
         for table in entity.__subclasses__():
                 for instance in table.objects.all():
                     if instance.id == objectID:
-                        form = TaskForm(request.POST or None, instance = instance)
+                        for formClass in entityForm.__subclasses__():
+                            if formClass.Meta.model.__name__ == table.__name__:
+                                form = formClass(request.POST or None, instance = instance)
 
-                        if form.is_valid():
-                            form.save()
-            
-    
+        
     #if object is name of model, ie new instance            
     except:
-        for table in entity.__subclasses__():
-                if table.__name__ == str(object):
-                    print (object)
-                
+        for formClass in entityForm.__subclasses__():
+                if formClass.Meta.model.__name__ == str(object):
+                    form = formClass(request.POST or None)
+
+    if form.is_valid():
+            form.save() 
+
     return redirect ('comps')
    
 
@@ -62,9 +64,17 @@ def renderForm(request,object):
 
     #for rendering unbound form for adding new instance
     except:
-        for table in entity.__subclasses__():
-                if table.__name__ == str(object):
-                    form = modelform_factory(table,fields=("__all__"))
+        for formClass in entityForm.__subclasses__():
+                if formClass.Meta.model.__name__ == str(object):
+                    form = formClass()
 
     return render (request,'renderForm.html',{'formObject':form, 'object': object})
+
+
+def deleteInstance(request,objectID):
+    for table in entity.__subclasses__():
+                    for instance in table.objects.all():
+                        if instance.id == objectID:
+                            instance.delete()
+    return redirect ('comps')
     
