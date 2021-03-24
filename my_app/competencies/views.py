@@ -27,22 +27,22 @@ def comps(request):
 
 #for saving form submissions    
 def saveForm(request,object):
-    #if object is id ie is pre-exisitng instance      
-    try:
-        objectID = int(object)
+    foundModel = False
+    #if object is name of model, ie new instance 
+    for formClass in entityForm.__subclasses__():
+                if formClass.Meta.model.__name__ == object:
+                    form = formClass(request.POST or None)
+                    foundModel = True
+    #if object is id rather than model name then it is class_id and need to save pre-existing instance
+    if not foundModel:
+                        
         for table in entity.__subclasses__():
                 for instance in table.objects.all():
-                    if instance.id == objectID:
+                    if instance.class_id() == object:
                         for formClass in entityForm.__subclasses__():
                             if formClass.Meta.model.__name__ == table.__name__:
                                 form = formClass(request.POST or None, instance = instance)
-
-        
-    #if object is name of model, ie new instance            
-    except:
-        for formClass in entityForm.__subclasses__():
-                if formClass.Meta.model.__name__ == str(object):
-                    form = formClass(request.POST or None)
+      
 
     if form.is_valid():
             form.save() 
@@ -52,21 +52,21 @@ def saveForm(request,object):
 
 #for rendering forms
 def renderForm(request,object):
-    #for rendering bound form from exisitng instance
-    try: #checks if object is object id (ie convertable to integer)
-        objectID = int(object)
+    #for rendering unbound form for adding new instance
+    foundModel = False
+    for formClass in entityForm.__subclasses__():
+            if formClass.Meta.model.__name__ == object:
+                form = formClass()
+                foundModel = True#for rendering bound form from exisitng instance
+
+    if not foundModel:
+    
         for table in entity.__subclasses__():
                     for instance in table.objects.all():
-                        if instance.id == objectID:
-                            editInstance = table.objects.get(pk=object)
+                        if instance.class_id() == object:
+                            editInstance = table.objects.get(pk=instance.id)
                             formObject = modelform_factory(table,fields=("__all__"))
                             form = formObject(instance=editInstance)
-
-    #for rendering unbound form for adding new instance
-    except:
-        for formClass in entityForm.__subclasses__():
-                if formClass.Meta.model.__name__ == str(object):
-                    form = formClass()
 
     return render (request,'renderForm.html',{'formObject':form, 'object': object})
 
@@ -74,7 +74,7 @@ def renderForm(request,object):
 def deleteInstance(request,objectID):
     for table in entity.__subclasses__():
                     for instance in table.objects.all():
-                        if instance.id == objectID:
+                        if instance.class_id() == objectID:
                             instance.delete()
     return redirect ('comps')
     

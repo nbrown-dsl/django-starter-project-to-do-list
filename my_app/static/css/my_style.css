@@ -75,5 +75,7 @@ background-color: gray; }
     transform: rotate(45deg);
   }
 
+  tr { line-height: 1;}
+
 
 

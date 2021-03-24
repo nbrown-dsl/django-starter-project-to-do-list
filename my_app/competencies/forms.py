@@ -17,6 +17,6 @@ class TaskForm(entityForm):
 class UsertaskForm(entityForm):
     class Meta:
         model = Usertask
-        fields = "__all__"
+        exclude = ['name']
 
         
