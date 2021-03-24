@@ -1,5 +1,8 @@
 from django.db import models
-from django.db.models.deletion import DO_NOTHING, CASCADE
+from django.contrib.auth import get_user_model
+from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
+
+User = get_user_model()
 
 class entity(models.Model):
     name = models.CharField(max_length=200,default=None, blank=True, null=True)
@@ -14,14 +17,26 @@ class entity(models.Model):
     class Meta:
         abstract = True
 
-class Task(entity):
-    description = models.CharField(max_length=200)
+class System(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
 
 
+class Task(entity):
+    description = models.CharField(max_length=200)
+    link = models.CharField(max_length=300,default=None, blank=True, null=True)
+    system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
+
+
+class grade(entity):
+   description = models.CharField(max_length=200)
+   value = models.IntegerField() 
+   
 class Usertask(entity):
     upvote = models.BooleanField()
     usertasktask = models.ForeignKey(Task,on_delete=CASCADE)
+    userGrade = models.ForeignKey(grade,on_delete=SET_NULL, null=True, default = 4)
+    user = models.ForeignKey(User,on_delete=CASCADE)
 
     class Meta:
         ordering = ["-usertasktask"]
+

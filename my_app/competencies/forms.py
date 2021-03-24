@@ -19,4 +19,14 @@ class UsertaskForm(entityForm):
         model = Usertask
         exclude = ['name']
 
+class gradeForm(entityForm):
+    class Meta:
+        model = grade
+        fields = "__all__"
+
+class systemForm(entityForm):
+    class Meta:
+        model = System
+        fields = '__all__'
+
         
