@@ -7,7 +7,7 @@ User = get_user_model()
 class entity(models.Model):
     name = models.CharField(max_length=200,default=None, blank=True, null=True)
     id = models.AutoField(primary_key=True)
-
+    #method to return id that is unique across all models
     def class_id(self):
         return f"{self.__class__.__name__}{self.id}"
 
