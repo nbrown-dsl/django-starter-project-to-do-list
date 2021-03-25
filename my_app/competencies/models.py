@@ -30,7 +30,7 @@ class Requirement(entity):
     description = models.CharField(max_length=200)
 
 class Profile(entity):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     role = ManyToManyField(Role)
 
 @receiver(post_save, sender=User)
