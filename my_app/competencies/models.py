@@ -26,6 +26,9 @@ class System(entity):
 class Role(entity):
     description = models.CharField(max_length=200)
 
+class Requirement(entity):
+    description = models.CharField(max_length=200)
+
 class Profile(entity):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = ManyToManyField(Role)
@@ -45,6 +48,7 @@ class Task(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
     role = models.ManyToManyField(Role)
+    requirement = models.ForeignKey(Requirement,on_delete=DO_NOTHING, default=2, blank=True, null=True)
 
 
 class grade(entity):

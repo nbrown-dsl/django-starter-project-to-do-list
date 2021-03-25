@@ -39,3 +39,7 @@ class profileForm(entityForm):
         model = Profile
         exclude = ['name']
         
+class requirementForm(entityForm):
+    class Meta:
+        model = Requirement
+        fields = '__all__'
