@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
+from django.db.models.fields.related import ManyToManyField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 User = get_user_model()
 
@@ -20,11 +23,28 @@ class entity(models.Model):
 class System(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
 
+class Role(entity):
+    description = models.CharField(max_length=200)
+
+class Profile(entity):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = ManyToManyField(Role)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 
 class Task(entity):
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
+    role = models.ManyToManyField(Role)
 
 
 class grade(entity):

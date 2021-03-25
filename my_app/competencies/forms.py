@@ -29,4 +29,13 @@ class systemForm(entityForm):
         model = System
         fields = '__all__'
 
+class roleForm(entityForm):
+    class Meta:
+        model = Role
+        fields = '__all__'
+
+class profileForm(entityForm):
+    class Meta:
+        model = Profile
+        exclude = ['name']
         
