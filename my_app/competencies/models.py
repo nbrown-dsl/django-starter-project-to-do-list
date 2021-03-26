@@ -51,7 +51,7 @@ class Task(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
     role = models.ManyToManyField(Group)
-    requirement = models.ForeignKey(Requirement,on_delete=DO_NOTHING, blank=True, null=True)
+    requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
 
 
 class grade(entity):
