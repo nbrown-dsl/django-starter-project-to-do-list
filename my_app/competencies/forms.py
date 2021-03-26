@@ -34,10 +34,10 @@ class roleForm(entityForm):
         model = Role
         fields = '__all__'
 
-class profileForm(entityForm):
-    class Meta:
-        model = Profile
-        exclude = ['name']
+# class profileForm(entityForm):
+#     class Meta:
+#         model = Profile
+#         exclude = ['name']
         
 class requirementForm(entityForm):
     class Meta:

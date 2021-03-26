@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
 from django.db.models.fields.related import ManyToManyField
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
 
 User = get_user_model()
 
@@ -29,18 +29,19 @@ class Role(entity):
 class Requirement(entity):
     description = models.CharField(max_length=200)
 
-class Profile(entity):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    role = ManyToManyField(Role)
+# code to customise user model and effectively create more attributes, but not needed as groups in admin can be used as roles
+# class Profile(entity):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+#     role = ManyToManyField(Role)
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
 
 
 class Task(entity):

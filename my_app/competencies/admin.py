@@ -1,4 +1,4 @@
 from django.contrib import admin
-# from my_app.competencies.models import Task
+from .models import *
 
-# admin.site.register(Task)
+admin.site.register(Task)
