@@ -29,10 +29,10 @@ class systemForm(entityForm):
         model = System
         fields = '__all__'
 
-class roleForm(entityForm):
-    class Meta:
-        model = Role
-        fields = '__all__'
+# class roleForm(entityForm):
+#     class Meta:
+#         model = Role
+#         fields = '__all__'
 
 # class profileForm(entityForm):
 #     class Meta:
@@ -43,3 +43,8 @@ class requirementForm(entityForm):
     class Meta:
         model = Requirement
         fields = '__all__'
+
+# class groupForm(entityForm):
+#     class Meta:
+#         model = Group
+#         fields = '__all__'

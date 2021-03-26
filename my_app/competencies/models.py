@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
 from django.db.models.fields.related import ManyToManyField
 # from django.db.models.signals import post_save
@@ -23,8 +24,9 @@ class entity(models.Model):
 class System(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
 
-class Role(entity):
-    description = models.CharField(max_length=200)
+#deprecated in favour of Group model from django admin
+# class Role(entity):
+#     description = models.CharField(max_length=200)
 
 class Requirement(entity):
     description = models.CharField(max_length=200)
@@ -48,8 +50,8 @@ class Task(entity):
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
-    role = models.ManyToManyField(Role)
-    requirement = models.ForeignKey(Requirement,on_delete=DO_NOTHING, default=2, blank=True, null=True)
+    role = models.ManyToManyField(Group)
+    requirement = models.ForeignKey(Requirement,on_delete=DO_NOTHING, blank=True, null=True)
 
 
 class grade(entity):
