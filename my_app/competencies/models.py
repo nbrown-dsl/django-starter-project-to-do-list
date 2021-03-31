@@ -59,7 +59,7 @@ class grade(entity):
    value = models.IntegerField() 
    
 class Usertask(entity):
-    upvote = models.BooleanField(null=True)
+    upvote = models.BooleanField(default=False)
     usertasktask = models.ForeignKey(Task,on_delete=CASCADE)
     userGrade = models.ForeignKey(grade,on_delete=SET_NULL, null=True, default = 4)
     user = models.ForeignKey(User,on_delete=CASCADE)
