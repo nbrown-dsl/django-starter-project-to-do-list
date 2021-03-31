@@ -8,6 +8,7 @@ urlpatterns = [
     # path('comps/', taskList.as_view()),
     
     path('comps/', views.comps, name='comps'),
+    path('mycomps/', views.mycomps, name='mycomps'),
     path('comps/<object>/', views.saveForm, name='saveForm'),
     path('renderForm/<object>/', views.renderForm, name='renderForm'),
     path('deleteInstance/<objectID>/', views.deleteInstance, name='deleteInstance'),

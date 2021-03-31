@@ -7,7 +7,8 @@ from django.dispatch import receiver
 
 User = get_user_model()
 
-
+#create user tasks in event of new task instance created, or current task assigned to further roles
+#does not remove user tasks if role removed from task
 @receiver(m2m_changed, sender=Task.role.through)
 def create_user_tasks(action, sender, instance, **kwargs):
     #filters users to those that have role that the task instance is assigned to
@@ -21,5 +22,7 @@ def create_user_tasks(action, sender, instance, **kwargs):
         for user in usersWithRole:
             userTask = Usertask(usertasktask=instance, user=user)
             userTask.save()
+
+#create user tasks in event of new user instance created, or current user assigned to further roel
 
     

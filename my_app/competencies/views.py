@@ -17,6 +17,12 @@ from django.forms import modelform_factory
     #     # <view logic>
     #     return render(request,'competencies/comps.html')
 
+def mycomps(request):
+    objects = Usertask.objects.all()
+
+    return render (request,'mycomps.html',{'objects':objects})
+
+
 def comps(request):
     objectList = []
     for table in entity.__subclasses__():
