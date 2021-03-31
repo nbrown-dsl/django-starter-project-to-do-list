@@ -50,7 +50,7 @@ class Task(entity):
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
-    role = models.ManyToManyField(Group)
+    role = models.ManyToManyField(Group,related_name='tasks')
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
 
 
@@ -59,7 +59,7 @@ class grade(entity):
    value = models.IntegerField() 
    
 class Usertask(entity):
-    upvote = models.BooleanField()
+    upvote = models.BooleanField(null=True)
     usertasktask = models.ForeignKey(Task,on_delete=CASCADE)
     userGrade = models.ForeignKey(grade,on_delete=SET_NULL, null=True, default = 4)
     user = models.ForeignKey(User,on_delete=CASCADE)
