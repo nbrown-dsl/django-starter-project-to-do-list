@@ -1,7 +1,8 @@
 <!--html template with django code snippets-->
 
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title %}My Skills{% endblock %}
 
@@ -32,34 +33,51 @@
        </div>
      </div>
 
-
-
-
-
-
     <h2>My skills</h2>
+    <!-- <div class="card-group"> 
+      <div class="row row-cols-1 row-cols-md-3 g-4"></div>
+      {% for object in objects %}
+      <div class="col">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="..." alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{object.usertasktask.name}}</h5>
+              <p class="card-text">{{object.usertasktask.description}}</p>
+              <small ><a href={{link}} target="_blank"><i class="bi bi-info-square"></i></a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+      <div>
+    <div> -->
 
+  <table class="table table-dark">
+        <!-- <tr class="table-primary">
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr> --> 
+         
+          <!--iterates through instances of class-->
 
-    <table class="table table-dark">
-      <!-- <tr class="table-primary">
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr> -->
-       
-        <!--iterates through instances of class-->
       {% for object in objects %}
           
               <tr>
                   
-                  <td style="width:94%">{{object.name}} </td>
-                  <td><center><a href="{% url 'deleteInstance' object.class_id %}"><i class="bi bi-x-square bin"></i></i></a></center></td>
-                  <td><center><a href="{% url 'renderForm' object.class_id %}"><i class="bi bi-pencil"></i></a></center></td>
+                  <td style="width:90%">{{object.usertasktask.description}} </td>
+                  <td><center><a href="{{ object.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
+                  <td><center><a href="{{ object.usertasktask.system.link}}" target="_blank"><img src="{% static object.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
           
 
       {% endfor %}
-  </table> 
+  </table>  
 
 
 
