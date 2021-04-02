@@ -6,6 +6,8 @@ from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.forms import modelform_factory
 
+import csv
+
 
 
 
@@ -85,3 +87,11 @@ def deleteInstance(request,objectID):
                             instance.delete()
     return redirect ('comps')
     
+
+def importCSV(request,object):
+    if request.method =="POST":
+        with open('names.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                print(row['first_name'], row['last_name'])
+    return render (request,'uploadForm.html',{'object': object})

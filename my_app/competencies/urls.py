@@ -12,5 +12,6 @@ urlpatterns = [
     path('comps/<object>/', views.saveForm, name='saveForm'),
     path('renderForm/<object>/', views.renderForm, name='renderForm'),
     path('deleteInstance/<objectID>/', views.deleteInstance, name='deleteInstance'),
+    path('importCSV/<object>/',views.importCSV,name='importCSV'),
  
  ]
