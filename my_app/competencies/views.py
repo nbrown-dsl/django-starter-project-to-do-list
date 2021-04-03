@@ -90,8 +90,33 @@ def deleteInstance(request,objectID):
 
 def importCSV(request,object):
     if request.method =="POST":
-        with open('names.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                print(row['first_name'], row['last_name'])
+        pass
+        
+    else:
+        pass
+
     return render (request,'uploadForm.html',{'object': object})
+
+#response to download button, returns csv file of model instances
+def exportCSV(request,object):
+    #create array of field names to be be csv headers
+    fields = Task._meta.fields
+    fieldnames = []
+    for field in fields:
+        fieldnames.append(field.name)
+
+    tasks = Task.objects.all()
+    
+   # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="tasks.csv"'
+
+    writer = csv.DictWriter(response,fieldnames=fieldnames)
+    writer.writeheader()
+    for task in tasks:
+        row={}
+        for fieldname in fieldnames:
+            row.update({fieldname:str(getattr(task,fieldname))})
+        writer.writerow(row)
+
+    return response
