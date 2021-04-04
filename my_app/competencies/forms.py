@@ -48,3 +48,8 @@ class requirementForm(entityForm):
 #     class Meta:
 #         model = Group
 #         fields = '__all__'
+
+class csvUploadForm(forms.ModelForm):
+  class Meta:
+    model = csvUpload
+    fields = ("csv_file",)

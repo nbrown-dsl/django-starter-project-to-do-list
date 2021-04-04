@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.forms import modelform_factory
 
 import csv
+import logging
 
 
 
@@ -87,36 +88,76 @@ def deleteInstance(request,objectID):
                             instance.delete()
     return redirect ('comps')
     
-
+#forget it - too difficult - hard ot get upload data in correct format to be accepted, esp role field
 def importCSV(request,object):
     if request.method =="POST":
-        pass
+        csvuploadfile = request.FILES["csv_file"]
+        try:
+            form = csvUploadForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                csv_file = form.cleaned_data['csv_file']
+            if not csv_file.name.endswith('.csv'):
+                return redirect('uploadForm')
+
+            file_data = csv_file.read().decode('utf-8')
+            lines = file_data.split('\n')
+        # with open(csvuploadfile, newline='') as csvfile:
+            headers = lines[0].split(',')
+            
+            for row in range(1,len(lines)-1):
+                fields = lines[row].split(',')
+                data_dict = {}
+                for cell in range(len(fields)):
+                    if headers[cell] == 'role':
+                        data_dict[headers[cell]] = fields[cell].split(',')
+                    else:
+                        data_dict[headers[cell]] = fields[cell]
+                print(data_dict)
+            try:
+                form = TaskForm(data_dict)
+                if form.is_valid():
+                    form.save()
+                else:
+                    logging.getLogger('error_logger').error(form.errors.as_json())
+            except Exception as e:
+                logging.getLogger('error_logger').error(form.errors.as_json())
+                pass
+        except Exception as e:
+            logging.getLogger('error_logger').error('Unable to upload file. ' + repr(e))
+            # messages.error(request, 'Unable to upload file. ' + repr(e))
+                       
+        return redirect ('comps')
         
     else:
-        pass
-
-    return render (request,'uploadForm.html',{'object': object})
+        form = csvUploadForm()
+        return render (request,'uploadForm.html',{'object': object, 'form':form})
 
 #response to download button, returns csv file of model instances
-def exportCSV(request,object):
+def exportCSV(request,entityName):
     #create array of field names to be be csv headers
-    fields = Task._meta.fields
-    fieldnames = []
-    for field in fields:
-        fieldnames.append(field.name)
+    for table in entity.__subclasses__():
+        print(table.__name__)
+        print(entityName)
+        if table.__name__ == str(entityName):
+            fields = table._meta.fields
+            fieldnames = []
+            for field in fields:
+                fieldnames.append(field.name)
 
-    tasks = Task.objects.all()
+            tasks = table.objects.all()
+            
+        # Create the HttpResponse object with the appropriate CSV header.
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="tasks.csv"'
+
+            writer = csv.DictWriter(response,fieldnames=fieldnames)
+            writer.writeheader()
+            for task in tasks:
+                row={}
+                for fieldname in fieldnames:
+                    row.update({fieldname:str(getattr(task,fieldname))})
+                writer.writerow(row)
+
+            return response
     
-   # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="tasks.csv"'
-
-    writer = csv.DictWriter(response,fieldnames=fieldnames)
-    writer.writeheader()
-    for task in tasks:
-        row={}
-        for fieldname in fieldnames:
-            row.update({fieldname:str(getattr(task,fieldname))})
-        writer.writerow(row)
-
-    return response
+    return redirect('comps')

@@ -13,5 +13,6 @@ urlpatterns = [
     path('renderForm/<object>/', views.renderForm, name='renderForm'),
     path('deleteInstance/<objectID>/', views.deleteInstance, name='deleteInstance'),
     path('importCSV/<object>/',views.importCSV,name='importCSV'),
+    path('exportCSV/<entityName>/',views.exportCSV,name='exportCSV'),
  
  ]

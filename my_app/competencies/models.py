@@ -68,3 +68,7 @@ class Usertask(entity):
     class Meta:
         ordering = ["-usertasktask"]
 
+class csvUpload(models.Model):
+  date_uploaded = models.DateTimeField(auto_now=True)
+  csv_file = models.FileField(upload_to='csv')
+
