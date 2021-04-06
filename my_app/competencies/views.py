@@ -21,9 +21,10 @@ import logging
     #     return render(request,'competencies/comps.html')
 
 def mycomps(request):
-    objects = Usertask.objects.all()
+    #user task instances filtered by current user
+    f = usertaskFilter(request.GET, queryset=Usertask.objects.filter(user=request.user))
 
-    return render (request,'mycomps.html',{'objects':objects})
+    return render (request,'mycomps.html',{'filter':f})
 
 
 def comps(request):

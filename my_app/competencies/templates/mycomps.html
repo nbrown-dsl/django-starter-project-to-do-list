@@ -3,6 +3,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{%load crispy_forms_tags %}
 
 {% block title %}My Skills{% endblock %}
 
@@ -34,6 +35,12 @@
      </div>
 
     <h2>My skills</h2>
+
+    <form method="get">
+      {{ filter.form.as_p }}
+      <input type="submit" />
+    </form>
+    
     <!-- <div class="card-group"> 
       <div class="row row-cols-1 row-cols-md-3 g-4"></div>
       {% for object in objects %}
@@ -45,8 +52,8 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{object.usertasktask.name}}</h5>
-              <p class="card-text">{{object.usertasktask.description}}</p>
+              <h5 class="card-title">{{obj.usertasktask.name}}</h5>
+              <p class="card-text">{{obj.usertasktask.description}}</p>
               <small ><a href={{link}} target="_blank"><i class="bi bi-info-square"></i></a></small>
             </div>
           </div>
@@ -66,13 +73,13 @@
          
           <!--iterates through instances of class-->
 
-      {% for object in objects %}
+      {% for obj in filter.qs %}
           
               <tr>
                   
-                  <td style="width:90%">{{object.usertasktask.description}} </td>
-                  <td><center><a href="{{ object.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
-                  <td><center><a href="{{ object.usertasktask.system.link}}" target="_blank"><img src="{% static object.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
+                  <td style="width:90%">{{obj.usertasktask.description}} </td>
+                  <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
+                  <td><center><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
           
 

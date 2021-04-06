@@ -6,13 +6,15 @@ from .models import *
 class DateInput(DateInput):
     input_type = 'date'
 
+#created parent class so form classes can be searched as sub classes
 class entityForm(ModelForm):
     abtract = True
 
 class TaskForm(entityForm):
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = ['name','description','link','system','requirement','role']
+        
 
 class UsertaskForm(entityForm):
     class Meta:
@@ -23,11 +25,22 @@ class gradeForm(entityForm):
     class Meta:
         model = grade
         fields = "__all__"
+        
+class requirementForm(entityForm):
+    class Meta:
+        model = Requirement
+        fields = '__all__'
 
 class systemForm(entityForm):
     class Meta:
         model = System
         fields = '__all__'
+
+
+# class csvUploadForm(forms.ModelForm):
+#   class Meta:
+#     model = csvUpload
+#     fields = ("csv_file",)
 
 # class roleForm(entityForm):
 #     class Meta:
@@ -38,18 +51,3 @@ class systemForm(entityForm):
 #     class Meta:
 #         model = Profile
 #         exclude = ['name']
-        
-class requirementForm(entityForm):
-    class Meta:
-        model = Requirement
-        fields = '__all__'
-
-# class groupForm(entityForm):
-#     class Meta:
-#         model = Group
-#         fields = '__all__'
-
-class csvUploadForm(forms.ModelForm):
-  class Meta:
-    model = csvUpload
-    fields = ("csv_file",)

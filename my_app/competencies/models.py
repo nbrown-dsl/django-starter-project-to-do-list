@@ -5,6 +5,7 @@ from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
 from django.db.models.fields.related import ManyToManyField
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
+import django_filters
 
 User = get_user_model()
 
@@ -49,9 +50,9 @@ class Requirement(entity):
 
 class Task(entity):
     description = models.CharField(max_length=200)
-    link = models.CharField(max_length=300,default=None, blank=True, null=True)
-    system = models.ForeignKey(System,on_delete=SET_NULL, null=True)
-    role = models.ManyToManyField(Group,related_name='tasks')
+    link = models.CharField(max_length=300,default="", blank=True, null=True)
+    system = models.ForeignKey(System,on_delete=SET_NULL, null=True, blank=True)
+    role = models.ManyToManyField(Group)
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
 
 
@@ -72,3 +73,20 @@ class csvUpload(models.Model):
   date_uploaded = models.DateTimeField(auto_now=True)
   csv_file = models.FileField(upload_to='csv')
 
+
+class usertaskFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(field_name='usertasktask__name',lookup_expr='contains',label='Name')
+    requirement = django_filters.CharFilter(field_name='usertasktask__requirement__name',lookup_expr='contains',label='Requirement')
+    system = django_filters.CharFilter(field_name='usertasktask__system__name',lookup_expr='contains',label='System')
+
+    class Meta:
+        model = Usertask
+        fields = []  
+        
+
+    # @property
+    # def qs(self):
+    #     parent = super().qs
+    #     user = getattr(self.request, 'user', None)
+    #     user = get_current_user() 
+    #     return parent.filter(user=user.id)
