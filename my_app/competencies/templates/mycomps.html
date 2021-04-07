@@ -35,11 +35,19 @@
      </div>
 
     <h2>My skills</h2>
-
-    <form method="get">
+<!-- using filter app -->
+    <!-- <form method="get">
       {{ filter.form.as_p }}
       <input type="submit" />
+    </form> -->
+
+    <form action="/mycomps/" method="POST">
+      {% csrf_token %}
+      {{form|crispy}}
+      <br>
+      <button class="btn btn-primary" type="submit">Filter</button>
     </form>
+    <br>
     
     <!-- <div class="card-group"> 
       <div class="row row-cols-1 row-cols-md-3 g-4"></div>
@@ -69,27 +77,16 @@
             <th></th>
             <th></th>
             <th></th>
-          </tr> --> 
-         
-          <!--iterates through instances of class-->
-
-      {% for obj in filter.qs %}
-          
-              <tr>
-                  
+          </tr> -->         
+          <!--iterates through instances of class-->     
+      {% for obj in objects %}         
+              <tr>                 
                   <td style="width:90%">{{obj.usertasktask.description}} </td>
                   <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
                   <td><center><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
-          
-
       {% endfor %}
   </table>  
-
-
-
-
-
 
 {% endblock %}
 

@@ -22,9 +22,25 @@ import logging
 
 def mycomps(request):
     #user task instances filtered by current user
-    f = usertaskFilter(request.GET, queryset=Usertask.objects.filter(user=request.user))
+    # f = usertaskFilter(request.GET, queryset=Usertask.objects.filter(user=request.user))
+    # return render (request,'mycomps.html',{'filter':f,'form':form})
+    objects = Usertask.objects.filter(user=request.user)
+    if request.method == 'POST':
+        form = UsertaskForm(request.POST or None)
+        if form.is_valid():
+            requirement = form.cleaned_data['requirement']
+            if requirement:
+                objects = objects.filter(usertasktask__requirement__id=requirement.id)
+            system = form.cleaned_data['system']
+            if system:
+                objects = objects.filter(usertasktask__system__id=system.id)
+            name = form.cleaned_data['name']
+            objects = objects.filter(usertasktask__name__contains=name)
+    else:
+        form = UsertaskForm(request.POST or None)
+        
+    return render (request,'mycomps.html',{'objects':objects,'form':form})
 
-    return render (request,'mycomps.html',{'filter':f})
 
 
 def comps(request):

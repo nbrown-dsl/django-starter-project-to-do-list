@@ -76,12 +76,12 @@ class csvUpload(models.Model):
 
 class usertaskFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(field_name='usertasktask__name',lookup_expr='contains',label='Name')
-    requirement = django_filters.CharFilter(field_name='usertasktask__requirement__name',lookup_expr='contains',label='Requirement')
-    system = django_filters.CharFilter(field_name='usertasktask__system__name',lookup_expr='contains',label='System')
+    requirement = django_filters.ModelChoiceFilter(queryset=Requirement.objects.all(),label='Requirement')
+    system = django_filters.ModelChoiceFilter(queryset=System.objects.all(),label='System')
 
     class Meta:
         model = Usertask
-        fields = []  
+        fields = ['system','requirement','name']  
         
 
     # @property

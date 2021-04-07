@@ -17,9 +17,16 @@ class TaskForm(entityForm):
         
 
 class UsertaskForm(entityForm):
+    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="All requirements",required=False)
+    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="All systems",required=False,initial='All systems')
+    name = forms.CharField(required=False)
     class Meta:
         model = Usertask
-        exclude = ['name']
+        fields = ['name','requirement','system']
+        # labels = {
+        #     'fields': 'Form fields (ctrl to multiple select)'
+        # }
+        # widgets = { 'protocolFields': CheckboxSelectMultiple}
 
 class gradeForm(entityForm):
     class Meta:
@@ -35,6 +42,9 @@ class systemForm(entityForm):
     class Meta:
         model = System
         fields = '__all__'
+
+
+
 
 
 # class csvUploadForm(forms.ModelForm):
