@@ -17,12 +17,13 @@ class TaskForm(entityForm):
         
 
 class UsertaskForm(entityForm):
-    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="All requirements",required=False)
-    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="All systems",required=False,initial='All systems')
-    name = forms.CharField(required=False)
+    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
+    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
+    grade = forms.ModelChoiceField(queryset= grade.objects.all(), empty_label="----",required=False)
+    description = forms.CharField(required=False)
     class Meta:
         model = Usertask
-        fields = ['name','requirement','system']
+        fields = ['description','requirement','system','grade']
         # labels = {
         #     'fields': 'Form fields (ctrl to multiple select)'
         # }

@@ -29,13 +29,16 @@ def mycomps(request):
         form = UsertaskForm(request.POST or None)
         if form.is_valid():
             requirement = form.cleaned_data['requirement']
-            if requirement:
+            if requirement: #ie requirement selected not 'all'
                 objects = objects.filter(usertasktask__requirement__id=requirement.id)
             system = form.cleaned_data['system']
-            if system:
+            if system: #ie system selected not 'all'
                 objects = objects.filter(usertasktask__system__id=system.id)
-            name = form.cleaned_data['name']
-            objects = objects.filter(usertasktask__name__contains=name)
+            grade = form.cleaned_data['grade']
+            if grade: #ie system selected not 'all'
+                objects = objects.filter(userGrade__id=grade.id)
+            description = form.cleaned_data['description']
+            objects = objects.filter(usertasktask__description__contains=description)
     else:
         form = UsertaskForm(request.POST or None)
         

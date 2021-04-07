@@ -46,6 +46,7 @@
       {{form|crispy}}
       <br>
       <button class="btn btn-primary" type="submit">Filter</button>
+      <a role="button" class="btn btn-secondary" href="{% url 'mycomps' %}">Clear</a>
     </form>
     <br>
     
@@ -80,8 +81,8 @@
           </tr> -->         
           <!--iterates through instances of class-->     
       {% for obj in objects %}         
-              <tr>                 
-                  <td style="width:90%">{{obj.usertasktask.description}} </td>
+              <tr><td style="width:10%">{{obj.userGrade}} </td>                 
+                  <td style="width:80%">{{obj.usertasktask.description}} </td>
                   <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
                   <td><center><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
