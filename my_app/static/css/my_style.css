@@ -80,7 +80,8 @@ background-color: gray; }
   .bin { color: red}
 
   .star-size { 
-        font-size:24px}
+        font-size:20px;
+      color:rgba(250, 176, 16, 0.884)}
 
-
+  
 

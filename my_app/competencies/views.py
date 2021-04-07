@@ -42,7 +42,7 @@ def mycomps(request):
     else:
         form = UsertaskForm(request.POST or None)
         
-    return render (request,'mycomps.html',{'objects':objects,'form':form})
+    return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4)})
 
 
 
