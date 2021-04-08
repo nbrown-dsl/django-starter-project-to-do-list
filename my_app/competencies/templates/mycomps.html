@@ -73,23 +73,23 @@
                 </a>&nbsp; -->
                 <div class="btn-group" role="group" aria-label="Basic example">
                <label class="container"> 
-                  {% if obj.userGrade.value >= 0 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% if obj.userGrade.value > 0 %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=1  checked >
                   {% else %} 
-                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                  <input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=1  unchecked >
                    {% endif %}
                   <span class="starmark"></span>
                 </label>
                 <label class="container">
-                  {% if obj.userGrade.value >= 1 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% if obj.userGrade.value > 1 %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=2  checked >
                   {% else %} 
-                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                  <input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=2 unchecked >
                    {% endif %}
                   <span class="starmark"></span>
                 </label>
                 <label class="container">
-                  {% if obj.userGrade.value >= 2 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% if obj.userGrade.value > 2 %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=3  checked >
                   {% else %} 
-                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                  <input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=3  unchecked >
                    {% endif %}
                   <span class="starmark"></span>
                 </label>
@@ -104,21 +104,24 @@
       {% endfor %}
   </table>  
 
-{% endblock %}
+
 
 </script>
 <!--ajax call to server to update cross/uncross without reloading page-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script type="text/javascript">
   $('.star').click(function(){
-  var catid;
-  grade_value = $(this).attr("grade_value");
+  var grade_val;
+  var usertask_id;
+  usertask_id = $(this).attr("usertask_id");
+  grade_val = $(this).attr("grade_value");
   $.ajax(
   {
       type:"GET",
-      url: "/gradeChange/",
+      url: '/gradeChange/',
       data:{
-               'grade_value': grade_value
+               grade_value: grade_val,
+               usertask_id: usertask_id
       },
       success: function( data ) 
       {
@@ -128,3 +131,5 @@
    })
   });
 </script>
+
+{% endblock %}
