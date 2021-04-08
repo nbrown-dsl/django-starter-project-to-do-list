@@ -10,30 +10,6 @@
 
 {% block content %}
 
-
-<div class="d-flex flex-row-reverse bd-highlight mb-1 col">
-    <!--buttons to navigate-->    
-     <div class="btn-group" role="group" aria-label="Basic example">
-         
-         
-         <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
-         {% if user.is_superuser %}
-           <div class="dropdown">
-           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Entities
-           </button>&nbsp;
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-             <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
-             <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
-             <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
-             <a class="dropdown-item" href="{% url 'entities' 'ListFields' %}">Fields</a>
-           </div>       
-         </div>
-         {% endif %}
-    
-       </div>
-     </div>
-
     <h2>My skills</h2>
 <!-- using filter app -->
     <!-- <form method="get">
@@ -82,13 +58,44 @@
           <!--iterates through instances of class-->     
       {% for obj in objects %}         
               <tr><td>
-                {% for number in numbers %} 
-                {% if obj.userGrade.value >= number %}
-                <a href="" id="star{{obj.id}}" data-catid="{{ obj.id }}"><i class="bi bi-star-fill star-size"></i></a>&nbsp;
-                {% else %}
-                <a href="" id="star{{obj.id}}" data-catid="{{ obj.id }}"><i class="bi bi-star star-size"></i></a>&nbsp;
-                {% endif %}
-                {% endfor %}
+                
+                <!-- <button grade_value=0 class="star">
+                  {% if obj.userGrade.value >= 0 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
+                </button>&nbsp;
+                <a href="" data-catid="{{ 1 }}" grade_value=1 class="star">
+                  {% if obj.userGrade.value > 1 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
+                </a>&nbsp;
+                <a href="" data-catid="{{ 2 }}" grade_value=2 class="star">
+                  {% if obj.userGrade.value > 2 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
+                </a>&nbsp;
+                <a href="" data-catid="{{ 3 }}" grade_value=3 class="star">
+                  {% if obj.userGrade.value > 3 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
+                </a>&nbsp; -->
+                <div class="btn-group" role="group" aria-label="Basic example">
+               <label class="container"> 
+                  {% if obj.userGrade.value >= 0 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% else %} 
+                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                   {% endif %}
+                  <span class="starmark"></span>
+                </label>
+                <label class="container">
+                  {% if obj.userGrade.value >= 1 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% else %} 
+                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                   {% endif %}
+                  <span class="starmark"></span>
+                </label>
+                <label class="container">
+                  {% if obj.userGrade.value >= 2 %}<input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  checked >
+                  {% else %} 
+                  <input class="star" type="checkbox" id="check{{obj.id}}" data-catid="{{ obj.id }}"  unchecked >
+                   {% endif %}
+                  <span class="starmark"></span>
+                </label>
+              </div>
+                
+                
               </td>                 
                   <td style="width:85%">{{obj.usertasktask.description}} </td>
                   <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
@@ -99,4 +106,25 @@
 
 {% endblock %}
 
-
+</script>
+<!--ajax call to server to update cross/uncross without reloading page-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  $('.star').click(function(){
+  var catid;
+  grade_value = $(this).attr("grade_value");
+  $.ajax(
+  {
+      type:"GET",
+      url: "/gradeChange/",
+      data:{
+               'grade_value': grade_value
+      },
+      success: function( data ) 
+      {
+          // $( '#check'+ catid ).remove();
+          $( '#message' ).text(data);
+      }
+   })
+  });
+</script>

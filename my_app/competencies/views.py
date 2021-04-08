@@ -181,3 +181,18 @@ def exportCSV(request,entityName):
             return response
     
     return redirect('comps')
+
+#from ajax javascript call
+def gradeChange(request):
+        if request.method == 'GET':
+            grade_value = request.GET.get('grade_value',33)
+        #        grade = grade.objects.get(value=star_value)[0] #getting the liked posts
+        #        if item.completed:
+        #            item.completed = False
+        #        else:
+        #            item.completed = True
+        #        item.save()
+        #        return HttpResponse("Success!") # Sending an success response
+        # # else:
+            print(grade_value)
+        return redirect ('mycomps')

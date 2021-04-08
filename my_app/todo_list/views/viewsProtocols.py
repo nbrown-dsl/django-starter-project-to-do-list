@@ -130,17 +130,18 @@ def crossoff(request, list_id):
 
 #from ajax javascript call
 def cross(request):
-        if request.method == 'GET':
-               post_id = request.GET['post_id']
-               item = taskdata.objects.get(pk=post_id) #getting the liked posts
-               if item.completed:
-                   item.completed = False
-               else:
-                   item.completed = True
-               item.save()
-               return HttpResponse("Success!") # Sending an success response
-        else:
-               return HttpResponse("Request method is not a GET")
+    print("ajax reeived")
+    if request.method == 'GET':
+            post_id = request.GET['post_id']
+            item = taskdata.objects.get(pk=post_id) #getting the liked posts
+            if item.completed:
+                item.completed = False
+            else:
+                item.completed = True
+            item.save()
+            return HttpResponse("Success!") # Sending an success response
+    else:
+            return HttpResponse("Request method is not a GET")
 
 
 def uncross(request, list_id):

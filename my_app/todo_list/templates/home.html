@@ -152,7 +152,7 @@ function sendEmail() {
     $.ajax(
     {
         type:"GET",
-        url: "/cross",
+        url: '/cross/',
         data:{
                  post_id: catid
         },
@@ -162,8 +162,8 @@ function sendEmail() {
             $( '#message' ).text(data);
         }
      })
-});
-</script>
+    });
+  </script>
 
 
 

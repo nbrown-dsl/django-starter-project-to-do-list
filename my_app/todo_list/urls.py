@@ -20,6 +20,7 @@ urlpatterns = [
     path('entities/<modelName>',views.entities,name='entities'),
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
     path('email',views.email,name='email'),
+    path('cross/',views.cross,name='cross'),
     #comp views
     # path('persons_list/', taskList.as_view()),
 
