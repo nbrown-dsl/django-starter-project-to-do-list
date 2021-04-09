@@ -182,25 +182,24 @@ def exportCSV(request,entityName):
     
     return redirect('comps')
 
-#from ajax javascript call
+#from ajax javascript call upon click on star grade
 def gradeChange(request):
-        print("hello")
         if request.method == 'GET':
             grade_value = request.GET.get('grade_value',0)
             usertask_id = request.GET.get('usertask_id',66)
-            grade1 = grade.objects.get(value=int(grade_value)) 
             usertask = Usertask.objects.get(pk=usertask_id)
             #if previous user grade not same as grade checked then set as user grade
-            if (usertask.userGrade.value != grade_value):
-                usertask.userGrade = grade1
-                usertask.save(update_fields=['userGrade'])
-            # if item.completed:
-            #     item.completed = False
-            # else:
-            #     item.completed = True
-            # item.save()
-            print("grade changed from "+ str(usertask.userGrade.value) + " to " + str(grade_value))
-            return HttpResponse("Success!") # Sending an success response
+            if (usertask.userGrade.value != int(grade_value)):
+                newgrade = grade.objects.get(value=int(grade_value)) 
+                usertask.userGrade = newgrade               
+            #if previous grade same as checked, then unchecked and grade drops a level
+            else:
+                lowervalue = int(grade_value)-1
+                lowergrade = grade.objects.get(value=lowervalue)
+                usertask.userGrade = lowergrade
+            usertask.save(update_fields=['userGrade'])
+            
+            return HttpResponse("Success!") # Sending a success response
         
             
         
