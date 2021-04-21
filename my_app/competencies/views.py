@@ -174,7 +174,7 @@ def exportCSV(request,entityName):
                 row={}
                 for fieldname in fieldnames:
                     row.update({fieldname:str(getattr(task,fieldname))})
-                    writer.writerow(row)
+                writer.writerow(row)
 
             return response
     
