@@ -37,12 +37,12 @@ background-color: gray; }
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: rgb(255, 255, 255);
   }
   
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
-    background-color: #ccc;
+    background-color: rgb(255, 255, 255);
   }
   
   /* When the checkbox is checked, add a blue background */
@@ -90,12 +90,12 @@ background-color: gray; }
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  background-color: rgba(114, 67, 5, 0.404);
 }
 
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .starmark {
-  background-color: #ccc;
+  background-color: rgb(255, 255, 255);
 }
 
 /* When the checkbox is checked, add a blue background */

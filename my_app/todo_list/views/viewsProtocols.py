@@ -9,6 +9,9 @@ import sys
 from django.core.mail import send_mail
 from django.conf import settings
 
+import csv
+
+
 
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
@@ -347,7 +350,7 @@ def removeFields(form,protocol):
 
 def logout_request(request):
     logout(request)
-    return render (request,'index.html')
+    return HttpResponseRedirect('/login')
 
 def email(request):
     subject = 'Thank you for registering to our site'
@@ -355,4 +358,31 @@ def email(request):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = ['nick@browndesign.co.uk',]
     send_mail( subject, message, email_from, recipient_list )
+    return redirect('home')
+
+#export tasks
+def exportCSV(request):
+    #create array of field names to be be csv headers
+    
+    fields = task._meta.fields
+    fieldnames = []
+    for field in fields:
+        fieldnames.append(field.name)
+
+    tasks = task.objects.all()
+            
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="tasks.csv"'
+
+    writer = csv.DictWriter(response,fieldnames=fieldnames)
+    writer.writeheader()
+    for taskrow in tasks:
+        row={}
+        for fieldname in fieldnames:
+            row.update({fieldname:str(getattr(taskrow,fieldname))})
+        writer.writerow(row)
+
+        return response
+    
     return redirect('home')

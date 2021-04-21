@@ -28,6 +28,7 @@
       <!-- <a class="btn btn-primary" role="button"   href="" alt="Compose email to listed taskholders with incomplete tasks">Send email</a>&nbsp; -->
       <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
       {% if user.is_superuser %}
+      <a class="btn btn-secondary" role="button" href="{% url 'exportCSV' %}">Download</a>&nbsp;
         <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Entities

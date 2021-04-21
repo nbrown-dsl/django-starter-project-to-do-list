@@ -5,7 +5,6 @@ from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
 from django.db.models.fields.related import ManyToManyField
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
-import django_filters
 
 User = get_user_model()
 
@@ -74,14 +73,14 @@ class csvUpload(models.Model):
   csv_file = models.FileField(upload_to='csv')
 
 
-class usertaskFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(field_name='usertasktask__name',lookup_expr='contains',label='Name')
-    requirement = django_filters.ModelChoiceFilter(queryset=Requirement.objects.all(),label='Requirement')
-    system = django_filters.ModelChoiceFilter(queryset=System.objects.all(),label='System')
+# class usertaskFilter(django_filters.FilterSet):
+#     name = django_filters.CharFilter(field_name='usertasktask__name',lookup_expr='contains',label='Name')
+#     requirement = django_filters.ModelChoiceFilter(queryset=Requirement.objects.all(),label='Requirement')
+#     system = django_filters.ModelChoiceFilter(queryset=System.objects.all(),label='System')
 
-    class Meta:
-        model = Usertask
-        fields = ['system','requirement','name']  
+#     class Meta:
+#         model = Usertask
+#         fields = ['system','requirement','name']  
         
 
     # @property

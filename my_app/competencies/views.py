@@ -156,8 +156,6 @@ def importCSV(request,object):
 def exportCSV(request,entityName):
     #create array of field names to be be csv headers
     for table in entity.__subclasses__():
-        print(table.__name__)
-        print(entityName)
         if table.__name__ == str(entityName):
             fields = table._meta.fields
             fieldnames = []

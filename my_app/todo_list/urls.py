@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.home,name='home'), 
     path('accounts/', include('allauth.urls')),
     path('logout', views.logout_request, name='logout'),
+    path("login", views.login_request, name="login"),
     path('home',views.home,name='home'),
     path('home/<nameFilter>',views.home,name='home'),
     path('about',views.about,name='about'),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('deleteInstance/<list_id>/<modelName>/',views.deleteInstance,name='deleteInstance'),
     path('email',views.email,name='email'),
     path('cross/',views.cross,name='cross'),
+    path('exportCSV/',views.exportCSV,name='exportCSV'),
     #comp views
     # path('persons_list/', taskList.as_view()),
 

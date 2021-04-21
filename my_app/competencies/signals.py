@@ -2,7 +2,7 @@
 
 from .models import Task, Usertask
 from django.contrib.auth import get_user_model
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 
 User = get_user_model()
@@ -23,6 +23,9 @@ def create_user_tasks(action, sender, instance, **kwargs):
             userTask = Usertask(usertasktask=instance, user=user)
             userTask.save()
 
-#create user tasks in event of new user instance created, or current user assigned to further roel
+#create user tasks in event of new user instance created, or current user assigned to further role
+# @receiver(post_save, sender=User)
+# def create_newuser_tasks(action, sender, instance, **kwargs):
+#     pass
 
     
