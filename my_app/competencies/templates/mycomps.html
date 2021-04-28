@@ -11,11 +11,6 @@
 {% block content %}
 
     <h2>My skills</h2>
-<!-- using filter app -->
-    <!-- <form method="get">
-      {{ filter.form.as_p }}
-      <input type="submit" />
-    </form> -->
 
     <form action="/mycomps/" method="POST">
       {% csrf_token %}
@@ -26,28 +21,6 @@
     </form>
     <br>
     
-    <!-- <div class="card-group"> 
-      <div class="row row-cols-1 row-cols-md-3 g-4"></div>
-      {% for object in objects %}
-      <div class="col">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="..." alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{obj.usertasktask.name}}</h5>
-              <p class="card-text">{{obj.usertasktask.description}}</p>
-              <small ><a href={{link}} target="_blank"><i class="bi bi-info-square"></i></a></small>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      {% endfor %}
-      <div>
-    <div> -->
 
   <table class="table table-dark">
         <!-- <tr class="table-primary">
@@ -59,18 +32,6 @@
       {% for obj in objects %}         
               <tr><td>
                 
-                <!-- <button grade_value=0 class="star">
-                  {% if obj.userGrade.value >= 0 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
-                </button>&nbsp;
-                <a href="" data-catid="{{ 1 }}" grade_value=1 class="star">
-                  {% if obj.userGrade.value > 1 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
-                </a>&nbsp;
-                <a href="" data-catid="{{ 2 }}" grade_value=2 class="star">
-                  {% if obj.userGrade.value > 2 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
-                </a>&nbsp;
-                <a href="" data-catid="{{ 3 }}" grade_value=3 class="star">
-                  {% if obj.userGrade.value > 3 %}<i class="bi bi-star-fill star-size"></i>{% else %} <i class="bi bi-star star-size"></i> {% endif %}
-                </a>&nbsp; -->
                 <div class="btn-group" role="group" aria-label="Basic example">
                <label class="container"> 
                   {% if obj.userGrade.value > 0 %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" grade_value=1  checked >

@@ -24,7 +24,12 @@ def mycomps(request):
     #user task instances filtered by current user
     # f = usertaskFilter(request.GET, queryset=Usertask.objects.filter(user=request.user))
     # return render (request,'mycomps.html',{'filter':f,'form':form})
-    objects = Usertask.objects.filter(user=request.user)
+    user = request.user
+    #filter users tasks to those user has
+    objects = Usertask.objects.filter(user=user)
+    #filters users tasks to those user has roles in
+    objects = objects.filter(usertasktask__role__in=user.groups.all())
+    
     if request.method == 'POST':
         form = UsertaskForm(request.POST or None)
         if form.is_valid():
@@ -200,5 +205,18 @@ def gradeChange(request):
             return HttpResponse("Success!") # Sending a success response
         
             
-        
+def profile(request):
+    if request.method == 'POST':
+        form = profileForm(request.POST or None,instance=request.user)
+        if form.is_valid():
+            form.save()
+            print ("form valid")
+            return redirect ('mycomps')
+
+        else:
+            print("form invalid")
+
+    form = profileForm(request.POST or None, instance=request.user)
+    
+    return render(request,'profile.html',{'form':form})     
         

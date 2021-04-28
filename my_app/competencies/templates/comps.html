@@ -8,49 +8,14 @@
 
 {% block content %}
 
-
-<div class="d-flex flex-row-reverse bd-highlight mb-1 col">
-    <!--buttons to navigate-->    
-     <div class="btn-group" role="group" aria-label="Basic example">
-         
-         
-         <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
-         {% if user.is_superuser %}
-           <div class="dropdown">
-           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Entities
-           </button>&nbsp;
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-             <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
-             <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
-             <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
-             <a class="dropdown-item" href="{% url 'entities' 'ListFields' %}">Fields</a>
-           </div>       
-         </div>
-         {% endif %}
-    
-       </div>
-     </div>
-
-
-
-
-
-
-    <h2>List</h2>
+    <h2>Database models</h2>
 <!--iterates through subclasses of entity class-->   
 {% for entity in objectDic %}
 <b>{{entity.name}}</b>
 &nbsp;<a href="{% url 'renderForm' entity.name %}"><i class="bi bi-plus-circle-fill" ></i></a>
 &nbsp;<a href="{% url 'exportCSV' entity.name %}"><i class="bi bi-file-earmark-arrow-down-fill icon"></i></a>
     <table class="table table-dark">
-      <!-- <tr class="table-primary">
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr> -->
-       
-        <!--iterates through instances of class-->
+      
       {% for object in entity.objects %}
           
               <tr>

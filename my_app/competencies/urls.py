@@ -15,5 +15,6 @@ urlpatterns = [
     path('importCSV/<object>/',views.importCSV,name='importCSV'),
     path('exportCSV/<entityName>/',views.exportCSV,name='exportCSV'),
     path('gradeChange/',views.gradeChange,name='gradeChange'),
+    path('profile/',views.profile,name='profile'),
  
  ]

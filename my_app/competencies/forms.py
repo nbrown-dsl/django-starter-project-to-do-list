@@ -2,6 +2,9 @@ from django.forms import ModelForm,DateInput,Textarea,forms
 from django import forms
 from django.forms.widgets import CheckboxInput, CheckboxSelectMultiple
 from .models import *
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class DateInput(DateInput):
     input_type = 'date'
@@ -44,7 +47,12 @@ class systemForm(entityForm):
         model = System
         fields = '__all__'
 
-
+class profileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['groups','first_name','last_name','email']
+        labels = {'groups':'Roles'}
+        help_texts = {'groups':'Shift select to select multiple roles'}
 
 
 
