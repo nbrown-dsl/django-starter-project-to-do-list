@@ -10,26 +10,14 @@ import csv
 import logging
 
 
-
-
-# # Create your views here.
-# class taskList(ListView):
-#     template_name = 'comps.html'
-#     model = Usertask
-    # def get(self, request):
-    #     # <view logic>
-    #     return render(request,'competencies/comps.html')
-
+#filterable list of users competencies according to role
 def mycomps(request):
-    #user task instances filtered by current user
-    # f = usertaskFilter(request.GET, queryset=Usertask.objects.filter(user=request.user))
-    # return render (request,'mycomps.html',{'filter':f,'form':form})
     user = request.user
     #filter users tasks to those user has
     objects = Usertask.objects.filter(user=user)
     #filters users tasks to those user has roles in
     objects = objects.filter(usertasktask__role__in=user.groups.all())
-    
+
     if request.method == 'POST':
         form = UsertaskForm(request.POST or None)
         if form.is_valid():
@@ -50,6 +38,28 @@ def mycomps(request):
     return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4)})
 
 
+#all competencies listed, regardless of user or role or votes
+def allcomps(request):
+    objects = Task.objects.all()
+
+    if request.method == 'POST':
+        form = TaskFilterForm(request.POST or None)
+        if form.is_valid():
+            requirement = form.cleaned_data['requirement']
+            if requirement: #ie requirement selected not 'all'
+                objects = objects.filter(requirement__id=requirement.id)
+            system = form.cleaned_data['system']
+            if system: #ie system selected not 'all'
+                objects = objects.filter(system__id=system.id)
+            role = form.cleaned_data['role']
+            if role: #ie system selected not 'all'
+                objects = objects.filter(role__id=role.id)
+            description = form.cleaned_data['description']
+            objects = objects.filter(description__contains=description)
+    else:
+        form = TaskFilterForm(request.POST or None)
+
+    return render(request,'allcomps.html',{'objects':objects,'form':form})
 
 def comps(request):
     objectList = []

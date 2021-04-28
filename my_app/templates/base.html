@@ -40,6 +40,7 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">My Protocols</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'mycomps' %}">My Skills</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'allcomps' %}">All Skills</a></li>
             {% if user.is_superuser %}
             <li class="nav-item"><a class="nav-link" href="{% url 'comps' %}">Admin</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="bi bi-gear"></i></a></li>

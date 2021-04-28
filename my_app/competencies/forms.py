@@ -13,12 +13,21 @@ class DateInput(DateInput):
 class entityForm(ModelForm):
     abtract = True
 
+class TaskFilterForm(ModelForm):
+    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
+    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
+    role = forms.ModelChoiceField(queryset= Group.objects.all(), empty_label="----",required=False)
+    description = forms.CharField(required=False)
+    class Meta:
+        model = Task
+        fields = ['description','requirement','system','role'] 
+
 class TaskForm(entityForm):
     class Meta:
         model = Task
         fields = ['name','description','link','system','requirement','role']
-        
 
+       
 class UsertaskForm(entityForm):
     requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
     system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')

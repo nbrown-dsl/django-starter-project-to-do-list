@@ -1,0 +1,78 @@
+<!--html template with django code snippets-->
+
+
+{% extends 'base.html' %}
+{% load static %}
+{%load crispy_forms_tags %}
+
+{% block title %}My Skills{% endblock %}
+
+
+{% block content %}
+
+    <h2>All skills</h2>
+
+    <form action="/allcomps/" method="POST">
+      {% csrf_token %}
+      {{form|crispy}}
+      <br>
+      <button class="btn btn-primary" type="submit">Filter</button>
+      <a role="button" class="btn btn-secondary" href="{% url 'allcomps' %}">Clear</a>
+    </form>
+    <br>
+    
+
+  <table class="table table-dark">
+            
+      {% for obj in objects %}         
+              <tr><td>
+                
+                <div class="btn-group" role="group" aria-label="Basic example">
+               <label class="container"> 
+                  {% if obj.upvote %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" checked >
+                  {% else %} 
+                  <input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
+                  {% endif %}
+                  <span class="starmark"></span>
+                </label>
+                
+              </div>
+                
+                
+              </td>                 
+                  <td style="width:85%">{{obj.description}} </td>
+                  <td><center><a href="{{ obj.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
+                  <td><center><a href="{{ obj.system.link}}" target="_blank"><img src="{% static obj.system.imgFileName %}" width="24"></i></a></center></td>
+              </tr>
+      {% endfor %}
+  </table>  
+
+
+
+</script>
+<!--ajax call to server to update grade change without reloading page-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  $('.star').click(function(){
+  var grade_val;
+  var usertask_id;
+  usertask_id = $(this).attr("usertask_id");
+  grade_val = $(this).attr("grade_value");
+  $.ajax(
+  {
+      type:"GET",
+      url: '/gradeChange/',
+      data:{
+               grade_value: grade_val,
+               usertask_id: usertask_id
+      },
+      success: function( data ) 
+      {
+          // $( '#check'+ catid ).remove();
+          $( '#message' ).text(data);
+      }
+   })
+  });
+</script>
+
+{% endblock %}
