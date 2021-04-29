@@ -40,22 +40,24 @@ def mycomps(request):
 
 #all competencies listed, regardless of user or role or votes
 def allcomps(request):
-    objects = Task.objects.all()
+    user = request.user
+    #filter users tasks to those user has
+    objects = Usertask.objects.filter(user=user)
 
     if request.method == 'POST':
         form = TaskFilterForm(request.POST or None)
         if form.is_valid():
             requirement = form.cleaned_data['requirement']
             if requirement: #ie requirement selected not 'all'
-                objects = objects.filter(requirement__id=requirement.id)
+                objects = objects.filter(usertasktask__requirement__id=requirement.id)
             system = form.cleaned_data['system']
             if system: #ie system selected not 'all'
-                objects = objects.filter(system__id=system.id)
+                objects = objects.filter(usertasktask__system__id=system.id)
             role = form.cleaned_data['role']
             if role: #ie system selected not 'all'
-                objects = objects.filter(role__id=role.id)
+                objects = objects.filter(usertasktask__role__id=role.id)
             description = form.cleaned_data['description']
-            objects = objects.filter(description__contains=description)
+            objects = objects.filter(usertasktask__description__contains=description)
     else:
         form = TaskFilterForm(request.POST or None)
 
@@ -213,6 +215,27 @@ def gradeChange(request):
             usertask.save(update_fields=['userGrade'])
             
             return HttpResponse("Success!") # Sending a success response
+
+#from ajax javascript call upon click on star grade
+def vote(request):
+        if request.method == 'GET':
+            task_id = request.GET.get('task_id',66)
+            task = Usertask.objects.get(pk=task_id)
+            #if previous user grade not same as grade checked then set as user grade
+            votes = task.usertasktask.votes
+            if task.upvote:
+                task.upvote = False  
+                task.usertasktask.votes = votes - 1
+                print ("vote removed "+str(task.usertasktask.votes))             
+            #if previous grade same as checked, then unchecked and grade drops a level
+            else:
+                task.upvote = True
+                task.usertasktask.votes = votes + 1
+                print ("vote added "+str(task.usertasktask.votes)) 
+            task.save(update_fields=['upvote'])
+            task.usertasktask.save(update_fields=['votes'])
+            
+            return HttpResponse(str(task.usertasktask.votes)) # Sending a success response with updated number of votes
         
             
 def profile(request):
