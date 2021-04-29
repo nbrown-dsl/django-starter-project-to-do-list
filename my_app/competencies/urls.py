@@ -16,6 +16,7 @@ urlpatterns = [
     path('exportCSV/<entityName>/',views.exportCSV,name='exportCSV'),
     path('gradeChange/',views.gradeChange,name='gradeChange'),
     path('profile/',views.profile,name='profile'),
-     path('allcomps/',views.allcomps,name='allcomps'),
+    path('allcomps/',views.allcomps,name='allcomps'),
+    path('vote/',views.vote,name='vote'),
  
  ]

@@ -19,7 +19,7 @@ class TaskFilterForm(ModelForm):
     role = forms.ModelChoiceField(queryset= Group.objects.all(), empty_label="----",required=False)
     description = forms.CharField(required=False)
     class Meta:
-        model = Task
+        model = Usertask
         fields = ['description','requirement','system','role'] 
 
 class TaskForm(entityForm):

@@ -29,7 +29,7 @@
                 
                 <div class="btn-group" role="group" aria-label="Basic example">
                <label class="container"> 
-                  {% if obj.upvote %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" checked >
+                  {% if obj.upvote %}<input class="star" type="checkbox" id="check{{obj.id}}" usertask_id="{{ obj.id }}" checked >
                   {% else %} 
                   <input class="star" type="checkbox" id="check{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
                   {% endif %}
@@ -37,12 +37,12 @@
                 </label>
                 
               </div>
-                
-                
-              </td>                 
-                  <td style="width:85%">{{obj.description}} </td>
-                  <td><center><a href="{{ obj.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
-                  <td><center><a href="{{ obj.system.link}}" target="_blank"><img src="{% static obj.system.imgFileName %}" width="24"></i></a></center></td>
+               
+              </td> 
+                  <td id="votes{{obj.id}}">{{obj.usertasktask.votes}} </td>                
+                  <td style="width:85%">{{obj.usertasktask.description}} </td>
+                  <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
+                  <td><center><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
       {% endfor %}
   </table>  
@@ -54,21 +54,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script type="text/javascript">
   $('.star').click(function(){
-  var grade_val;
-  var usertask_id;
-  usertask_id = $(this).attr("usertask_id");
-  grade_val = $(this).attr("grade_value");
+  
+  var task_id;
+  task_id = $(this).attr("usertask_id");
+  
   $.ajax(
   {
       type:"GET",
-      url: '/gradeChange/',
+      url: '/vote/',
       data:{
-               grade_value: grade_val,
-               usertask_id: usertask_id
+               
+               task_id: task_id
       },
       success: function( data ) 
       {
-          // $( '#check'+ catid ).remove();
+          $( '#votes'+ task_id ).text(data);
           $( '#message' ).text(data);
       }
    })
