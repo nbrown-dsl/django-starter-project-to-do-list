@@ -22,13 +22,8 @@
     <br>
     
 
-  <table class="table table-dark">
-        <!-- <tr class="table-primary">
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr> -->         
-          <!--iterates through instances of class-->     
+  <!-- <table class="table table-dark">
+            
       {% for obj in objects %}         
               <tr><td>
                 
@@ -59,11 +54,56 @@
                 
               </td>                 
                   <td style="width:85%">{{obj.usertasktask.description}} </td>
+                  <td>                
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                    <label class="container"> 
+                      {% if obj.upvote %}<input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
+                      {% else %} 
+                      <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
+                      {% endif %}
+                      <span class="starmark"></span>
+                    </label>                    
+                  </div>                   
+                  </td> 
+                  <td id="votes{{obj.id}}">{{obj.usertasktask.votes}} </td>
                   <td><center><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></center></td>
                   <td><center><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></center></td>
               </tr>
       {% endfor %}
-  </table>  
+  </table> -->
+  
+  <a href="{% url 'renderForm' 'Task' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
+    <i class="material-icons">Add competency</i>
+  </button></a>
+
+
+  <div class="row row-cols-1 row-cols-md-6 g-4">
+    {% for obj in objects %} 
+    <div class="col">
+      
+      <div class="card border-primary mb-3 h-100 p-10">
+        <div class="card-header"><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></div>
+        <div class="card-body">
+          <a href="{{ obj.usertasktask.link}}" target="_blank"><h5 class="card-title">{{obj.usertasktask.name}}</h5></a>
+          <p class="card-text">{{obj.usertasktask.description}}</p>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <label class="container"> 
+              {% if obj.upvote %}<input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
+              {% else %} 
+              <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
+              {% endif %}
+              <span class="starmark"></span>
+            </label>
+            <div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>                    
+          </div> 
+           
+        </div>
+      </div>  
+    </div>
+    {% endfor %}
+  </div>
 
 
 
@@ -88,6 +128,27 @@
       {
           // $( '#check'+ catid ).remove();
           $( '#message' ).text(data);
+      }
+   })
+  });
+  // ajax call to server to update vote count without reloading page. returns updated count 
+  $('.vote').click(function(){
+  
+  var task_id;
+  task_id = $(this).attr("usertask_id");
+  
+  $.ajax(
+  {
+      type:"GET",
+      url: '/vote/',
+      data:{
+               
+               task_id: task_id
+      },
+      success: function( data ) 
+      {
+          $( '#votes'+ task_id ).text(data);
+          $( '#message' ).text("votes now "+data);
       }
    })
   });

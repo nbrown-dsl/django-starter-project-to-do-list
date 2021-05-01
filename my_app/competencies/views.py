@@ -15,15 +15,15 @@ def mycomps(request):
     user = request.user
     #filter users tasks to those user has
     objects = Usertask.objects.filter(user=user)
-    #filters users tasks to those user has roles in
-    objects = objects.filter(usertasktask__role__in=user.groups.all())
-
+    #filters users tasks to those user has roles in and order by most votes first
+    objects = objects.filter(usertasktask__role__in=user.groups.all()).order_by('-usertasktask__votes')
+    
     if request.method == 'POST':
         form = UsertaskForm(request.POST or None)
         if form.is_valid():
-            requirement = form.cleaned_data['requirement']
-            if requirement: #ie requirement selected not 'all'
-                objects = objects.filter(usertasktask__requirement__id=requirement.id)
+            # requirement = form.cleaned_data['requirement']
+            # if requirement: #ie requirement selected not 'all'
+            #     objects = objects.filter(usertasktask__requirement__id=requirement.id)
             system = form.cleaned_data['system']
             if system: #ie system selected not 'all'
                 objects = objects.filter(usertasktask__system__id=system.id)
@@ -47,9 +47,9 @@ def allcomps(request):
     if request.method == 'POST':
         form = TaskFilterForm(request.POST or None)
         if form.is_valid():
-            requirement = form.cleaned_data['requirement']
-            if requirement: #ie requirement selected not 'all'
-                objects = objects.filter(usertasktask__requirement__id=requirement.id)
+            # requirement = form.cleaned_data['requirement']
+            # if requirement: #ie requirement selected not 'all'
+            #     objects = objects.filter(usertasktask__requirement__id=requirement.id)
             system = form.cleaned_data['system']
             if system: #ie system selected not 'all'
                 objects = objects.filter(usertasktask__system__id=system.id)
@@ -216,22 +216,19 @@ def gradeChange(request):
             
             return HttpResponse("Success!") # Sending a success response
 
-#from ajax javascript call upon click on star grade
+#from ajax javascript call upon click on upvote. changes vote and updates votes field accordingly
 def vote(request):
         if request.method == 'GET':
             task_id = request.GET.get('task_id',66)
             task = Usertask.objects.get(pk=task_id)
-            #if previous user grade not same as grade checked then set as user grade
+            #toggle vote
             votes = task.usertasktask.votes
             if task.upvote:
                 task.upvote = False  
-                task.usertasktask.votes = votes - 1
-                print ("vote removed "+str(task.usertasktask.votes))             
-            #if previous grade same as checked, then unchecked and grade drops a level
+                task.usertasktask.votes = votes - 1           
             else:
                 task.upvote = True
                 task.usertasktask.votes = votes + 1
-                print ("vote added "+str(task.usertasktask.votes)) 
             task.save(update_fields=['upvote'])
             task.usertasktask.save(update_fields=['votes'])
             

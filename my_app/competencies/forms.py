@@ -14,28 +14,32 @@ class entityForm(ModelForm):
     abtract = True
 
 class TaskFilterForm(ModelForm):
-    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
+    # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
     system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
     role = forms.ModelChoiceField(queryset= Group.objects.all(), empty_label="----",required=False)
     description = forms.CharField(required=False)
     class Meta:
         model = Usertask
-        fields = ['description','requirement','system','role'] 
+        fields = ['description','system','role'] 
 
 class TaskForm(entityForm):
     class Meta:
         model = Task
-        fields = ['name','description','link','system','requirement','role']
+        fields = ['name','description','link','system','role']
+        help_texts = {'link':'URL to resource that explains how to learn competency. It could be video, webpage, doc, etc etc',
+        'name': 'A pithy summary of competency',
+        'description': 'A fuller description of competency',
+        'role': 'Select which role this competency applies to. Shift select to select multiple roles'}
 
        
 class UsertaskForm(entityForm):
-    requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
+    # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
     system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
     grade = forms.ModelChoiceField(queryset= grade.objects.all(), empty_label="----",required=False)
     description = forms.CharField(required=False)
     class Meta:
         model = Usertask
-        fields = ['description','requirement','system','grade']
+        fields = ['description','system','grade']
         # labels = {
         #     'fields': 'Form fields (ctrl to multiple select)'
         # }
