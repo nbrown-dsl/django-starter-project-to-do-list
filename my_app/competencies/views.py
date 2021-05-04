@@ -16,7 +16,7 @@ def mycomps(request):
     #filter users tasks to those user has
     objects = Usertask.objects.filter(user=user)
     #filters users tasks to those user has roles in and order by most votes first
-    objects = objects.filter(usertasktask__role__in=user.groups.all()).order_by('-usertasktask__votes')
+    objects = objects.filter(usertasktask__role__in=user.groups.all()).order_by('-usertasktask__votes').distinct()
     
     if request.method == 'POST':
         form = UsertaskForm(request.POST or None)

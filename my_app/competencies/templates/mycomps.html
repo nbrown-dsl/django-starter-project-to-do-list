@@ -74,14 +74,14 @@
   
   <a href="{% url 'renderForm' 'Task' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
     <i class="material-icons">Add competency</i>
-  </button></a>
+  </button></a><br><br>
 
 
-  <div class="row row-cols-1 row-cols-md-6 g-4">
+  <div class="row row-cols-1 row-cols-md-6">
     {% for obj in objects %} 
     <div class="col">
       
-      <div class="card border-primary mb-3 h-100 p-10">
+      <div class="card bg-light mb-3 h-90 mb-3">
         <div class="card-header"><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></div>
         <div class="card-body">
           <a href="{{ obj.usertasktask.link}}" target="_blank"><h5 class="card-title">{{obj.usertasktask.name}}</h5></a>
@@ -90,12 +90,15 @@
         <div class="card-footer bg-transparent border-success">
           <div class="btn-group" role="group" aria-label="Basic example">
             <label class="container"> 
-              {% if obj.upvote %}<input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
+              {% if obj.upvote %}
+              <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
+              <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i> -->
               {% else %} 
               <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
+              <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-down-fill vote" usertask_id = "{{ obj.id }}"></i> -->
               {% endif %}
-              <span class="starmark"></span>
-            </label>
+              <span class="starmark"></span> 
+            </label> 
             <div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>                    
           </div> 
            
