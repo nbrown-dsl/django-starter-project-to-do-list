@@ -90,17 +90,17 @@ background-color: gray; }
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: rgba(114, 67, 5, 0.404);
+  background-color: rgba(24, 179, 10, 0.404);
 }
 
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .starmark {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(24, 179, 10, 0.884);
 }
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .starmark {
-  background-color: #b96e0c;
+  background-color: rgba(24, 179, 10, 0.884);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
