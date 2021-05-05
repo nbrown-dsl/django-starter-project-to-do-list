@@ -200,21 +200,22 @@ def exportCSV(request,entityName):
 #from ajax javascript call upon click on star grade
 def gradeChange(request):
         if request.method == 'GET':
-            grade_value = request.GET.get('grade_value',0)
+            grade_value = request.GET.get('grade_value',3)
             usertask_id = request.GET.get('usertask_id',66)
             usertask = Usertask.objects.get(pk=usertask_id)
             #if previous user grade not same as grade checked then set as user grade
-            if (usertask.userGrade.value != int(grade_value)):
-                newgrade = grade.objects.get(value=int(grade_value)) 
+            # if (usertask.userGrade.value != int(grade_value)):
+            if (int(grade_value)==0):
+                newgrade = grade.objects.get(value=1) 
                 usertask.userGrade = newgrade               
             #if previous grade same as checked, then unchecked and grade drops a level
             else:
-                lowervalue = int(grade_value)-1
-                lowergrade = grade.objects.get(value=lowervalue)
+                # lowervalue = int(grade_value)-1
+                lowergrade = grade.objects.get(value=0)
                 usertask.userGrade = lowergrade
             usertask.save(update_fields=['userGrade'])
             
-            return HttpResponse("Success!") # Sending a success response
+            return HttpResponse(grade_value) # Sending a success response
 
 #from ajax javascript call upon click on upvote. changes vote and updates votes field accordingly
 def vote(request):

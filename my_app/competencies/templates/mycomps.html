@@ -90,23 +90,35 @@
           <p class="card-text">{{obj.usertasktask.description}}</p>
         </div>
         <div class="card-footer bg-transparent border-success">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <label class="container"> 
-              {% if obj.upvote %}
-              <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
-              <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i> -->
-              {% else %} 
-              <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
-              <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-down-fill vote" usertask_id = "{{ obj.id }}"></i> -->
-              {% endif %}
-              <span class="starmark"></span> 
-            </label> 
-            <div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>                    
+          
+            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <label class="container"> 
+                  {% if obj.upvote %}
+                  <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
+                  <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i> -->
+                  {% else %} 
+                  <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
+                  <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-down-fill vote" usertask_id = "{{ obj.id }}"></i> -->
+                  {% endif %}
+                  <span class="starmark"></span> 
+                  
+                </label> 
+                <div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>
+              </div>
+              <div >
+                {% if obj.userGrade.value > 0 %}
+                <a href="javascript:code stuff"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=1></i></a>
+                {% else %}
+                <a href="javascript:code stuff"><i class="bi bi-trophy star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
+                {% endif %}
+              </div>
+            </div>
+                             
           </div> 
          </div>  
         </div>
         
-    </div>
     {% endfor %}
   </div>
 
@@ -121,6 +133,11 @@
   var usertask_id;
   usertask_id = $(this).attr("usertask_id");
   grade_val = $(this).attr("grade_value");
+  if (grade_val==0) {
+  $(this).attr("class","bi bi-trophy-fill star");}
+  else {
+    $(this).attr("class","bi bi-trophy star");  
+  }
   $.ajax(
   {
       type:"GET",
@@ -157,6 +174,8 @@
       }
    })
   });
+
+  
 </script>
 
 {% endblock %}
