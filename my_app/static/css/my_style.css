@@ -128,3 +128,13 @@ background-color: gray; }
   transform: rotate(45deg);
 }  
 
+.bi-trophy-fill{
+  color:rgb(117, 117, 112) !important;
+  font-size:20px !important;
+  }
+
+  .completed{    
+    color:rgb(255, 208, 0) !important;
+    
+    }
+
