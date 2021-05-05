@@ -93,18 +93,22 @@
           
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group" role="group" aria-label="Basic example">
-                <label class="container"> 
-                  {% if obj.upvote %}
-                  <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked >
-                  <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i> -->
+                <!-- <label class="container">  -->
+                
+                    {% if obj.upvote %}
+                  <!-- <input class="vote form-check-input" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked > -->
+                  <a href="javascript:code stuff"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote upvote" usertask_id = "{{ obj.id }}"></i></a>
+                
                   {% else %} 
-                  <input class="vote" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked >
-                  <!-- <i type="checkbox" id="count{{obj.id}}" class="bi bi-hand-thumbs-down-fill vote" usertask_id = "{{ obj.id }}"></i> -->
+                  <!-- <input class="vote form-check-input" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked > -->
+                  <a href="javascript:code stuff"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i></a>
+                
                   {% endif %}
-                  <span class="starmark"></span> 
+                
+                  <!-- <span class="starmark"></span> 
                   
-                </label> 
-                <div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>
+                </label>  -->
+                &nbsp;<div id="votes{{obj.id}}">{{obj.usertasktask.votes}} </div>
               </div>
               <div >
                 {% if obj.userGrade.value > 0 %}
@@ -134,9 +138,11 @@
   usertask_id = $(this).attr("usertask_id");
   grade_val = $(this).attr("grade_value");
   if (grade_val==0) {
-  $(this).addClass("completed");}
+  $(this).addClass("completed");
+  $(this).attr("grade_value",1);}
   else {
-  $(this).removeClass("completed");;  
+  $(this).removeClass("completed");
+  $(this).attr("grade_value",0);  
   }
   $.ajax(
   {
@@ -158,7 +164,11 @@
   
   var task_id;
   task_id = $(this).attr("usertask_id");
-  
+  if ($(this).hasClass("upvote")) {
+  $(this).removeClass("upvote");}
+  else {
+  $(this).addClass("upvote");  
+  }
   $.ajax(
   {
       type:"GET",
