@@ -15,6 +15,7 @@ def mycomps(request):
     user = request.user
     #filter users tasks to those user has
     objects = Usertask.objects.filter(user=user)
+    userskillsCount = objects.filter(userGrade__value__gte=1).count()
     #filters users tasks to those user has roles in and order by most votes first
     objects = objects.filter(usertasktask__role__in=user.groups.all()).order_by('-usertasktask__votes').distinct()
     
@@ -34,8 +35,10 @@ def mycomps(request):
             objects = objects.filter(usertasktask__description__contains=description)
     else:
         form = UsertaskForm(request.POST or None)
+
+    
         
-    return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4)})
+    return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4), 'count':userskillsCount})
 
 
 #all competencies listed, regardless of user or role or votes
@@ -213,9 +216,14 @@ def gradeChange(request):
                 # lowervalue = int(grade_value)-1
                 lowergrade = grade.objects.get(value=0)
                 usertask.userGrade = lowergrade
-            usertask.save(update_fields=['userGrade'])
             
-            return HttpResponse(grade_value) # Sending a success response
+            usertask.save(update_fields=['userGrade'])
+            user = request.user
+            userskills  = Usertask.objects.filter(user = user)
+            userskillsCount = userskills.filter(userGrade__value__gte=1).count()
+            data = userskillsCount
+            
+            return HttpResponse(data) # Sending a success response
 
 #from ajax javascript call upon click on upvote. changes vote and updates votes field accordingly
 def vote(request):

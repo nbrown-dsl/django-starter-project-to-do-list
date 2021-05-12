@@ -9,9 +9,10 @@
 
 
 {% block content %}
-
-    <h2>My skills</h2>
-
+    
+    
+    <h2>My <em><span class="count">{{ count }}</span></em> skills</h2>
+    
     <form action="/mycomps/" method="POST">
       {% csrf_token %}
       {{form|crispy}}
@@ -160,7 +161,8 @@
       success: function( data ) 
       {
           // $( '#check'+ catid ).remove();
-          $( '#message' ).text(data);
+          // $( '#message' ).text(data);
+          $('.count').text(data)
       }
    })
   });
