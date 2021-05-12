@@ -34,8 +34,8 @@ class List(models.Model):
     forename =  models.CharField(max_length=50,default=None,null=True)
     surname = models.CharField(max_length=50,default=None,null=True)
     YEAR_LEVELS = (
-    ('K1', 'K1'),
-    ('K2', 'K2'),
+    ('N1', 'N1'),
+    ('N2', 'N2'),
     ('R', 'R'),
     ('P1', 'P1'),
     ('P2', 'P2'),
