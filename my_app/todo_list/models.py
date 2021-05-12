@@ -51,7 +51,7 @@ class List(models.Model):
     ('D1', 'D1'),
     ('D2', 'D2')
     )
-    yearLevel = models.CharField(max_length=2, choices=YEAR_LEVELS,default=None,null=False)
+    yearLevel = models.CharField(max_length=2, choices=YEAR_LEVELS,default=None,null=True,blank = True)
     completed = models.BooleanField(default=False,null=True)
     arrivalDate = models.DateField(null=True, blank = True)
     leavingDate = models.DateField(null=True, blank = True)

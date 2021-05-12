@@ -22,10 +22,9 @@
       
         </div>
       </div>&nbsp; 
-      <button class="btn btn-primary" type="button" onclick="sendEmail()">
+      <button class="btn btn-primary" type="button" onclick="sendEmail()" data-toggle="tooltip" data-placement="bottom" title="Compose message to task holders listed below">
         Send Email
       </button>&nbsp;     
-      <!-- <a class="btn btn-primary" role="button"   href="" alt="Compose email to listed taskholders with incomplete tasks">Send email</a>&nbsp; -->
       <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
       {% if user.is_superuser %}
       <a class="btn btn-secondary" role="button" href="{% url 'exportCSV' %}">Download</a>&nbsp;
