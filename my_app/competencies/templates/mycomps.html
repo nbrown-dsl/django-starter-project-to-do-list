@@ -73,7 +73,7 @@
   </table> -->
   
   <a href="{% url 'renderForm' 'Task' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
-    <i class="material-icons">Add competency</i>
+    <i class="material-icons">Add skill</i>
   </button></a><br><br>
 
 
@@ -91,7 +91,7 @@
         
         
           <div class="card-body">
-          <h5 class="card-text" data-bs-toggle="tooltip" data-bs-placement="top" title="{{obj.usertasktask.description}}">{{obj.usertasktask.name}}</h5>
+          <p class="card-text lead" data-bs-toggle="tooltip" data-bs-placement="top" title="{{obj.usertasktask.description}}">{{obj.usertasktask.name}}</p>
           
         </div>
         <div class="h-5 card-footer">
