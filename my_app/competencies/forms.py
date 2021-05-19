@@ -34,9 +34,9 @@ class TaskForm(entityForm):
        
 class UsertaskForm(entityForm):
     # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
-    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
-    grade = forms.ModelChoiceField(queryset= grade.objects.all(), empty_label="----",required=False)
-    description = forms.CharField(required=False)
+    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="System...",required=False,initial='All systems',widget=forms.Select(attrs={'class': 'form-control'}))
+    grade = forms.ModelChoiceField(queryset= grade.objects.all(), empty_label="----",required=False,widget=forms.Select(attrs={'class': 'form-control'}))
+    description = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Search...'}))
     class Meta:
         model = Usertask
         fields = ['description','system','grade']

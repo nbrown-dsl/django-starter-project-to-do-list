@@ -14,11 +14,38 @@
     <h2 class="display-6">My <em><span class="count">{{ count }}</span></em> skills</h2>
     
     <form action="/mycomps/" method="POST">
-      {% csrf_token %}
-      {{form|crispy}}
-      <br>
-      <button class="btn btn-primary" type="submit">Filter</button>
-      <a role="button" class="btn btn-secondary" href="{% url 'mycomps' %}">Clear</a>
+      
+       {% csrf_token %}
+       
+      <div class="row">
+        <div class="col">
+       <div class="fieldWrapper">
+        {{ form.description.errors }}
+        <!-- <label for="{{ form.description.id_for_label }}">Description:</label> -->
+        {{ form.description }}
+       </div>
+       </div>
+       <div class="col">
+        <div class="fieldWrapper">
+         {{ form.system.errors }}
+         <!-- <label for="{{ form.system.id_for_label }}">System:</label> -->
+         {{ form.system }}
+        </div>
+       </div> 
+       <div class="col">
+        <div class="fieldWrapper">
+          {{ form.system.errors }}
+          <!-- <label for="{{ form.grade.id_for_label }}">Grade:</label> -->
+          {{ form.grade }}       
+        </div>
+        </div>
+        <div class="col">
+        <button class="btn btn-primary" type="submit">Filter</button>
+        <a role="button" class="btn btn-secondary" href="{% url 'mycomps' %}">Clear</a>
+      </div>
+      </div>
+       
+      
     </form>
     <br>
     

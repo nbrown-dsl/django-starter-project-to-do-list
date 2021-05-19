@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.db.models.deletion import DO_NOTHING, CASCADE, SET_NULL
 from django.db.models.fields.related import ManyToManyField
+import datetime
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
@@ -55,6 +56,7 @@ class Task(entity):
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
     votes = models.IntegerField(default=0)
     usersCompleted = models.IntegerField(default=0)
+    
 
 
 class grade(entity):
@@ -66,9 +68,10 @@ class Usertask(entity):
     usertasktask = models.ForeignKey(Task,on_delete=CASCADE)
     userGrade = models.ForeignKey(grade,on_delete=SET_NULL, null=True, default = 4)
     user = models.ForeignKey(User,on_delete=CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-usertasktask"]
+        ordering = ["-created_on"]
 
 class csvUpload(models.Model):
   date_uploaded = models.DateTimeField(auto_now=True)
