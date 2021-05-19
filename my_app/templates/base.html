@@ -71,7 +71,17 @@
     {% endblock %}
 
     {% else %}
-<a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <h1>My Dwight App</h1>
+    <p class="lead">
+      <ul>
+      <li>Learn IT skills</li>
+      <li>Log IT skills fulfillment</li>
+      <li>Check and log protocol tasks</li>
+      </ul>
+    </p>
+<a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
+  <i class="material-icons">Login</i>
+</button></a><br><br>
   {% endif %}
 
     {% if messages %}

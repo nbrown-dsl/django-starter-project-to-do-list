@@ -8,6 +8,7 @@ from django.forms import modelform_factory
 
 import csv
 import logging
+import json
 
 
 #filterable list of users competencies according to role
@@ -206,24 +207,31 @@ def gradeChange(request):
             grade_value = request.GET.get('grade_value',3)
             usertask_id = request.GET.get('usertask_id',66)
             usertask = Usertask.objects.get(pk=usertask_id)
+            oldnumber =  usertask.usertasktask.usersCompleted 
             #if previous user grade not same as grade checked then set as user grade
             # if (usertask.userGrade.value != int(grade_value)):
             if (int(grade_value)==0):
                 newgrade = grade.objects.get(value=1) 
-                usertask.userGrade = newgrade               
+                usertask.userGrade = newgrade                
+                newNumber = oldnumber + 1             
             #if previous grade same as checked, then unchecked and grade drops a level
             else:
                 # lowervalue = int(grade_value)-1
                 lowergrade = grade.objects.get(value=0)
                 usertask.userGrade = lowergrade
-            
+                newNumber = oldnumber - 1
+
+            usertask.usertasktask.usersCompleted = newNumber
+            usertask.usertasktask.save(update_fields=['usersCompleted'])
             usertask.save(update_fields=['userGrade'])
             user = request.user
             userskills  = Usertask.objects.filter(user = user)
             userskillsCount = userskills.filter(userGrade__value__gte=1).count()
-            data = userskillsCount
+
+            datadict = { 'userskillsCount': userskillsCount, 'usersCompleted': newNumber }
+            json_object = json.dumps(datadict, indent = 4)
             
-            return HttpResponse(data) # Sending a success response
+            return HttpResponse(json_object) # Sending a success response
 
 #from ajax javascript call upon click on upvote. changes vote and updates votes field accordingly
 def vote(request):

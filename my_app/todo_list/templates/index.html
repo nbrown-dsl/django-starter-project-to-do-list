@@ -8,7 +8,8 @@
   <a class="button" href="{% url 'home' %}">Protocols app</a>
  
   {% else %}
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
+  <h1>My Dwight app</h1>
+  <a href="{% provider_login_url 'google' %}">Login</a>
   {% endif %}
 
 {% endblock %}

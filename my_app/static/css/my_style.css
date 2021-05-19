@@ -15,7 +15,7 @@ background-color: gray; }
 
 
 
-.bi-trophy-fill{
+.bi-trophy-fill, .bi-people-fill {
   color:rgb(167, 167, 161) !important;
   font-size:20px !important;
   }

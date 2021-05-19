@@ -11,7 +11,7 @@
 {% block content %}
     
     
-    <h2>My <em><span class="count">{{ count }}</span></em> skills</h2>
+    <h2 class="display-6">My <em><span class="count">{{ count }}</span></em> skills</h2>
     
     <form action="/mycomps/" method="POST">
       {% csrf_token %}
@@ -107,7 +107,7 @@
                 
                   {% else %} 
                   <!-- <input class="vote form-check-input" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked > -->
-                  <a href="javascript:code stuff" data-toggle="tooltip" data-placement="bottom" title="Click to upvote skill"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}"></i></a>
+                  <a href="javascript:code stuff" ><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}" ></i></a>
                 
                   {% endif %}
                 
@@ -116,12 +116,15 @@
                 </label>  -->
                 <p id="votes{{obj.id}}">{{obj.usertasktask.votes}}</p>
               </div>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <i class="bi bi-people-fill"></i><p id="usersCompleted{{obj.id}}">{{ obj.usertasktask.usersCompleted }}</p>&nbsp;&nbsp;
               <div >
                 {% if obj.userGrade.value > 0 %}
                 <a href="javascript:code stuff" ><i class="bi bi-trophy-fill star completed" usertask_id = "{{ obj.id }}" grade_value=1></i></a>
                 {% else %}
                 <a href="javascript:code stuff" data-toggle="tooltip" data-placement="bottom" title="Click to show completed"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
                 {% endif %}
+              </div>
               </div>
             </div>
                              
@@ -162,7 +165,9 @@
       {
           // $( '#check'+ catid ).remove();
           // $( '#message' ).text(data);
-          $('.count').text(data)
+          var dict = jQuery.parseJSON( data );
+          $('.count').text(dict.userskillsCount)
+          $('#usersCompleted'+ usertask_id).text(dict.usersCompleted)
       }
    })
   });
@@ -187,7 +192,7 @@
       success: function( data ) 
       {
           $( '#votes'+ task_id ).text(data);
-          $( '#message' ).text("votes now "+data);
+          
       }
    })
   });

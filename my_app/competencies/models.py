@@ -54,6 +54,7 @@ class Task(entity):
     role = models.ManyToManyField(Group)
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
     votes = models.IntegerField(default=0)
+    usersCompleted = models.IntegerField(default=0)
 
 
 class grade(entity):
