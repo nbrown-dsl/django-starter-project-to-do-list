@@ -35,15 +35,12 @@ class TaskForm(entityForm):
 class UsertaskForm(entityForm):
     # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
     system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="System...",required=False,initial='All systems',widget=forms.Select(attrs={'class': 'form-control'}))
-    grade = forms.ModelChoiceField(queryset= grade.objects.all(), empty_label="----",required=False,widget=forms.Select(attrs={'class': 'form-control'}))
+    grade = forms.ModelChoiceField(queryset= grade.objects.filter(value__lte=1),required=False,widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
     description = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Search...'}))
     class Meta:
         model = Usertask
         fields = ['description','system','grade']
-        # labels = {
-        #     'fields': 'Form fields (ctrl to multiple select)'
-        # }
-        # widgets = { 'protocolFields': CheckboxSelectMultiple}
+
 
 class gradeForm(entityForm):
     class Meta:

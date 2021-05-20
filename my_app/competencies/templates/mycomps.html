@@ -17,32 +17,33 @@
       
        {% csrf_token %}
        
-      <div class="row">
-        <div class="col">
-       <div class="fieldWrapper">
+      <div class="form-row">
+        
+       <div class="form-group col-md-4">
         {{ form.description.errors }}
         <!-- <label for="{{ form.description.id_for_label }}">Description:</label> -->
         {{ form.description }}
        </div>
-       </div>
-       <div class="col">
-        <div class="fieldWrapper">
+       
+        <div class="form-group col-md-2">
          {{ form.system.errors }}
          <!-- <label for="{{ form.system.id_for_label }}">System:</label> -->
          {{ form.system }}
         </div>
-       </div> 
-       <div class="col">
-        <div class="fieldWrapper">
-          {{ form.system.errors }}
+       
+        
+          <div class="form-group col-md-1">
+          {{ form.grade.errors }}
           <!-- <label for="{{ form.grade.id_for_label }}">Grade:</label> -->
           {{ form.grade }}       
-        </div>
-        </div>
-        <div class="col">
-        <button class="btn btn-primary" type="submit">Filter</button>
-        <a role="button" class="btn btn-secondary" href="{% url 'mycomps' %}">Clear</a>
-      </div>
+          </div>
+        
+        
+          <div class="form-group col-md-1">
+            <button class="btn btn-primary" type="submit">Filter</button>
+            <a role="button" class="btn btn-secondary" href="{% url 'mycomps' %}">Clear</a>
+         </div>
+        
       </div>
        
       
