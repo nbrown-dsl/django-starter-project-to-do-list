@@ -32,7 +32,7 @@
         </div>
        
         
-          <div class="form-group col-md-1">
+          <div class="form-group col-md-2">
           {{ form.grade.errors }}
           <!-- <label for="{{ form.grade.id_for_label }}">Grade:</label> -->
           {{ form.grade }}       
@@ -173,12 +173,21 @@
         </div>
   </div>
 
+  <audio id="myAudio">
+    
+    <source src="{% static 'clapping.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
 
 
 
 <!--ajax call to server to update grade change without reloading page-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script type="text/javascript">
+
+var clap = document.getElementById("myAudio");
+
   $('.star').click(function(){
   var grade_val;
   var usertask_id;
@@ -186,7 +195,9 @@
   grade_val = $(this).attr("grade_value");
   if (grade_val==0) {
   $(this).addClass("completed");
-  $(this).attr("grade_value",1);}
+  $(this).attr("grade_value",1);  
+  clap.play(); 
+}
   else {
   $(this).removeClass("completed");
   $(this).attr("grade_value",0);  
