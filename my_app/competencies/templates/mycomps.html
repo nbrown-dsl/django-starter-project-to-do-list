@@ -101,11 +101,6 @@
       {% endfor %}
   </table> -->
   
-  <a href="{% url 'renderForm' 'Task' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
-    <i class="material-icons">Add skill</i>
-  </button></a><br><br>
-
-
   <div class="row row-cols-1 row-cols-md-6">
     {% for obj in objects %} 
     
@@ -161,6 +156,21 @@
         </div>
         
     {% endfor %}
+    <div class="col p-3">
+       
+      <div class="card h-100">      
+        
+    
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+            <a href="{% url 'renderForm' 'Task' %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Add skill" >
+              <i class="bi bi-plus-circle-fill"></i>
+            </a>
+            </div>
+          </div>
+        
+         </div>  
+        </div>
   </div>
 
 

@@ -12,6 +12,10 @@ background-color: gray; }
   padding: 8px;
 }
 
+.bi-plus-circle-fill {
+  color:rgb(87, 86, 86) !important;
+  font-size:36px !important;
+  }
 
 
 
