@@ -18,5 +18,6 @@ urlpatterns = [
     path('profile/',views.profile,name='profile'),
     path('allcomps/',views.allcomps,name='allcomps'),
     path('vote/',views.vote,name='vote'),
+    path('skilledUsers/',views.skilledUsers,name='skilledUsers'),
  
  ]

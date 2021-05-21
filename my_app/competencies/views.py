@@ -267,3 +267,12 @@ def profile(request):
     
     return render(request,'profile.html',{'form':form})     
         
+def skilledUsers(request):
+   if request.method == 'GET': 
+       task_id = request.GET.get('task_id',66)
+       usertasks = Usertask.objects.filter(usertasktask = task_id).filter(userGrade__value__gte = 1)
+       usersString = ""
+       for user in usertasks:
+           usersString += user.user.first_name + "<br>"
+
+       return HttpResponse(usersString) # Sending who has skill to appear in modal
