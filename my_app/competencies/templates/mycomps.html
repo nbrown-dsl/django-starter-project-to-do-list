@@ -115,10 +115,10 @@
          
         </div>
         
-        
+        <a class="skilled_users" data-toggle="modal" data-target="#skilled_users" data-whatever="" href="#" id="{{obj.usertasktask.id}}">
           <div class="card-body">
           <p class="card-text lead">{{obj.usertasktask.name}}</p>
-          
+         </a> 
         </div>
         <div class="h-5 card-footer">
           
@@ -142,7 +142,7 @@
                 <p id="votes{{obj.id}}">{{obj.usertasktask.votes}}</p>
               </div>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="skilled_users" data-toggle="modal" data-target="#skilled_users" data-whatever="" href="#" id="{{obj.usertasktask.id}}"><i class="bi bi-people-fill"></i></a><p id="usersCompleted{{obj.id}}">{{ obj.usertasktask.usersCompleted }}</p>&nbsp;&nbsp;
+                <i class="bi bi-people-fill"></i><p id="usersCompleted{{obj.id}}">{{ obj.usertasktask.usersCompleted }}</p>&nbsp;&nbsp;
               <div >
                 {% if obj.userGrade.value > 0 %}
                 <a href="javascript:code stuff" ><i class="bi bi-trophy-fill star completed" usertask_id = "{{ obj.id }}" grade_value=1></i></a>
