@@ -271,8 +271,14 @@ def skilledUsers(request):
    if request.method == 'GET': 
        task_id = request.GET.get('task_id',66)
        usertasks = Usertask.objects.filter(usertasktask = task_id).filter(userGrade__value__gte = 1)
+       task = Task.objects.get(id=task_id)
+       skillLink = task.link
+       skillTitle = task.name
+       skillDescription = task.description
        usersString = ""
        for user in usertasks:
            usersString += user.user.first_name + "<br>"
+       datadict = { "usersString": usersString, "skillDescription": skillDescription, 'skillTitle': skillTitle, "skillLink": skillLink }
+       json_object = json.dumps(datadict, indent = 3)
 
-       return HttpResponse(usersString) # Sending who has skill to appear in modal
+       return HttpResponse(json_object) # Sending who has skill to appear in modal

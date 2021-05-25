@@ -112,12 +112,12 @@
         
         <div class="h-5 card-header justify-content-between btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <div><a href="{{ obj.usertasktask.system.link}}" target="_blank"><img src="{% static obj.usertasktask.system.imgFileName %}" width="24"></i></a></div>
-          <div><a href="{{ obj.usertasktask.link}}" target="_blank"><i class="bi bi-info-square"></i></a></div>
+         
         </div>
         
         
           <div class="card-body">
-          <p class="card-text lead" data-bs-toggle="tooltip" data-bs-placement="top" title="{{obj.usertasktask.description}}">{{obj.usertasktask.name}}</p>
+          <p class="card-text lead">{{obj.usertasktask.name}}</p>
           
         </div>
         <div class="h-5 card-footer">
@@ -188,18 +188,25 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Who can do this skill...</h5>
+          <h5 class="modal-title" id="skillTitle"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+          <p class="card-text lead" id ="skillDescription"></p>
+          <p>Who can help you...</p>
           <p id="skilledUsersModal"></p>
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="container">
+          <div class="row justify-content-between">
+          <div class="col-1"><a href="" target="_blank" class="skillLink"><i class="bi bi-info-square"></i></a></div>
+          <div class="col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   </div>
@@ -265,6 +272,7 @@ var clap = document.getElementById("myAudio");
       },
       success: function( data ) 
       {
+        
           $( '#votes'+ task_id ).text(data);
           
       }
@@ -287,7 +295,11 @@ var clap = document.getElementById("myAudio");
       },
       success: function( data ) 
       {
-          $( '#skilledUsersModal' ).html(data);
+        var dict = JSON.parse(data); 
+        $('#skillTitle').text(dict.skillTitle);
+        $('#skillDescription').text(dict.skillDescription); 
+        $('#skilledUsersModal').html(dict.usersString);
+        $('#skillLink').attr("href",dict.skillLink)
           
       }
    })
@@ -299,8 +311,8 @@ var clap = document.getElementById("myAudio");
   
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('Your colleagues who can ' + protocol)
+  // var modal = $(this)
+  // modal.find('.modal-title').text('Your colleagues who can ' + protocol)
   // modal.find('.modal-body input').val(recipient)
 })
 
