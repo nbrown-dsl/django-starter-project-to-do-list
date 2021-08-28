@@ -10,7 +10,6 @@ urlpatterns = [
     path('home/<nameFilter>',views.home,name='home'),
     path('logout', views.logout_request, name='logout'),
     path("login", views.login_request, name="login"),
-    path('accounts/', include('allauth.urls')),
     path('about',views.about,name='about'),
     path('delete/<list_id>',views.delete,name='delete'),
     path('crossoff/<list_id>',views.crossoff,name='crossoff'),

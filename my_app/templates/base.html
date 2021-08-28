@@ -66,12 +66,14 @@
       <br>
 <div class="container-fluid" style="width:90%">
   
-  {% if user.is_authenticated %}
+  <!-- {% if user.is_authenticated %} -->
 
     {% block content %}
     {% endblock %}
 
-    {% else %}
+    <!-- {% else %} -->
+
+    
     <h1>My Dwight App</h1>
     <p class="lead">
       <ul>
@@ -83,7 +85,7 @@
 <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
   <i class="material-icons">Login</i>
 </button></a><br><br>
-  {% endif %}
+  <!-- {% endif %} -->
 
     {% if messages %}
     {% for message in messages %}
