@@ -17,7 +17,7 @@ class entity(models.Model):
         return f"{self.__class__.__name__}{self.id}"
 
     def __str__(self):
-        return self.name
+        return self.name or ''
     
     class Meta:
         abstract = True
@@ -56,6 +56,11 @@ class Task(entity):
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
     votes = models.IntegerField(default=0)
     usersCompleted = models.IntegerField(default=0)
+
+    # def __str__(self):
+    #     if self.description==None:
+    #         return "ENTER DESCRIPTION"
+    #     return self.description
     
 
 
