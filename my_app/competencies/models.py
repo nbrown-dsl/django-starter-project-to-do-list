@@ -57,10 +57,6 @@ class Task(entity):
     votes = models.IntegerField(default=0)
     usersCompleted = models.IntegerField(default=0)
 
-    # def __str__(self):
-    #     if self.description==None:
-    #         return "ENTER DESCRIPTION"
-    #     return self.description
     
 
 
