@@ -15,7 +15,7 @@ class entityForm(ModelForm):
 
 class TaskFilterForm(ModelForm):
     # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
-    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="----",required=False,initial='All systems')
+    system = forms.ModelChoiceField(queryset= System.objects.all().order_by('name'), empty_label="----",required=False,initial='All systems')
     role = forms.ModelChoiceField(queryset= Group.objects.all(), empty_label="----",required=False)
     description = forms.CharField(required=False)
     class Meta:
@@ -34,7 +34,7 @@ class TaskForm(entityForm):
        
 class UsertaskForm(entityForm):
     # requirement = forms.ModelChoiceField(queryset= Requirement.objects.all(), empty_label="----",required=False)
-    system = forms.ModelChoiceField(queryset= System.objects.all(), empty_label="System...",required=False,initial='All systems',widget=forms.Select(attrs={'class': 'form-control'}))
+    system = forms.ModelChoiceField(queryset= System.objects.all().order_by('name'), empty_label="System...",required=False,initial='All systems',widget=forms.Select(attrs={'class': 'form-control'}))
     grade = forms.ModelChoiceField(queryset= grade.objects.filter(value__lte=1),required=False,widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
     description = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Search...'}))
     class Meta:

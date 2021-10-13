@@ -24,7 +24,7 @@ class entity(models.Model):
 
 class System(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
-    imgFileName = models.CharField(max_length=300,default="Dwight_School_Logo.png", blank=True, null=True)
+    imgFileName = models.CharField(max_length=300,default="dwightschoolIcon.png", blank=True, null=True)
 
 #deprecated in favour of Group model from django admin
 # class Role(entity):
