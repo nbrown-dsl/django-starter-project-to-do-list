@@ -39,9 +39,7 @@ def mycomps(request):
             objects = objects.filter(usertasktask__description__contains=description)
     else:
         form = UsertaskForm(request.POST or None)
-
-    
-        
+       
     return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4), 'count':userskillsCount})
 
 
