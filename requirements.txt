@@ -17,6 +17,7 @@ django-allauth==0.44.0
 django-crispy-forms==1.10.0
 django-extensions==3.1.0
 django-filter==2.4.0
+django-gsheets==0.0.10
 django-heroku==0.3.1
 django-toolbelt==0.0.1
 dnspython==2.1.0
@@ -34,6 +35,7 @@ google-auth==2.3.3
 google-auth-httplib2==0.1.0
 google-auth-oauthlib==0.4.6
 googleapis-common-protos==1.53.0
+gsheets==0.6
 gunicorn==20.0.4
 httplib2==0.19.0
 idna==2.10
