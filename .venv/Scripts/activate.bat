@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Admin\Documents\DPCSprojects\todolist2\django-starter-project-to-do-list\.venv
+set VIRTUAL_ENV=C:\Users\Admin\dwightApp\django-starter-project-to-do-list\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
