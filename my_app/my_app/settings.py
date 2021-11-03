@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'allauth.account',   
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
+    'gsheets',
     # 'django_filters'  
 ]
 
@@ -175,3 +176,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+GSHEETS = {
+    'CLIENT_SECRETS': 'C:/Users/Admin/Desktop/cred.json'
+}
