@@ -81,7 +81,7 @@ def saveForm(request,object):
     #if object is name of model, ie new instance 
     for formClass in entityForm.__subclasses__():
                 if formClass.Meta.model.__name__ == object:
-                    form = formClass(request.POST or None)
+                    form = formClass(request.POST, request.FILES or None)
                     foundModel = True
     #if object is id rather than model name then it is class_id and need to save pre-existing instance
     if not foundModel:

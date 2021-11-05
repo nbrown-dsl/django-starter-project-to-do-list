@@ -147,7 +147,7 @@
                 {% if obj.userGrade.value > 0 %}
                 <a href="javascript:code stuff" ><i class="bi bi-trophy-fill star completed" usertask_id = "{{ obj.id }}" grade_value=1></i></a>
                 {% else %}
-                <a href="javascript:code stuff" data-toggle="tooltip" data-placement="bottom" title="Click to show completed"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
+                <a href="javascript:code stuff" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click if acquired"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
                 {% endif %}
               </div>
               </div>
