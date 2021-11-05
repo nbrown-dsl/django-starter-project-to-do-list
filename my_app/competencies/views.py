@@ -14,6 +14,9 @@ import json
 #filterable list of users competencies according to role
 def mycomps(request):
     user = request.user
+    #check if user logged in. if not send to login page
+    if not user.is_authenticated:
+        return redirect ('login')
     #filter users tasks to those user has
     objects = Usertask.objects.filter(user=user)
     userskillsCount = objects.filter(userGrade__value__gte=1).count()
@@ -36,9 +39,7 @@ def mycomps(request):
             objects = objects.filter(usertasktask__description__contains=description)
     else:
         form = UsertaskForm(request.POST or None)
-
-    
-        
+       
     return render (request,'mycomps.html',{'objects':objects,'form':form, "numbers": range(4), 'count':userskillsCount})
 
 

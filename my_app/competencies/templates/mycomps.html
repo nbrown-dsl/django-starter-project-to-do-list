@@ -128,18 +128,18 @@
                 
                     {% if obj.upvote %}
                   <!-- <input class="vote form-check-input" type="checkbox" id="count{{obj.id}}" usertask_id="{{ obj.id }}" checked > -->
-                  <a href="javascript:code stuff"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote upvote" usertask_id = "{{ obj.id }}" ></i></a>
+                  <a href="javascript:code stuff" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click to downvote"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote upvote" usertask_id = "{{ obj.id }}" ></i></a>
                 
                   {% else %} 
                   <!-- <input class="vote form-check-input" type="checkbox" id="count{{obj.id}}" usertask_id = "{{ obj.id }}" unchecked > -->
-                  <a href="javascript:code stuff" ><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}" ></i></a>
+                  <a href="javascript:code stuff" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click to upvote"><i id="count{{obj.id}}" class="bi bi-hand-thumbs-up-fill vote" usertask_id = "{{ obj.id }}" ></i></a>
                 
                   {% endif %}
                 
                   <!-- <span class="starmark"></span> 
                   
                 </label>  -->
-                <p id="votes{{obj.id}}">{{obj.usertasktask.votes}}</p>
+                <p id="votes{{obj.id}}" >{{obj.usertasktask.votes}}</p>
               </div>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <i class="bi bi-people-fill"></i><p id="usersCompleted{{obj.id}}">{{ obj.usertasktask.usersCompleted }}</p>&nbsp;&nbsp;
@@ -147,7 +147,7 @@
                 {% if obj.userGrade.value > 0 %}
                 <a href="javascript:code stuff" ><i class="bi bi-trophy-fill star completed" usertask_id = "{{ obj.id }}" grade_value=1></i></a>
                 {% else %}
-                <a href="javascript:code stuff" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click if acquired"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
+                <a href="javascript:code stuff" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click to show completed"><i class="bi bi-trophy-fill star" usertask_id = "{{ obj.id }}" grade_value=0></i></a>
                 {% endif %}
               </div>
               </div>

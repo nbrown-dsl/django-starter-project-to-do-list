@@ -42,23 +42,19 @@
             
             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
              {% if user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">My Protocols</a></li>
+            
             <li class="nav-item"><a class="nav-link" href="{% url 'mycomps' %}">My Skills</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'allcomps' %}">All Skills</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Protocols</a></li>
             {% if user.is_superuser %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'allcomps' %}">All Skills</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'comps' %}">Admin</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="bi bi-gear"></i></a></li>
             {% endif %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
-            <span class="navbar-text">
-              {{ user.username }}
-            </span>
-            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}"><i class="bi bi-person-circle"></i></a></li>
-            <li class="nav-item"><a class="nav-link" >Last logged in: {{ user.last_login}}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">My Profile</i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out </a></li>
+            <!-- <li class="nav-item"><a class="nav-link" >Last logged in: {{ user.last_login}}</a></li> -->
             {% endif %}
-
-        
-        
+    
           </ul>
           
         </div>
@@ -66,12 +62,14 @@
       <br>
 <div class="container-fluid" style="width:90%">
   
-  {% if user.is_authenticated %}
+  <!-- {% if user.is_authenticated %} -->
 
     {% block content %}
     {% endblock %}
 
-    {% else %}
+    <!-- {% else %} -->
+
+    
     <h1>My Dwight App</h1>
     <p class="lead">
       <ul>
@@ -83,7 +81,7 @@
 <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-primary bmd-btn-fab">
   <i class="material-icons">Login</i>
 </button></a><br><br>
-  {% endif %}
+  <!-- {% endif %} -->
 
     {% if messages %}
     {% for message in messages %}
