@@ -53,10 +53,9 @@ class Requirement(entity):
 
 class Task(mixins.SheetPullableMixin, entity):
     
+    #gsheets code
     spreadsheet_id = '1mhRgUBLWOJHTeTUc9uh3i7bngc64WsFLxXOImRIC4Ts'
     model_id_field = 'id'
-
-    
     
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=300,default="", blank=True, null=True)
@@ -66,8 +65,7 @@ class Task(mixins.SheetPullableMixin, entity):
     votes = models.IntegerField(default=0)
     usersCompleted = models.IntegerField(default=0)
 
-    
-
+    #gsheets code
     def __str__(self):
         return f'{self.description} {self.link} // {self.system} ({self.id})'
 
