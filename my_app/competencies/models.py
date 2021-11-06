@@ -51,7 +51,13 @@ class Requirement(entity):
 #     instance.profile.save()
 
 
-class Task(entity):
+class Task(mixins.SheetPullableMixin, entity):
+    
+    spreadsheet_id = '1mhRgUBLWOJHTeTUc9uh3i7bngc64WsFLxXOImRIC4Ts'
+    model_id_field = 'id'
+
+    
+    
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=300,default="", blank=True, null=True)
     system = models.ForeignKey(System,on_delete=SET_NULL, null=True, blank=True)
@@ -61,6 +67,9 @@ class Task(entity):
     usersCompleted = models.IntegerField(default=0)
 
     
+
+    def __str__(self):
+        return f'{self.description} {self.link} // {self.system} ({self.id})'
 
 
 class grade(entity):
