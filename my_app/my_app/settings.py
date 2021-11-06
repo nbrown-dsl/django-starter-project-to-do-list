@@ -178,5 +178,5 @@ SOCIALACCOUNT_PROVIDERS = {
 django_heroku.settings(locals())
 
 GSHEETS = {
-    'CLIENT_SECRETS': '/cred.json'
+    'CLIENT_SECRETS': '/cred.json/'
 }
