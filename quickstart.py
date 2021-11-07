@@ -6,11 +6,11 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-SAMPLE_RANGE_NAME = 'Class Data!A2:E'
+SPREADSHEET_ID = '1mhRgUBLWOJHTeTUc9uh3i7bngc64WsFLxXOImRIC4Ts'
+RANGE_NAME = 'Sheet1!A2:E'
 
 def main():
     """Shows basic usage of the Sheets API.
@@ -37,18 +37,37 @@ def main():
     service = build('sheets', 'v4', credentials=creds)
 
     # Call the Sheets API
-    sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range=SAMPLE_RANGE_NAME).execute()
-    values = result.get('values', [])
 
-    if not values:
-        print('No data found.')
-    else:
-        print('Name, Major:')
-        for row in values:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s' % (row[0], row[4]))
+    #google sample for reading from spreadsheet
+    # sheet = service.spreadsheets()
+    # result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
+    #                             range=RANGE_NAME).execute()
+    # values = result.get('values', [])
+
+    # if not values:
+    #     print('No data found.')
+    # else:
+    #     print('Name, Major:')
+    #     for row in values:
+    #         # Print columns A and E, which correspond to indices 0 and 4.
+    #         print('%s, %s' % (row[0], row[4]))
+
+    values = [
+    [
+        1,2,3,4
+    ],
+    [
+        1,2,3,4
+    ]# Additional rows ...
+    ]
+    body = {
+    'values': values
+    }
+    result = service.spreadsheets().values().update(
+    spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
+    valueInputOption="RAW", 
+     body=body).execute()
+    print('{0} cells updated.'.format(result.get('updatedCells')))
 
 if __name__ == '__main__':
     main()
