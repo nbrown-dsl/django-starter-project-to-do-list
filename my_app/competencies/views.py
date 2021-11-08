@@ -289,4 +289,6 @@ def sync(request):
 
     syncSheet()
 
+    logging.getLogger("hello")
+
     return redirect('comps')

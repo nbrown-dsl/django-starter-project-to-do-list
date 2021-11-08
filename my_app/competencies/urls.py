@@ -19,6 +19,6 @@ urlpatterns = [
     path('allcomps/',views.allcomps,name='allcomps'),
     path('vote/',views.vote,name='vote'),
     path('skilledUsers/',views.skilledUsers,name='skilledUsers'),
-    path('comps/',views.sync,name='sync'),
+    path('sync/',views.sync,name='sync'),
  
  ]
