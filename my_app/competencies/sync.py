@@ -5,14 +5,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-# If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1mhRgUBLWOJHTeTUc9uh3i7bngc64WsFLxXOImRIC4Ts'
 RANGE_NAME = 'Sheet1!A2:E'
 
-def main():
+def syncSheet():
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
@@ -54,7 +53,7 @@ def main():
 
     values = [
     [
-        8,9,10,11
+        34545,9,10,11
     ],
     [
         12,13,14,15
@@ -66,8 +65,10 @@ def main():
     result = service.spreadsheets().values().update(
     spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
     valueInputOption="RAW", 
-     body=body).execute()
-    print('{0} cells updated.'.format(result.get('updatedCells')))
+    body=body).execute()
 
-if __name__ == '__main__':
-    main()
+    message= '{0} cells updated.'.format(result.get('updatedCells'))
+    print(message)
+
+    return message 
+

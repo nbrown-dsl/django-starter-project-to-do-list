@@ -5,6 +5,7 @@ from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.forms import modelform_factory
+from .sync import syncSheet
 
 import csv
 import logging
@@ -285,5 +286,7 @@ def skilledUsers(request):
        return HttpResponse(json_object) # Sending who has skill to appear in modal
 
 def sync(request):
+
+    syncSheet()
 
     return redirect('comps')
