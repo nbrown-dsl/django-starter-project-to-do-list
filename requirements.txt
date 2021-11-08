@@ -70,7 +70,4 @@ whitenoise==5.2.0
 WTForms==2.3.3
 WTForms-Alchemy==0.17.0
 WTForms-Components==0.10.5
-googleapiclient.discovery
-google_auth_oauthlib.flow
-google.auth.transport.requests
-google.oauth2.credentials
+
