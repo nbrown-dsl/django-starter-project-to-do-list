@@ -5,7 +5,7 @@ from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.forms import modelform_factory
-from ...sync import syncSheet
+from .sync import syncSheet
 
 import csv
 import logging
