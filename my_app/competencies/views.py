@@ -283,3 +283,7 @@ def skilledUsers(request):
        json_object = json.dumps(datadict, indent = 3)
 
        return HttpResponse(json_object) # Sending who has skill to appear in modal
+
+def sync(request):
+
+    return redirect('comps')
