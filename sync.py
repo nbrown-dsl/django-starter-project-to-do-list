@@ -57,7 +57,7 @@ def syncSheet():
         34545,9,10,11
     ],
     [
-        12,13,14,15
+        12,13,14,"goodbye"
     ]# Additional rows ...
     ]
     body = {
