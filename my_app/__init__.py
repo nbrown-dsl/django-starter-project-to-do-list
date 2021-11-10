@@ -1,0 +1,1 @@
+from competencies import models
