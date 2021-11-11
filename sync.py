@@ -29,7 +29,7 @@ def syncSheet():
             # os.chdir("..")
             flow = InstalledAppFlow.from_client_secrets_file(
                 'google-credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8081)
+            creds = flow.run_local_server(port=8080)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())

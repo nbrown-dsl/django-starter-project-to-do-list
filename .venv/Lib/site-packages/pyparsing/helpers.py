@@ -4,7 +4,7 @@ import re
 
 from . import __diag__
 from .core import *
-from .util import _bslash, _flatten, _escapeRegexRangeChars
+from .util import _bslash, _flatten, _escape_regex_range_chars
 
 
 #
@@ -35,7 +35,7 @@ def delimited_list(
         delimited_list(Word(hexnums), delim=':', combine=True).parse_string("AA:BB:CC:DD:EE") # -> ['AA:BB:CC:DD:EE']
     """
     dlName = "{expr} [{delim} {expr}]...{end}".format(
-        expr=str(expr),
+        expr=str(expr.streamline()),
         delim=str(delim),
         end=" [{}]".format(str(delim)) if allow_trailing_delim else "",
     )
@@ -278,7 +278,7 @@ def one_of(
             if all(len(sym) == 1 for sym in symbols):
                 # symbols are just single characters, create range regex pattern
                 patt = "[{}]".format(
-                    "".join(_escapeRegexRangeChars(sym) for sym in symbols)
+                    "".join(_escape_regex_range_chars(sym) for sym in symbols)
                 )
             else:
                 patt = "|".join(re.escape(sym) for sym in symbols)
@@ -387,13 +387,20 @@ def original_text_for(
     locMarker = Empty().set_parse_action(lambda s, loc, t: loc)
     endlocMarker = locMarker.copy()
     endlocMarker.callPreparse = False
-    matchExpr = locMarker("_original_start") + expr + endlocMarker("_original_end")
+    # prefix these transient names with _NOWARN to suppress ungrouped name warnings
+    matchExpr = (
+        locMarker("_NOWARN_original_start")
+        + expr
+        + endlocMarker("_NOWARN_original_end")
+    )
     if asString:
-        extractText = lambda s, l, t: s[t._original_start : t._original_end]
+        extractText = lambda s, l, t: s[
+            t._NOWARN_original_start : t._NOWARN_original_end
+        ]
     else:
 
         def extractText(s, l, t):
-            t[:] = [s[t.pop("_original_start") : t.pop("_original_end")]]
+            t[:] = [s[t.pop("_NOWARN_original_start") : t.pop("_NOWARN_original_end")]]
 
     matchExpr.set_parse_action(extractText)
     matchExpr.ignoreExprs = expr.ignoreExprs
