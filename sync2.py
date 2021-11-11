@@ -54,6 +54,24 @@ def test_api_request():
 
   files = drive.files().list().execute()
 
+  values = [
+    [
+        34545,9,10,11
+    ],
+    [
+        12,13,14,"goodbye from heorku"
+    ]# Additional rows ...
+    ]
+  body = {
+    'values': values
+    }
+
+  service = build('sheets', 'v4', credentials=credentials)
+  result = service.spreadsheets().values().update(
+  spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
+  valueInputOption="RAW", 
+  body=body).execute()
+
   # Save credentials back to session in case access token was refreshed.
   # ACTION ITEM: In a production app, you likely want to save these
   #              credentials in a persistent database instead.
