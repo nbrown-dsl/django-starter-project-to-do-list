@@ -11,7 +11,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SPREADSHEET_ID = '1mhRgUBLWOJHTeTUc9uh3i7bngc64WsFLxXOImRIC4Ts'
 RANGE_NAME = 'Sheet1!A2:E'
 
-def syncSheet():
+def main():
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
@@ -73,3 +73,5 @@ def syncSheet():
 
     return message 
 
+if __name__ == '__main__':
+    main()
