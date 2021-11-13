@@ -15,7 +15,11 @@ from googleapiclient.discovery import build
 
 # This variable specifies the name of a file that contains the OAuth 2.0
 # information for this application, including its client_id and client_secret.
-CLIENT_SECRETS_FILE = "google-credentials.json"
+#credentials stored in root dir becasue that is where heroku build pack generates it, thus need os.path to grandparent dir
+current=path = os.getcwd()
+parentpath = os.path.dirname(path)
+CLIENT_SECRETS_FILE = os.path.abspath(os.path.join(os.path.dirname(parentpath),"google-credentials.json"))
+# CLIENT_SECRETS_FILE = "google-credentials.json"
 
 # This OAuth 2.0 access scope allows for full read/write access to the
 # authenticated user's account and requires requests to use an SSL connection.
