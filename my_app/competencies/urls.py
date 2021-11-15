@@ -1,6 +1,7 @@
 from django.urls import path
 # from .views import taskList
 from . import views
+from . import syncDjango
 
 
 urlpatterns = [
@@ -19,6 +20,6 @@ urlpatterns = [
     path('allcomps/',views.allcomps,name='allcomps'),
     path('vote/',views.vote,name='vote'),
     path('skilledUsers/',views.skilledUsers,name='skilledUsers'),
-    # path('sync/',views.sync,name='sync'),
+    path('sync/',views.sync,name='sync'),
  
  ]
