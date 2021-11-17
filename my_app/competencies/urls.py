@@ -21,5 +21,6 @@ urlpatterns = [
     path('vote/',views.vote,name='vote'),
     path('skilledUsers/',views.skilledUsers,name='skilledUsers'),
     path('sync/',views.sync,name='sync'),
+    path('google_oauth/redirect/',views.RedirectOauthView, name='RedirectOauthView')
  
  ]
