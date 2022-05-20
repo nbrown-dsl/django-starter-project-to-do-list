@@ -1,4 +1,4 @@
-#!"c:\users\admin\documents\dp cs projects\todolist2\django-starter-project-to-do-list\.venv\scripts\python.exe"
+#!"C:\Users\Mr Brown\Documents\DP CC projects\mb-transcript\django-starter-project-to-do-list\.venv\Scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'static3==0.7.0','console_scripts','static'
 import re
 import sys

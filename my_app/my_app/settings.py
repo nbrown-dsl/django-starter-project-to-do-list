@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todo_list',
     'competencies',
+    'transcript',
     'my_app',
     'crispy_forms',
     'django_extensions',
