@@ -43,19 +43,25 @@
  
     </div>
   </div>
-
+<h2>Transcript generator</h2>
 
  
 <!--form to filter task data-->
   <div class="bd-highlight flex-column justify-content-baseline" >
-    <form action="" method="POST">
+    <form action="/transcript/" method="POST">
       {% csrf_token %}
-      <input value="id">
-      <button class="btn btn-info" type="submit">Filter</button>
-      <a role="button" class="btn btn-secondary" href="{% url 'home' 'clear' %}">Generate</a>
+      <label>Student id</label><br>
+      <input name="id" >
+      <a role="button" class="btn btn-primary" type="submit" href="{% url 'student' %}">Generate</a>
     </form><br>
     
   </div>
+
+  Student <br>
+  {{ student }}<br>
+
+  Years<br>
+{{ years}}
 
 
 {% endblock %}

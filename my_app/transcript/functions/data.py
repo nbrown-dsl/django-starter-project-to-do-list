@@ -1,7 +1,7 @@
 
 #data API calls to managebac
 
-from todo_list.functions import key
+from transcript.functions import key
 
 import json
 import requests

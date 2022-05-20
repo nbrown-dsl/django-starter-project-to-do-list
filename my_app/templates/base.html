@@ -45,6 +45,7 @@
             
             <li class="nav-item"><a class="nav-link" href="{% url 'mycomps' %}">My Skills</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Protocols</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'transcript' %}">Transcript</a></li>
             {% if user.is_superuser %}
             <li class="nav-item"><a class="nav-link" href="{% url 'allcomps' %}">All Skills</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'comps' %}">Admin</a></li>
