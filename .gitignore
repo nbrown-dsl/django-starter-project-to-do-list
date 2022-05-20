@@ -2,3 +2,5 @@
 google-credentials
 key/
 /key
+key.py
+my_app\transcript\functions\key.py
