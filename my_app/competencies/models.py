@@ -17,15 +17,14 @@ class entity(models.Model):
         return f"{self.__class__.__name__}{self.id}"
 
     def __str__(self):
-        return self.name
+        return self.name or ''
     
     class Meta:
         abstract = True
 
 class System(entity):
     link = models.CharField(max_length=300,default=None, blank=True, null=True)
-    imgFileName = models.CharField(max_length=300,default="Dwight_School_Logo.png", blank=True, null=True)
-    systemLogo = models.FileField(upload_to='static/', null=True)
+    imgFileName = models.CharField(max_length=300,default="dwightschoolIcon.png", blank=True, null=True)
 
 #deprecated in favour of Group model from django admin
 # class Role(entity):
@@ -57,6 +56,7 @@ class Task(entity):
     requirement = models.ForeignKey(Requirement,on_delete=SET_NULL, blank=True, null=True)
     votes = models.IntegerField(default=0)
     usersCompleted = models.IntegerField(default=0)
+
     
 
 
