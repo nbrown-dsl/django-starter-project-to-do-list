@@ -1,0 +1,63 @@
+<!--html template with django code snippets-->
+
+{% extends 'base.html' %}
+
+{% block title %}transcript{% endblock %}
+{%load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="d-flex flex-row-reverse bd-highlight mb-1 col">
+ <!--buttons to navigate-->    
+  <div class="btn-group" role="group" aria-label="Basic example">
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Start New protocol
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for type in protocoltype %}  
+          <a class="dropdown-item" href="{% url 'protocolAdd' type.id  %}">{{ type }}</a>
+        {% endfor %}  
+      
+        </div>
+      </div>&nbsp; 
+      <button class="btn btn-primary" type="button" onclick="sendEmail()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compose email to task holders listed below">
+        Send Email
+      </button>&nbsp;     
+      <a class="btn btn-secondary" role="button" href="{% url 'entities' 'protocols' %}">Protocols</a>&nbsp;
+      {% if user.is_superuser %}
+      <a class="btn btn-secondary" role="button" href="{% url 'exportCSV' %}">Download</a>&nbsp;
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Entities
+        </button>&nbsp;
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{% url 'entities' 'persons' %}">Persons</a>
+          <a class="dropdown-item" href="{% url 'entities' 'Protocol type' %}">Protocol types</a>
+          <a class="dropdown-item" href="{% url 'entities' 'tasks' %}">Tasks</a>
+          <a class="dropdown-item" href="{% url 'entities' 'ListFields' %}">Fields</a>
+        </div>       
+      </div>
+      {% endif %}
+ 
+    </div>
+  </div>
+
+
+ 
+<!--form to filter task data-->
+  <div class="bd-highlight flex-column justify-content-baseline" >
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input value="id">
+      <button class="btn btn-info" type="submit">Filter</button>
+      <a role="button" class="btn btn-secondary" href="{% url 'home' 'clear' %}">Generate</a>
+    </form><br>
+    
+  </div>
+
+
+{% endblock %}
+
+
