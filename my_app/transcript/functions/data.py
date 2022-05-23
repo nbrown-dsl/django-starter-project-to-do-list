@@ -9,7 +9,7 @@ import os
 
 def mb_key():
 
-    return os.environ.get('MB_KEY', "xxx")
+    return os.environ.get("MB_KEY", "xxx")
 
 
 

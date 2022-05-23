@@ -22,7 +22,7 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-MB_KEY = env('MB_API_KEY')
+MB_KEY = env("MB_API_KEY")
 
 
 
