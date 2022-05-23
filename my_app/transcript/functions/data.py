@@ -7,12 +7,15 @@ import json
 import requests
 #to use reload function
 import importlib
+import os
+
+mb_key = os.environ.get('MB_API_KEY', "xxx")
 
 
 
 def studentData(id):
     headers = {
-        'auth-token': key.keyToken(),}
+        'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/students/'+id, headers=headers)
     
     # converts to python dict
@@ -20,7 +23,7 @@ def studentData(id):
 
 def mbClasses():
     headers = {
-        'auth-token': key.keyToken(),}
+        'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/classes?archived=true', headers=headers)
     
     # converts to python dict
@@ -29,7 +32,7 @@ def mbClasses():
 
 def academicYears():
     headers = {
-    'auth-token': key.keyToken(),}
+    'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/school/academic-years', headers=headers)
 
     return json.loads(response.content)
@@ -49,14 +52,14 @@ def studentClasses(id,archived):
     if not archived:
         archived = 'false'
     headers = {
-    'auth-token': key.keyToken(),}
+    'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/students/'+id+'/memberships?archived='+archived, headers=headers)
 
     return json.loads(response.content)
 
 def allClasses(archived):
     headers = {
-    'auth-token': key.keyToken(),}
+    'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/classes?per_page=1000&archived='+archived, headers=headers)
 
     return json.loads(response.content)
@@ -64,7 +67,7 @@ def allClasses(archived):
 
 def classTermGrades(classId,termId):
     headers = {
-    'auth-token': key.keyToken(),}
+    'auth-token': mb_key,}
     response = requests.get('https://api.managebac.com/v2/classes/'+classId+'/assessments/term/'+termId+'/term-grades?include_archived_students=true', headers=headers)
 
     return json.loads(response.content)
