@@ -1,8 +1,6 @@
 
 #data API calls to managebac
 
-from transcript.functions import key
-
 import json
 import requests
 #to use reload function
