@@ -15,6 +15,15 @@ import os
 from decouple import config
 import dj_database_url
 
+import environ
+
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+MB_KEY = env('MB_API_KEY')
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
