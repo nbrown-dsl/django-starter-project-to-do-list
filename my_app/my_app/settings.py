@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import django_heroku
 import os
+
 from decouple import config
 import dj_database_url
 
@@ -176,3 +177,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+
+MB_KEY = os.environ.get("MB_API_KEY", '0')
