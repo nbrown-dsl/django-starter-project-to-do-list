@@ -11,7 +11,23 @@ from transcript.functions.data import *
 
 
 def transcript(request):
+
+    if request.method == 'POST':
+        id = request.POST['id']
+
+        studentObject = studentData(id)["student"]
+        studentStart = studentObject["created_at"]
+
+        years = studentTranscript(id, studentStart)
+
+        # outputDoc(years)
+        mailmergeDoc(years,studentObject)
+        print("hello")
+                   
+        messages.success(request,('Student Classes below and transcript doc generated'))
+        return render(request,'transcript.html',{'years' : years,'student': studentObject})
     
+    print ("request method: "+request.method)
     return render(request,'transcript.html',{'mbClasses' : mbClasses()['classes']})
 
 
@@ -49,7 +65,8 @@ def student(request):
         messages.success(request,('Student Classes below and transcript doc generated'))
         return render(request,'transcript.html',{'years' : years,'student': studentObject})
     
-    return render(request,'home.html')
+    print ("request method: "+request.method)
+    return render(request,'transcript.html')
 
 
 

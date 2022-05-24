@@ -48,11 +48,11 @@
  
 <!--form to filter task data-->
   <div class="bd-highlight flex-column justify-content-baseline" >
-    <form action="/transcript/" method="POST">
+    <form action="" method="POST">
       {% csrf_token %}
       <label>Student id</label><br>
       <input name="id" >
-      <a role="button" class="btn btn-primary" type="submit" href="{% url 'student' %}">Generate</a>
+      <button class="btn btn-primary" type="submit" >Generate</button>
     </form><br>
     
   </div>
@@ -62,7 +62,7 @@
 
   Years<br>
 {{ years}}
-
+{{ mbClasses }}
 
 {% endblock %}
 
