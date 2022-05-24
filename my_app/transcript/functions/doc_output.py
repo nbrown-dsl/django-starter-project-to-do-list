@@ -1,5 +1,6 @@
 from __future__ import print_function
 from docx import Document
+import os
 
 from mailmerge import MailMerge
 from datetime import date
@@ -29,7 +30,9 @@ def mailmergeDoc(years,studentObject):
     document_3 = MailMerge(template_1)
     document_3.merge(**student)
     document_3.merge_templates(terms, separator='continuous_section')
-    filepath = str(settings.DOWNLOAD_FILES[0])+'/'+studentObject['first_name']+' transcript.docx'
+    filename = studentObject['first_name']+' transcript.docx'
+    # filepath = str(settings.DOWNLOAD_FILES[0])+'/'+ filename
+    filepath = os.path.join(settings.DOWNLOAD_FILES[0], filename)
     document_3.write(filepath)
 
     return filepath
