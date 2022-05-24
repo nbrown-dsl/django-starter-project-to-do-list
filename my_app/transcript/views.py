@@ -14,11 +14,7 @@ def transcript(request):
     
     return render(request,'transcript.html',{'mbClasses' : mbClasses()['classes']})
 
-    from .classroomList import main
-    global courses
-    courses = main()
 
-    return render(request,'transcript.html',{'mbClasses' : courses})
 
 
 def search(request):

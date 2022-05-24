@@ -21,10 +21,12 @@ import environ
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Initialise environment variables
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# env = environ.Env()
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-MB_KEY = env("MB_API_KEY")
+# MB_KEY = env("MB_API_KEY")
+
+# os.environ['MB_KEY'] = "hello"
 
 
 

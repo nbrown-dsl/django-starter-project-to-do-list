@@ -7,9 +7,12 @@ import requests
 import importlib
 import os
 
+from decouple import config
+
+
 def mb_key():
 
-    return os.environ.get("MB_KEY", "xxx")
+    return config("MB_API_KEY")
 
 
 
