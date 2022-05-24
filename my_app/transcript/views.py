@@ -20,15 +20,15 @@ def transcript(request):
 
         years = studentTranscript(id, studentStart)
 
-        # outputDoc(years)
-        mailmergeDoc(years,studentObject)
+         # outputDoc(years)
+        filepath = mailmergeDoc(years,studentObject)
         
                    
         messages.success(request,('Student Classes below and transcript doc generated'))
-        return render(request,'transcript.html',{'years' : years,'student': studentObject})
+        return render(request,'transcript.html',{'years' : years,'student': studentObject, 'filepath': filepath})
     
     print ("request method: "+request.method)
-    return render(request,'transcript.html',{'mbClasses' : mbClasses()['classes']})
+    return render(request,'transcript.html')
 
 
 
@@ -59,11 +59,11 @@ def student(request):
         years = studentTranscript(id, studentStart)
 
         # outputDoc(years)
-        mailmergeDoc(years,studentObject)
+        filepath = mailmergeDoc(years,studentObject)
         
                    
         messages.success(request,('Student Classes below and transcript doc generated'))
-        return render(request,'transcript.html',{'years' : years,'student': studentObject})
+        return render(request,'transcript.html',{'years' : years,'student': studentObject, 'filepath': filepath})
     
     print ("request method: "+request.method)
     return render(request,'transcript.html')
