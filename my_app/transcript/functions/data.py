@@ -4,8 +4,7 @@
 import json
 import requests
 #to use reload function
-import importlib
-import os
+
 
 from decouple import config
 

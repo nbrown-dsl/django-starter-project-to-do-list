@@ -164,6 +164,11 @@ STATICFILES_DIRS = [
     
 ]
 
+DOWNLOAD_FILES = [
+    os.path.join(BASE_DIR, "downloads"),
+    
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #for google user authentication

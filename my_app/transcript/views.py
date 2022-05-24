@@ -22,7 +22,7 @@ def transcript(request):
 
         # outputDoc(years)
         mailmergeDoc(years,studentObject)
-        print("hello")
+        
                    
         messages.success(request,('Student Classes below and transcript doc generated'))
         return render(request,'transcript.html',{'years' : years,'student': studentObject})
@@ -60,7 +60,7 @@ def student(request):
 
         # outputDoc(years)
         mailmergeDoc(years,studentObject)
-        print("hello")
+        
                    
         messages.success(request,('Student Classes below and transcript doc generated'))
         return render(request,'transcript.html',{'years' : years,'student': studentObject})
